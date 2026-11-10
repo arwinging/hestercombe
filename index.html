@@ -1,0 +1,1480 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F1F4EE"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Garden"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><style>html,body{margin:0}</style></head><body><title>Hestercombe Plants</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+/* Layout: one narrow column app, sticky filter bar on top, bottom tab bar, bottom sheets for detail and forms.
+   Colour: chalk-green paper, ink-green text, madder-rose accent (the garden is mostly roses), leaf green = done.
+   Place colours are the ones from the original sheet and can be changed in the app (Places). */
+:root{
+  --bg:#F1F4EE; --surface:#FFFFFF; --ink:#1B261F; --muted:#5B695F; --line:#D9E0D6;
+  --accent:#A62F57; --accent-ink:#FFFFFF; --accent-soft:#F6E2E9;
+  --task:#A82D08; --task-ink:#FFFFFF; --task-soft:#F4DDD5; --logc:#005F73; --logc-ink:#FFFFFF; --logc-soft:#D5E8EC;
+  --leaf:#006631; --leaf-ink:#FFFFFF; --leaf-soft:#D9EBDF; --warn:#8A5A00; --warn-soft:#FAEBC8;
+  --ui:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --latin:'Merriweather',Georgia,'Times New Roman',serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1511; --surface:#171F1A; --ink:#E5ECE6; --muted:#9BA99F; --line:#2A362E;
+  --accent:#E5809F; --accent-ink:#1E0B13; --accent-soft:#3A202B;
+  --task:#E8987C; --task-ink:#2A0F06; --task-soft:#40211A; --logc:#6BC4D6; --logc-ink:#06232A; --logc-soft:#12333B;
+  --leaf:#7FC799; --leaf-ink:#0C1F14; --leaf-soft:#1C3024; --warn:#E6B65A; --warn-soft:#3A2E12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1511; --surface:#171F1A; --ink:#E5ECE6; --muted:#9BA99F; --line:#2A362E;
+  --accent:#E5809F; --accent-ink:#1E0B13; --accent-soft:#3A202B;
+  --task:#E8987C; --task-ink:#2A0F06; --task-soft:#40211A; --logc:#6BC4D6; --logc-ink:#06232A; --logc-soft:#12333B;
+  --leaf:#7FC799; --leaf-ink:#0C1F14; --leaf-soft:#1C3024; --warn:#E6B65A; --warn-soft:#3A2E12; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--ui);
+  padding-block:0 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto}
+.latin{font-family:var(--latin);font-size:.94em;line-height:1.35}
+.latin i{font-style:italic}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+.top.static{position:static}
+.top h1{margin:0 0 10px;font-size:26px;line-height:1.1;letter-spacing:-.4px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.top h1 span.right{font-size:13px;letter-spacing:0;font-weight:500;color:var(--muted);display:flex;gap:8px;align-items:center}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+.bar > *{min-width:0}
+.input,.select,.textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px}
+.textarea{min-height:88px;resize:vertical}
+.input:focus,.select:focus,.textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 2px var(--accent-soft)}
+.grow{flex:1 1 110px}
+.brk{flex-basis:100%;height:0}
+.bar .seg.sm{align-self:stretch;flex:none}.bar .seg.sm button{min-height:0;height:100%;padding:0 8px}
+.half{flex:1 1 130px}
+.xp{border:1px solid var(--line);border-radius:10px;padding:10px 12px 2px;margin-bottom:10px;background:var(--surface)}
+.xp-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.jrow{border:1px solid var(--line);border-radius:10px;padding:10px 12px 8px;margin-bottom:10px;display:grid;gap:0;background:var(--surface)}
+.jrow .field{margin-bottom:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:0 12px;min-height:44px;color:var(--muted);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.meta{color:var(--muted);font-size:13px;margin:10px 0 4px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.meta a{color:var(--accent)}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:0 14px;min-height:44px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--accent);border-color:var(--accent)}
+.btn.ghost{background:none}
+.btn.sm{min-height:36px;padding:0 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+
+.list{display:flex;flex-direction:column}
+.hdr{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:18px 0 6px;display:flex;gap:8px;align-items:center}
+.gh{width:100%;background:none;border:0;border-bottom:1px solid var(--line);text-align:left;padding:14px 2px 8px;min-height:48px}
+.gh .cnt{margin-left:auto;letter-spacing:0;font-variant-numeric:tabular-nums}
+.gh .gl{display:inline-flex;gap:8px;align-items:center;letter-spacing:0;text-transform:none;font-size:14px;color:var(--ink)}
+.chev{width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;flex:none;margin:-3px 4px 0 2px}
+.gh[aria-expanded="false"] .chev{transform:rotate(-45deg);margin-top:0}
+.tag-now{background:var(--accent);color:var(--accent-ink);border-radius:4px;padding:1px 6px;letter-spacing:0;text-transform:none;font-size:11px}
+.tag-warn{background:var(--warn-soft);color:var(--warn);border-radius:4px;padding:1px 6px;letter-spacing:0;text-transform:none;font-size:11px}
+.row{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;text-align:left;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:7px 2px;min-height:44px}
+.row:hover{background:var(--surface)}
+.r-main{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}
+.num{flex:none;min-width:40px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:14px;padding-top:1px}
+.r-sub{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.r-side{flex:none;text-align:right;display:flex;flex-direction:column;gap:2px;align-items:flex-end;font-size:13px;color:var(--muted);max-width:42%}
+.r-side .no{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.r-line{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0}
+.r-line .rc{flex:1 1 auto;min-width:0;margin:0}
+.dots{display:flex;gap:5px;flex:0 1 auto;justify-content:flex-end;flex-wrap:wrap;margin-left:auto}
+.nt{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);padding:0 2px;line-height:1.7}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:1px 8px;font-size:12px;font-weight:600;background:var(--line);color:var(--ink)}
+.pill.a{background:var(--accent-soft);color:var(--accent)}
+.pill.l{background:var(--leaf-soft);color:var(--leaf)}
+.pl{display:inline-block;border-radius:4px;font-size:14px;font-weight:600;line-height:1.5;padding:0 7px;overflow-wrap:anywhere;background:var(--line);color:var(--ink)}
+.sep{margin:0 10px;opacity:.55}
+.cols{display:flex;flex-wrap:wrap;gap:0 20px}
+.btn.task{background:var(--task);border-color:var(--task);color:var(--task-ink)}
+.btn.logc{background:var(--logc);border-color:var(--logc);color:var(--logc-ink)}
+.btn.leaf{background:var(--leaf);border-color:var(--leaf);color:var(--leaf-ink)}
+.btn.edit{border:1.5px solid var(--leaf);color:var(--leaf);background:var(--leaf-soft)}
+.vbar{display:flex;gap:4px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.vbar .select{width:auto;max-width:190px;min-height:36px;padding:6px 10px;font-size:13px;background:none}
+.ibt{display:inline-flex;align-items:center;gap:7px}.ibt svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ib{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted);display:grid;place-items:center;flex:none;padding:0}
+.ib svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.vrow{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px}
+.seg.sm{border-radius:999px;background:none;border-color:var(--line)}.seg.sm button{min-height:28px;padding:0 11px;font-size:12.5px}.seg.sm button[aria-pressed="true"]{background:color-mix(in srgb,var(--ink) 11%,var(--surface));color:var(--ink);font-weight:700}
+.ckl{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500;min-height:36px;padding:0 6px}.ckl input{width:16px;height:16px;margin:0;accent-color:var(--leaf)}
+.vbtn{background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;min-height:36px;padding:0 8px;text-decoration:underline;text-underline-offset:3px}
+.vsp{flex:1}
+.vend{margin-left:auto;display:flex;gap:2px;align-items:center;flex:none}
+.edl{margin:0 0 10px}
+.ht{display:inline-flex;align-items:center;gap:10px;min-width:0}
+.hic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.hic.big svg{width:26px;height:26px;stroke-width:1.5}
+.hic svg{width:22px;height:22px;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.hic.leaf{background:var(--leaf-soft)}.hic.leaf svg{stroke:var(--leaf)}
+.hic.task{background:var(--task-soft)}.hic.task svg{stroke:var(--task)}
+.hic.logc{background:var(--logc-soft)}.hic.logc svg{stroke:var(--logc)}
+.le{display:flex;gap:14px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:10px 2px;align-items:flex-start}
+.le:hover{background:var(--surface)}
+.le-d{flex:none;width:88px;color:var(--muted);font-size:13px;padding-top:2px;font-variant-numeric:tabular-nums}
+.le-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.le-b .det{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}
+.gl{min-width:0;flex-wrap:wrap}
+.gl .num{min-width:0;padding:0}
+.pb{margin:2px 0 8px}
+.pb-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;width:100%;text-align:left;background:var(--surface);border:0;border-bottom:1px solid var(--line);padding:10px 8px;min-height:44px;margin-top:8px;border-radius:8px 8px 0 0}
+.pb-h .num{min-width:0;padding:0}
+.plink{display:block;margin:0 0 0 auto;min-height:32px}
+.drow{display:flex;gap:6px;margin-bottom:6px;align-items:center}.drow .input{flex:1}
+.sh{display:flex;gap:8px;align-items:center;justify-content:space-between;width:calc(100% - 16px);margin:6px 0 0 16px;padding:8px 2px 6px;min-height:40px;text-align:left;background:none;border:0;border-bottom:1px dashed var(--line);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none}
+.subl{margin-left:16px;border-left:2px solid var(--line);padding-left:8px}
+.card .num{align-self:flex-start}
+.sh .cnt{color:var(--muted);font-variant-numeric:tabular-nums}
+.sh .gl{display:inline-flex;gap:8px;align-items:center;font-size:13px}
+.yearbar{display:flex;align-items:center;gap:10px;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:6px 8px;margin:0 0 10px}
+.yearbar button{flex:none;width:48px;height:48px;border-radius:10px;border:0;background:rgba(255,255,255,.18);color:inherit;font-size:26px;line-height:1;font-weight:600}
+.yearbar .yv{border:0;background:none;color:inherit;font:inherit;flex:1;text-align:center;display:flex;flex-direction:column;line-height:1.15}
+.yearbar .yv b{font-size:30px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.yearbar .yv span{font-size:12px;opacity:.9}
+.ypill{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:1px 9px;font-size:12px;letter-spacing:0;font-weight:700}
+.card .r-side{padding-top:2px}
+.idrow{display:flex;gap:10px;align-items:baseline;min-width:0}
+.card .chk+.body{margin-left:-8px}
+.idrow .num{min-width:22px;text-align:right;flex:none;padding:0}
+.idrow .latin{min-width:0}
+.idsp{flex:1}
+.lrow{display:flex;align-items:baseline;gap:8px;min-width:0}.lrow>.r-sub{min-width:0}
+.r-side .pl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.lchip{margin-left:auto;flex:1 1 90px;min-width:90px;max-width:46%;display:flex;justify-content:flex-end;line-height:1.2}.lchip .pl{font-size:12.5px;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.idrow .pl{flex:none;align-self:center}
+.sh .pl,.r-side .pl,.pb-h .pl,.plantg .hdr .pl,.idrow .pl,.gsum .pl{font-size:12.5px;padding:0 6px}
+.pn2{grid-template-columns:minmax(0,1fr) 96px;gap:8px}
+.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-bottom:0;padding-bottom:10px}.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'+';font-size:20px;font-weight:500;color:var(--muted);letter-spacing:0;line-height:1}.fold[open]>summary::after{content:'−'}
+.help details{margin:0 0 6px}.help summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:4px 0}.help details p{margin:6px 0}
+.gh,.row{cursor:pointer}
+.grp.plantg{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:0 12px 4px}
+.grp.plantg .gh{border-bottom:1px solid var(--line);padding-top:12px}
+.grp.plantg .le:last-child{border-bottom:0}
+.sug-row{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:8px 10px;min-height:44px}
+.sug-row:last-child{border-bottom:0}
+.sug-row .num{min-width:26px;text-align:right;padding:0}
+.sug-row .pl{align-self:center;flex:none}
+.gname{display:inline-flex;align-items:baseline;gap:6px}
+.gall{border:1px dashed color-mix(in srgb,var(--leaf) 60%,transparent);border-radius:5px;padding:0 5px;line-height:1.35}
+.gall,.gbadge{font-family:var(--latin);font-style:italic;font-size:12.5px;font-weight:400;color:var(--leaf)}
+.gbadge-x{flex:none;align-self:center;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf);background:var(--leaf-soft);border:1px solid color-mix(in srgb,var(--leaf) 35%,transparent);border-radius:5px;padding:1px 6px;line-height:1.4}
+.gsum{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;margin:2px 0}
+.gp{display:inline-flex;gap:5px;align-items:center}
+.pn{display:inline-flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.pn .no{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.olink{display:inline-block;white-space:nowrap;flex:none;color:var(--accent);font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;text-decoration:underline;text-underline-offset:3px;padding:4px 2px;cursor:pointer}
+.l1{display:flex;gap:4px 10px;flex-wrap:wrap;align-items:baseline}
+.pnote{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--muted);font-size:13px;margin-top:2px}
+.field > label.rad,.rad{font-size:15px;font-weight:500;color:var(--ink);display:flex;gap:10px;align-items:center;min-height:30px}
+.fsec{border-radius:12px;padding:12px 12px 2px;margin-bottom:14px}
+.fs-plant{background:color-mix(in srgb,var(--ink) 6%,var(--surface));border:1px solid var(--line)}
+.fs-job{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent)}
+.fs-h{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.fs-plant .xp{background:var(--surface)}
+.rad input{width:20px;height:20px;flex:none}
+.rad.indent{margin-left:30px;min-height:36px;color:var(--muted);font-size:14px}
+.pick{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface);margin:4px 0 0 30px}
+.pick label{display:flex;gap:10px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);min-height:40px;font-size:14px}
+.pick label:last-child{border-bottom:0}
+.pick input{width:18px;height:18px;flex:none}
+.prow{padding:10px 0;border-bottom:1px solid var(--line)}
+.prow-h{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:6px}
+.prow-b{display:flex;gap:6px;align-items:center}
+.prow-b .input{min-height:40px;padding:6px 10px;font-size:14px}
+.clr{width:44px;height:40px;flex:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:3px}
+.more{margin:14px 0;width:100%}
+
+.card{display:flex;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line);align-items:flex-start}
+.card .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;cursor:pointer;background:none;border:0;text-align:left;padding:0}
+.card .det{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}
+.chk{flex:none;width:44px;height:44px;margin:-6px -6px -6px -8px;display:grid;place-items:center;background:none;border:0}
+.chk span{width:24px;height:24px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center}
+.chk[aria-pressed="true"] span{background:var(--leaf);border-color:var(--leaf)}
+.chk svg{width:14px;height:14px;stroke:var(--bg);fill:none;stroke-width:3;opacity:0}
+.chk[aria-pressed="true"] svg{opacity:1}
+.done .latin,.done .det{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted)}
+.tk{display:inline-flex;align-items:center;gap:.45em;font-weight:700;font-size:14px;letter-spacing:.03em;line-height:1.5}
+.tk::before{content:"";width:.62em;height:.62em;border-radius:50%;background:var(--dc,#6b786f);flex:none}
+.t-blue{--dc:#2F6FD0}.t-green{--dc:#2E9B5B}.t-orange{--dc:#E08A1E}.t-brown{--dc:#8B5A2B}.t-dark{--dc:#333B36}.t-red{--dc:#C8283F}.t-none{--dc:#7C8A80}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .t-blue{--dc:#6FA4F0}:root:not([data-theme="light"]) .t-green{--dc:#5CCB8C}:root:not([data-theme="light"]) .t-orange{--dc:#F0AB52}:root:not([data-theme="light"]) .t-brown{--dc:#C79563}:root:not([data-theme="light"]) .t-dark{--dc:#AEB8B1}:root:not([data-theme="light"]) .t-red{--dc:#F0788A}:root:not([data-theme="light"]) .t-none{--dc:#8FA096}}
+:root[data-theme="dark"] .t-blue{--dc:#6FA4F0}:root[data-theme="dark"] .t-green{--dc:#5CCB8C}:root[data-theme="dark"] .t-orange{--dc:#F0AB52}:root[data-theme="dark"] .t-brown{--dc:#C79563}:root[data-theme="dark"] .t-dark{--dc:#AEB8B1}:root[data-theme="dark"] .t-red{--dc:#F0788A}:root[data-theme="dark"] .t-none{--dc:#8FA096}
+.evt{font-weight:600;line-height:1.7}
+
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:15;box-shadow:0 4px 14px rgba(0,0,0,.25);border-radius:999px;min-height:52px;padding:0 20px}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));display:flex;justify-content:center}
+nav.tabs .in{display:flex;width:100%;max-width:720px}
+nav.tabs button{flex:1;background:none;border:0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:12px;font-weight:600;border-radius:8px}
+nav.tabs button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current="page"]{color:var(--accent)}
+
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(10,16,12,.5);display:flex;align-items:flex-end;justify-content:center}
+.panel{background:var(--bg);width:min(680px,100%);max-height:calc(100% - 28px);overflow:auto;border-radius:14px 14px 0 0;padding:0 max(16px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px));overscroll-behavior:contain}
+.phead{position:sticky;top:0;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:8px 0;z-index:2;border-bottom:1px solid var(--line);margin-bottom:12px}
+.phead button{background:none;border:0;min-height:44px;padding:0 8px;font-weight:600;color:var(--muted)}
+.phead .t{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.h2{font-size:22px;margin:0 0 4px}
+.sec{margin-top:22px}
+.sec h3{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.note{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.field > label,.lbl{font-size:13px;font-weight:600;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:420px){.two{grid-template-columns:1fr}}
+@media (max-width:420px){.two.pn2{grid-template-columns:minmax(0,1fr) 84px}}
+@media (min-width:800px){
+  .sheet{align-items:center}
+  .panel{border-radius:14px;max-height:calc(100% - 64px);padding-bottom:24px;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+  nav.tabs{top:0;bottom:auto;border-top:0;border-bottom:1px solid var(--line);padding:6px 16px}
+  nav.tabs .in{max-width:720px;gap:6px}
+  nav.tabs button{flex-direction:row;justify-content:center;gap:8px;min-height:44px;font-size:14px}
+  body{padding-top:58px;padding-bottom:40px}
+  .top{top:58px}
+  .fab{bottom:24px;right:calc(50vw - 360px)}
+  .toast{bottom:24px}
+}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:36px;padding:0 12px;font-size:13px}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ro #addPlant,.ro #addTask,.ro #addLog,.ro #openTypes,.ro #openPlaces,.ro #editPlaces,.ro #editTypes,.ro #expXlsx{display:none!important}
+.ro .chk{pointer-events:none;opacity:.5}
+.sbox{position:relative;display:block;flex:1 1 180px;min-width:0}
+.sbox .input{width:100%;padding-right:38px}
+.sclr{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:22px;line-height:1;cursor:pointer}
+.sclr:hover{background:var(--line)}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+#syncPill{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;padding:5px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;max-width:92vw;text-align:center}
+@media (min-width:800px){#syncPill{top:64px}}
+.gs-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 12px;min-height:44px;border-bottom:1px solid var(--line);cursor:pointer}
+.gs-row:last-child{border-bottom:0}.gs-row:hover{background:var(--leaf-soft)}.gs-row small{color:var(--muted);flex:0 1 auto;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gs-n{flex:1 1 auto;min-width:110px}
+#gsug{overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;position:fixed;z-index:70;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.22);max-height:50vh;overflow:auto}
+.sug{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;background:var(--surface);margin-top:4px;overflow-y:auto;max-height:230px;overscroll-behavior:contain}
+.xw{position:relative}.xw .input{padding-right:40px}
+.xw-x{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:none;color:var(--muted);font-size:22px;line-height:1;display:none}
+.xw.has .xw-x{display:block}
+.sug button{background:none;border:0;border-bottom:1px solid var(--line);text-align:left;padding:8px 12px;min-height:44px;display:flex;justify-content:space-between;gap:8px}
+.sug button:last-child{border-bottom:0}
+.sug small{color:var(--muted);flex:none}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.actions .btn{flex:1 1 120px}
+.banner{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:13px}
+.empty{color:var(--muted);padding:28px 4px;text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:70;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 16px;font-size:14px;max-width:calc(100% - 32px)}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.stat div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.stat b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.help p{margin:0 0 10px}
+.help h3{margin-top:18px}
+.trow{display:flex;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.trow .tn{flex:1 1 140px;min-width:0;overflow-wrap:anywhere;font-weight:600}
+.trow .tc{color:var(--muted);font-size:12px}
+.placerow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.placerow a{color:var(--accent);font-weight:600;font-size:13px}
+a{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.panel{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+
+<div class="wrap" id="app"></div>
+<nav class="tabs" aria-label="Main menu"><div class="in" id="tabs"></div></nav>
+<div id="sheetHost"></div>
+<div id="toastHost" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+var BASE_REMOTE=true;
+var BASE_RAW=(function(){try{return JSON.parse(localStorage.getItem('hpl_base')||'[]')}catch(e){return []}})();
+var PLACES0=["Dutch Garden", "East Rill", "East Walk", "Grey Walk", "Orangery", "Pergola", "Plat Borders East", "Plat Borders North", "Plat Borders South", "Plat Borders West", "Rose Garden", "Rotunda & Terrace", "South Walk", "The Great Plat", "Victorian Terrance", "West Rill", "West Walk", "Glasshouse", "Orchard", "Shrubbery- Visitor entrance and daisy steps", "Shrubbery- Rhododendron walk (1)", "Shrubbery- Rhododendron walk (2)", "Shrubbery- Rhododendron walk (3)", "Shrubbery- Sunny Lawn East border", "Shrubbery- Sunny Lawn South border", "Shrubbery- Fothergilla bed and Magnolia bed", "Shrubbery- The conjoined Magnolia and Amelanchier beds", "Shrubbery- Tree seat bed"];
+var MAPS0={"Dutch Garden": "https://drive.google.com/file/d/1WELKa3X2lxTR65FOOLjtsTJy15cyt4kE/view?usp=drive_link", "East Rill": "https://drive.google.com/file/d/1ZKj6dzHFzXMW_kzd-5IIdWw4RvPN3h52/view?usp=drive_link", "East Walk": "https://drive.google.com/file/d/1ZfZc5TS66MtnA8qwUToy6eDctD3WbJaj/view?usp=drive_link", "Grey Walk": "https://drive.google.com/file/d/15ZuMpeVeCNS5pAydpijTfj08lshi3gHh/view?usp=drive_link", "Orangery": "https://drive.google.com/file/d/1Gp3vPcbK1XtKyFcwNAQtAhBcxSnoi2pF/view?usp=drive_link", "Pergola": "https://drive.google.com/file/d/1TQfFBUEPwkqjnBijLFiyoPxPEUGGnecG/view?usp=drive_link", "Plat Borders East": "https://drive.google.com/file/d/1kdXlUrSKJZKEnmxJOqQ-w6E1xJ_vohv0/view?usp=drive_link", "Plat Borders North": "https://drive.google.com/file/d/1RdB-D4-xswD6h_63kOL1pHnuqjrl-mD3/view?usp=drive_link", "Plat Borders South": "https://drive.google.com/file/d/1nbhkLUTPW5X40c-0TeGHXgFNRGIasD9f/view?usp=drive_link", "Plat Borders West": "https://drive.google.com/file/d/1ual7uHQgCaxaSnOq-2FWSs35NaXynhBp/view?usp=drive_link", "Rose Garden": "https://drive.google.com/file/d/1XzETAXtz7kLPJdoA3R2Ba_mD9DyUK-gJ/view?usp=drive_link", "Rotunda & Terrace": "https://drive.google.com/file/d/1QbV1IWMQleUWw5TK7MMI9n5MQwPlcj8t/view?usp=drive_link", "South Walk": "https://drive.google.com/file/d/1DybITIoe5SPPhTu0OOD3Tldyo7bhedoA/view?usp=drive_link", "The Great Plat": "https://drive.google.com/file/d/16vCu3kFbluaAP6o9UV-4XJAt0qRAl38W/view?usp=sharing", "West Rill": "https://drive.google.com/file/d/1QLHheAEhYu9RbmQbGbG1X7ax7khGySeR/view?usp=drive_link", "West Walk": "https://drive.google.com/file/d/19Eow8f83BAyMeylBaDzAH9vG1zQWsVhm/view?usp=drive_link", "Shrubbery- The conjoined Magnolia and Amelanchier beds": "https://drive.google.com/file/d/18vcnHXqsAn4qKmCioWEbehblZdcw-2CS/view?usp=drive_link", "Shrubbery- Fothergilla bed and Magnolia bed": "https://drive.google.com/file/d/1D114dVoFQmHq0tYY7v4itGbDcUJQEJ9G/view?usp=drive_link", "Shrubbery- Rhododendron walk (1)": "https://drive.google.com/file/d/1ZbR6J3EHlf65baejqJJCSAYOU3w6jO3D/view?usp=drive_link", "Shrubbery- Rhododendron walk (2)": "https://drive.google.com/file/d/1DsO6a5F2NYLLZhcU-enrRW_fC3kk2Jco/view?usp=drive_link", "Shrubbery- Rhododendron walk (3)": "https://drive.google.com/file/d/1U36cy3xnbymVjXusydh4YoUPRUaG7Ant/view?usp=drive_link", "Shrubbery- Sunny Lawn East border": "https://drive.google.com/file/d/1tb5TukUsWKwbrkSp0Z9GKe00h8A8yqPc/view?usp=drive_link", "Shrubbery- Sunny Lawn South border": "https://drive.google.com/file/d/1MR6uvpiXscTs5mtBvrq3Va63iFEG_StJ/view?usp=drive_link", "Shrubbery- Tree seat bed": "https://drive.google.com/file/d/1KJUNV4-Arj3jKB_FIi9TKaWBmtxvql6b/view?usp=drive_link", "Shrubbery- Visitor entrance and daisy steps": "https://drive.google.com/file/d/1yEIb6SasskSuufr3GZXRzG29leSRbloI/view?usp=drive_link"};
+/* Starting colours, sampled from the original sheet. Users can change them in Places. */
+var COLOR0={'Dutch Garden':'#D0A4E5','East Rill':'#FEAD45','East Walk':'#FFC06C','Grey Walk':'#9F9B9B','Orangery':'#FF992A','Pergola':'#D2759D','Plat Borders East':'#76DC52','Plat Borders North':'#588745','Plat Borders South':'#72D550','Plat Borders West':'#559D3C','Rose Garden':'#CE3B5F','Rotunda & Terrace':'#70A8C7','South Walk':'#AB5B15','The Great Plat':'#4A8734','Victorian Terrance':'#E6E6F9','West Rill':'#EDE77C','West Walk':'#DCD44D','Glasshouse':'#4A8AE6','Orchard':'#DE7E6C',
+ 'Shrubbery- Fothergilla bed and Magnolia bed':'#A8D5BA','Shrubbery- Rhododendron walk (1)':'#E8B4D4','Shrubbery- Rhododendron walk (2)':'#DFA0C8','Shrubbery- Rhododendron walk (3)':'#D68CBC',
+ 'Shrubbery- Sunny Lawn East border':'#F5D6A8','Shrubbery- Sunny Lawn South border':'#EFC48E','Shrubbery- The conjoined Magnolia and Amelanchier beds':'#B9C9EA',
+ 'Shrubbery- Tree seat bed':'#C5DDA8','Shrubbery- Visitor entrance and daisy steps':'#CFE3E8'};
+var DEFAULT_TYPES=['Fertilizing 🔵','Watering 🔵','Propagation 🟢','Planting 🟢','Division 🟢','Pruning 🟠','Coppicing 🟠','Deadhead 🟤','Cut back 🟤','Weeding 🟤','Mulching ⚫','Staking ⚫','Edging','Tidying','Attention❗️','Note 📝','Clear ✖️'];
+var SEASONS=['Spring','Early summer','Summer','Late summer','Autumn','Early winter','Winter','Late winter'];
+var MON=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var MONFULL=['','January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+/* task names shown as colour tags; the emoji from the Excel list picks the colour and is not shown */
+var TAGC={'🔵':'blue','🟢':'green','🟠':'orange','🟤':'brown','⚫':'dark','❗':'red'};
+function taskTag(raw){
+  raw=String(raw||'');var c='';Object.keys(TAGC).forEach(function(k){if(!c&&raw.indexOf(k)>=0)c=TAGC[k]});
+  var txt=raw.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim();
+  if(!txt)return '';
+  txt=txt.charAt(0).toUpperCase()+txt.slice(1).toLowerCase();
+  return '<span class="tk t-'+(c||'none')+'">'+esc(txt)+'</span>';
+}
+var IB={pin:'<svg viewBox="0 0 24 24"><path d="M12 21s-6.500-5.700-6.500-11a6.500 6.500 0 0 1 13 0c0 5.300-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/></svg>',list:'<svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.500 6 1 1 2-2M3.500 12l1 1 2-2M3.500 18l1 1 2-2"/></svg>'};
+var HI={home:['leaf','<path d="M5 19C5 11 10 5 20 4c0 9-5 15-13 15"/><path d="M5 19c3-5 6-8 10-10"/>'],
+ plan:['task','<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="m9 15 2 2 4-4"/>'],
+ log:['logc','<path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18"/><path d="M10 8h5M10 12h5"/><path d="m16 16 3.5-3.5"/>']};
+function hIcon(k){var x=HI[k];return '<span class="hic '+x[0]+'" aria-hidden="true"><svg viewBox="0 0 24 24">'+x[1]+'</svg></span>'}
+function wtxt(s){return ' '+norm(s).replace(/[^a-z0-9]+/g,' ').trim()}
+function wmatch(h,toks){var w=wtxt(h)+' ';return toks.every(function(t){t=norm(t).replace(/[^a-z0-9]+/g,' ').trim();return !t||w.indexOf(' '+t)>=0})}
+function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim()}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function fmtDate(s){if(!s)return '';var p=s.split('-');if(p.length<3)return s;return parseInt(p[2],10)+' '+MON[parseInt(p[1],10)]+' '+p[0]}
+function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+function nameHtml(n){
+  n=String(n||'');
+  var q=/['‘’]/,i=-1,j=-1;
+  for(var k=0;k<n.length;k++){if(q.test(n[k])){if(i<0)i=k;j=k}}
+  if(i>=0&&j>i&&(i===0||n[i-1]===' '||n[i-1]==='(')){
+    var a=n.slice(0,i).trim(),b=n.slice(i,j+1),c=n.slice(j+1).trim();
+    return (a?'<i>'+esc(a)+'</i> ':'')+esc(b)+(c?' <i>'+esc(c)+'</i>':'');
+  }
+  return '<i>'+esc(n)+'</i>';
+}
+function noKey(no){var s=String(no||'');var n=parseInt(s.replace(/\D/g,''),10);if(isNaN(n))n=0;return (/^n/i.test(s)?1000:0)+n}
+function rhsUrl(name){return 'https://www.rhs.org.uk/plants/search-results?query='+encodeURIComponent(String(name).replace(/ x /g,' ').replace(/ x$/,'').trim())}
+var PCACHE=null;
+function placeList(){
+  if(PCACHE)return PCACHE;
+  var st=S.settings.places,items;
+  if(st&&st.items&&st.items.length)items=st.items.map(function(x){return {name:x.name,color:x.color||'#9AA7B0',map:x.map||''}});
+  else items=PLACES0.map(function(n){return {name:n,color:COLOR0[n]||'#9AA7B0',map:MAPS0[n]||''}});
+  var have={};items.forEach(function(x){have[x.name]=1});
+  PLANTS.forEach(function(p){if(p.place&&!have[p.place]){have[p.place]=1;items.push({name:p.place,color:'#9AA7B0',map:''})}});
+  PCACHE=items;PCACHE.idx={};PCACHE.by={};items.forEach(function(x,i){PCACHE.idx[x.name]=i;PCACHE.by[x.name]=x});
+  return PCACHE;
+}
+function places(){return placeList().map(function(x){return x.name})}
+function placeIdx(p){var i=placeList().idx[p];return i==null?999:i}
+function mapOf(p){var x=placeList().by[p];return x?x.map:''}
+function lum(hex){var c=[1,3,5].map(function(i){var v=parseInt(hex.slice(i,i+2),16)/255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2]}
+function inkFor(hex){var L=lum(hex);return (L+0.05)/0.05>1.05/(L+0.05)?'#14181A':'#FFFFFF'}
+function mapBtn(p){var u=mapOf(p);return u?'<a class="olink" data-stop href="'+esc(u)+'" target="_blank" rel="noopener">Map ↗</a>':''}
+function placeChip(p){
+  if(!p)return '';
+  var x=placeList().by[p];
+  if(!x||!/^#[0-9a-fA-F]{6}$/.test(x.color))return '<span class="pl" title="'+esc(p)+'">'+esc(p)+'</span>';
+  return '<span class="pl" title="'+esc(p)+'" style="background:'+x.color+';color:'+inkFor(x.color)+'">'+esc(p)+'</span>';
+}
+var SEP='<span class="sep">·</span>';
+
+/* ---------- state ---------- */
+var S={tab:'plants',edits:{},tasks:{},logs:{},settings:{},loaded:{edits:false,tasks:false,logs:false,settings:false},useDb:false,
+  pq:'',pplace:'',pgroup:'place',plantsSub:'none',plimit:100,plabels:(function(){try{return localStorage.getItem('hpl_plabels')!=='0'}catch(e){return true}})(),
+  planStatus:'open',planYear:new Date().getFullYear(),planAll:false,planSub:'task',logSub:'none',logAsc:true,planMonth:'',logLinkSeg:1,planPlace:'',planTask:'',planQ:'',planGroup:'month',
+  logQ:'',logEvent:'',logPlace:'',logLink:'all',logGroup:'plant',logLimit:60,
+  coll:{},keys:{}};
+var db=null,downloads=null;
+var BASE=[];function setBase(raw){BASE=[];var seen={};(raw||[]).forEach(function(r){var k=hash(r[0]+'|'+r[1]+'|'+r[2]);var n=seen[k]=(seen[k]||0)+1;BASE.push({id:'b'+k+(n>1?'_'+n:''),place:r[0],no:String(r[1]||''),name:r[2],common:r[3],jekyll:r[4],tag:r[5],notes:r[6],srcT:r[7],srcU:r[8],base:true})})}
+setBase(BASE_RAW);
+var BASE_STATE=BASE.length?'ok':'loading';
+function gotBase(rows,missing){if(missing&&!rows.length){BASE_STATE='missing';renderAll();return}var j=JSON.stringify(rows);try{if(localStorage.getItem('hpl_base')===j){BASE_STATE='ok';return}localStorage.setItem('hpl_base',j)}catch(e){}setBase(rows);BASE_STATE='ok';buildPlants();renderAll()}
+var PLANTS=[],PKEYS={},NAMECOUNT={},IDX={tasks:{},logs:{}},indexDirty=true;
+
+function types(){var s=S.settings.taskTypes;return s&&s.list&&s.list.length?s.list:DEFAULT_TYPES}
+function usedTypes(){var out=types().slice(),seen={};out.forEach(function(x){seen[x]=1});
+  Object.keys(S.tasks).forEach(function(i){var t=S.tasks[i].task;if(t&&!seen[t]){seen[t]=1;out.push(t)}});
+  Object.keys(S.logs).forEach(function(i){var t=S.logs[i].event;if(t&&!seen[t]){seen[t]=1;out.push(t)}});
+  return out}
+var CUR=new Date().getFullYear();
+function ydate(s){return parseInt(String(s||'').slice(0,4),10)||0}
+function repOf(t){return t.repeat==null?1:(t.repeat|0)}
+function dueIn(t,y){var st=t.startYear|0,r=repOf(t);if(r===-1)return (t.years||[]).indexOf(y)>=0;if(r===0)return y===(st||CUR);if(st&&y<st)return false;return !st||((y-st)%r===0)}
+function legacyYear(t){return ydate(t.doneDate)||(t.createdAt?new Date(t.createdAt).getFullYear():CUR)}
+function doneRec(t,y){if(t.doneBy&&t.doneBy[y])return t.doneBy[y];if(t.done&&legacyYear(t)===y)return {date:t.doneDate||'',logId:t.logId||''};return null}
+function yOf(t){return S.planAll?((t.startYear|0)||CUR):S.planYear}
+function inYear(t,y){return dueIn(t,y)||!!doneRec(t,y)}
+function isOpen(t,y){return dueIn(t,y)&&!doneRec(t,y)}
+function migrated(t){var n=Object.assign({},t);n.doneBy=Object.assign({},t.doneBy);if(t.done&&!n.doneBy[legacyYear(t)])n.doneBy[legacyYear(t)]={date:t.doneDate||'',logId:t.logId||''};delete n.done;delete n.doneDate;delete n.logId;return n}
+function repLabel(t){var r=repOf(t),st=t.startYear|0;if(r===-1)return 'Years: '+(t.years||[]).join(', ');return r===0?'Once'+(st?' '+st:''):(r===1?'Every year':'Every '+r+' years')}
+async function markDone(id,y,date,logId){var n=migrated(S.tasks[id]);n.doneBy[y]={date:date,logId:logId||''};return put('tasks',id,n)}
+async function unmarkLog(id,lid){var t=S.tasks[id];if(!t)return;var n=migrated(t),ch=false;Object.keys(n.doneBy).forEach(function(y){if(n.doneBy[y].logId===lid){delete n.doneBy[y];ch=true}});if(ch)await put('tasks',id,n)}
+function typeIdx(t){var i=usedTypes().indexOf(t);return i<0?999:i}
+function typeOptions(sel,blank){var l=types().slice();if(sel&&l.indexOf(sel)<0)l.push(sel);return (blank?'<option value="">'+blank+'</option>':'')+l.map(function(x){var lab=String(x).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim();lab=lab?lab.charAt(0).toUpperCase()+lab.slice(1).toLowerCase():x;var em=String(x).replace(/[\w\s'’().,\-\/&]+/g,'').trim();return '<option value="'+esc(x)+'"'+(x===sel?' selected':'')+'>'+esc((em?em+' ':'')+lab)+'</option>'}).join('')}
+
+function buildPlants(){
+  var out=[];
+  BASE.forEach(function(p){var e=S.edits[p.id];if(e&&e.deleted)return;out.push(e?Object.assign({},p,{place:e.place!=null?e.place:p.place,no:e.no!=null?e.no:p.no,name:e.name!=null?e.name:p.name,common:e.common!=null?e.common:p.common,jekyll:e.jekyll!=null?e.jekyll:p.jekyll,tag:e.tag!=null?e.tag:p.tag,notes:e.notes!=null?e.notes:p.notes}):p)});
+  Object.keys(S.edits).forEach(function(id){var e=S.edits[id];if(e&&e.added&&!e.deleted)out.push({id:id,place:e.place||'',no:String(e.no||''),name:e.name||'',common:e.common||'',jekyll:e.jekyll||'',tag:e.tag||'',notes:e.notes||'',srcT:'',srcU:'',base:false})});
+  PLANTS=out;PKEYS={};out.forEach(function(p){var k=p.place+'|'+p.no+'|'+norm(p.name);if(!PKEYS[k])PKEYS[k]=p.id});NAMECOUNT={};out.forEach(function(p){var k=norm(p.name);NAMECOUNT[k]=(NAMECOUNT[k]||0)+1});
+  indexDirty=true;
+}
+function upperFirst(n){return /^[A-ZÀ-Þ][A-ZÀ-Þ.\-×]+\s+\S/.test(String(n||'').trim())}
+function isGroup(n){n=String(n||'').trim();if(!n)return false;if(upperFirst(n))return true;return n.indexOf(' ')<0&&!/['‘’]/.test(n)}
+function covers(raw,plantName){
+  var tn=norm(raw),pn=norm(plantName);if(!tn)return false;
+  if(tn.indexOf(' ')<0&&tn.indexOf("'")<0)return pn.split(' ')[0]===tn;
+  if(upperFirst(raw))return pn===tn||pn.indexOf(tn+' ')===0;
+  return pn===tn;
+}
+function entryMatches(e,p){
+  if(!norm(e.name))return false;
+  if(e.place&&e.place!==p.place)return false;
+  if(e.no&&String(e.no)!==String(p.no))return false;
+  return covers(e.name,p.name);
+}
+function buildIndex(){
+  if(!indexDirty)return;indexDirty=false;
+  IDX={tasks:{},logs:{}};
+  Object.keys(S.tasks).forEach(function(id){var t=S.tasks[id];PLANTS.forEach(function(p){if(entryMatches(t,p))(IDX.tasks[p.id]=IDX.tasks[p.id]||[]).push(id)})});
+  Object.keys(S.logs).forEach(function(id){var l=S.logs[id];PLANTS.forEach(function(p){if(entryMatches(l,p))(IDX.logs[p.id]=IDX.logs[p.id]||[]).push(id)})});
+}
+
+/* ---------- storage ---------- */
+function loadLocal(col){try{return JSON.parse(localStorage.getItem('hpl_'+col)||'{}')}catch(e){return {}}}
+function saveLocal(col){try{localStorage.setItem('hpl_'+col,JSON.stringify(S[col]))}catch(e){}}
+var COLMAP={plantEdits:'edits',tasks:'tasks',logs:'logs',settings:'settings'};
+var ROLE='edit';try{if(localStorage.getItem('hpl_role')==='view')ROLE='view'}catch(e){}
+function applyRole(){document.body.classList.toggle('ro',ROLE==='view')}
+function roBlock(){toast('Read-only. Unlock editing in More.');return false}
+var EDITOR='';try{EDITOR=localStorage.getItem('hpl_name')||''}catch(e){}
+function setEditor(n){EDITOR=String(n||'').trim().slice(0,40);try{localStorage.setItem('hpl_name',EDITOR)}catch(e){}}
+function askName(){
+  if(EDITOR)return true;
+  var n=window.prompt('Please enter your name to start editing.\nIt is saved with your changes so everyone can see who edited what. You can change it later in More > Access.');
+  if(!n||!n.trim()){toast('A name is needed to edit. Tap Edit or + again, or set it in More > Access.');return false}
+  setEditor(n);return true;
+}
+function stamp(col,data){if(col==='tasks'||col==='logs'||col==='plantEdits'){data.editedBy=EDITOR;data.editedAt=Date.now()}return data}
+function editedLine(r){if(!r||!r.editedBy&&!r.editedAt)return '';var d=r.editedAt?new Date(r.editedAt):null;return '<div class="r-sub edl">Last edited'+(r.editedBy?' by '+esc(r.editedBy):'')+(d?SEP+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear():'')+'</div>'}
+async function put(col,id,data){
+  var key=COLMAP[col];
+  if(ROLE==='view')return roBlock();
+  if(!askName())return false;
+  stamp(col,data);
+  try{
+    if(db){await db.collection(col).doc(id).set(data)}
+    else{S[key][id]=data;saveLocal(key);afterData(key)}
+    return true;
+  }catch(e){toast('Could not save. Please try again.');return false}
+}
+async function putMany(col,pairs){
+  var key=COLMAP[col];
+  if(ROLE==='view')return roBlock();
+  if(!askName())return false;
+  pairs.forEach(function(p){stamp(col,p[1])});
+  try{
+    if(db&&db.setMany){await db.setMany(col,pairs)}
+    else if(db){for(var i=0;i<pairs.length;i++)await db.collection(col).doc(pairs[i][0]).set(pairs[i][1])}
+    else{pairs.forEach(function(p){S[key][p[0]]=p[1]});saveLocal(key);afterData(key)}
+    return true;
+  }catch(e){toast('Could not save. Please try again.');return false}
+}
+async function del(col,id){
+  var key=COLMAP[col];
+  if(ROLE==='view')return roBlock();
+  try{
+    if(db){await db.collection(col).doc(id).delete()}
+    else{delete S[key][id];saveLocal(key);afterData(key)}
+    return true;
+  }catch(e){toast('Could not delete. Please try again.');return false}
+}
+function afterData(key){if(key==='settings')PCACHE=null;if(key==='edits'){buildPlants();PCACHE=null}else indexDirty=true;renderAll()}
+function sub(col){
+  var key=COLMAP[col],timer=setTimeout(function(){if(!S.loaded[key]){S.slow=true;renderAll()}},HPL_API_URL&&!window.claude?40000:10000);
+  db.collection(col).onSnapshot(function(snap){
+    var m={};snap.docs.forEach(function(d){m[d.id]=d.data()});
+    S[key]=m;S.loaded[key]=true;S.slow=false;clearTimeout(timer);afterData(key);
+  },function(){S.loaded[key]=true;S.err=true;renderAll()});
+}
+
+
+/* ---------- optional backend: Google Apps Script + Google Sheet (used only outside Claude) ---------- */
+var HPL_API_URL=window.HPL_API_URL||'https://script.google.com/macros/s/AKfycbzFDi9GyatcdFTnhQmRFUuUejvj-54iClHLb_BYebWOiV9joHBS77PbWWz_aUxy9CDm/exec';
+try{if(HPL_API_URL&&'serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js')}catch(e){}
+function sheetDb(url){
+  var cache={},ls={},started=false,PASS='',listing=null,saved={},baseTried=false;
+  try{saved=JSON.parse(localStorage.getItem('hpl_sheetcache')||'{}')}catch(e){}
+  function persist(){try{localStorage.setItem('hpl_sheetcache',JSON.stringify(cache))}catch(e){}}
+  try{PASS=localStorage.getItem('hpl_pass')||''}catch(e){}
+  function call(body,noPrompt){
+    body.pass=PASS;
+    return fetch(url,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){
+      if(j&&j.error==='unauthorized'){
+        if(noPrompt)throw new Error('unauthorized');
+        var p=window.prompt('Enter the viewing or editing passcode');
+        if(p){PASS=p;try{localStorage.setItem('hpl_pass',p)}catch(e){}return call(body)}
+        throw new Error('unauthorized');
+      }
+      if(j&&j.error==='read-only'){setRole('view');throw new Error('Read-only. Unlock editing in More.')}
+      if(j&&j.error)throw new Error(j.error);
+      if(j&&j.role)setRole(j.role);
+      return j;
+    });
+  }
+  function setRole(r){if(r===ROLE)return;ROLE=r;try{localStorage.setItem('hpl_role',r)}catch(e){}if(typeof renderAll==='function'&&S.loaded)setTimeout(renderAll,0)}
+  function unlock(){
+    var p=window.prompt('Enter the editing passcode');if(!p)return Promise.resolve();
+    var old=PASS;PASS=p;
+    return call({action:'list'},true).then(function(){if(ROLE==='edit'){try{localStorage.setItem('hpl_pass',p)}catch(e){}toast('Editing unlocked');if(!EDITOR)setTimeout(function(){askName();renderAll()},300)}else{PASS=old;toast('That is the viewing code. Editing stays locked.')}}).catch(function(){PASS=old;toast('Could not unlock. Check the code.')});
+  }
+  function snap(col){var m=cache[col]||{};return {docs:Object.keys(m).map(function(id){return {id:id,data:function(){return m[id]}}})}}
+  function fire(col){(ls[col]||[]).forEach(function(l){l.ok(snap(col))})}
+  /* ---- offline queue: changes are kept on this device and sent when the connection is back ---- */
+  var queue=[],flushing=false,pill=null;
+  try{queue=JSON.parse(localStorage.getItem('hpl_queue')||'[]')}catch(e){}
+  function saveQueue(){try{localStorage.setItem('hpl_queue',JSON.stringify(queue))}catch(e){}}
+  function applyOp(d,op){
+    var m=d[op.c]=d[op.c]||{};
+    if(op.a==='set')m[op.id]=op.data;
+    else if(op.a==='delete')delete m[op.id];
+    else if(op.a==='setmany')op.items.forEach(function(i){m[i.id]=i.data});
+  }
+  function status(){
+    var n=queue.length,off=typeof navigator!=='undefined'&&navigator.onLine===false,t='';
+    if(off)t=n?('Offline · '+n+' change'+(n>1?'s':'')+' waiting to send'):'Offline · changes are saved on this device';
+    else if(n)t=flushing?('Sending '+n+' change'+(n>1?'s':'')+'…'):(n+' change'+(n>1?'s':'')+' waiting to send');
+    if(!pill){pill=document.createElement('div');pill.id='syncPill';pill.setAttribute('role','status');pill.style.display='none';document.body.appendChild(pill)}
+    pill.textContent=t;pill.style.display=t?'block':'none';
+  }
+  function flush(){
+    if(flushing||!queue.length)return Promise.resolve();
+    flushing=true;status();
+    function next(){
+      if(!queue.length){flushing=false;status();return refresh()}
+      var op=queue[0],body=op.a==='setmany'?{action:'setmany',collection:op.c,items:op.items}:{action:op.a,collection:op.c,id:op.id,data:op.data};
+      return call(body,true).then(function(){queue.shift();saveQueue();status();return next()},function(e){
+        var m=String((e&&e.message)||e);
+        flushing=false;
+        if(/Read-only/.test(m)){queue=[];saveQueue();status();toast('Read-only. The waiting changes were not saved.');return refresh()}
+        if(m!=='unauthorized'&&navigator.onLine!==false){op.tries=(op.tries||0)+1;if(op.tries>=8){queue.shift();saveQueue();toast('One change could not be sent and was dropped.')}else saveQueue()}
+        status();
+      });
+    }
+    return next();
+  }
+  function refresh(){
+    if(flushing)return Promise.resolve();
+    if(listing)return listing;
+    listing=call({action:'list'}).then(function(j){
+      if(BASE_REMOTE&&!baseTried){baseTried=true;call({action:'base'},true).then(function(b){gotBase(b.rows||[],b.missing)}).catch(function(e){baseTried=false;if(/unknown action/.test(String(e&&e.message))){BASE_STATE='oldscript';renderAll()}})}
+      if(flushing)return;
+      var all=j.data||{};
+      if(queue.length){all=JSON.parse(JSON.stringify(all));queue.forEach(function(op){applyOp(all,op)})}
+      Object.keys(ls).forEach(function(col){
+        var nu=all[col]||{},a=JSON.stringify(nu),b=JSON.stringify(cache[col]||null);
+        if(a!==b||!ls[col].seen){cache[col]=nu;ls[col].seen=true;fire(col)}
+      });
+      persist();
+    }).catch(function(e){Object.keys(ls).forEach(function(c){ls[c].forEach(function(l){if(!ls[c].seen)l.err(e)})})});
+    listing.then(function(){listing=null},function(){listing=null});return listing;
+  }
+  function tick(){return queue.length?flush():refresh()}
+  function start(){
+    if(started)return;started=true;
+    setInterval(tick,15000);
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)tick()});
+    window.addEventListener('online',function(){status();tick()});
+    window.addEventListener('offline',status);
+    status();if(queue.length)flush();
+  }
+  function enqueue(op){
+    queue.push(op);saveQueue();
+    var d={};d[op.c]=cache[op.c]=cache[op.c]||{};applyOp(d,op);
+    fire(op.c);persist();status();flush();
+    return Promise.resolve();
+  }
+  function write(col,id,data,action){return enqueue({a:action,c:col,id:id,data:data})}
+  function setMany(col,pairs){return enqueue({a:'setmany',c:col,items:pairs.map(function(p){return {id:p[0],data:p[1]}})})}
+  return {call:call,unlock:unlock,setMany:setMany,collection:function(col){return {
+    doc:function(id){return {set:function(d){return write(col,id,d,'set')},delete:function(){return write(col,id,null,'delete')}}},
+    onSnapshot:function(ok,err){(ls[col]=ls[col]||[]).push({ok:ok,err:err});if(saved[col]&&!cache[col]){cache[col]=saved[col];ls[col].seen=true;ok(snap(col))}start();refresh()}
+  }}};
+}
+function fileDownloads(){return {save:function(o){return new Promise(function(res){var b;if(o.b64){var bin=atob(o.b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);b=new Blob([u],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}else b=new Blob([o.data],{type:'text/csv;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=o.filename;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();res()},100)})}}}
+
+/* ---------- search suggestions on the main pages ---------- */
+var SUGN=null;
+function sugNames(){if(SUGN)return SUGN;var m={};PLANTS.forEach(function(p){var k=norm(p.name);if(!k)return;(m[k]=m[k]||{name:p.name,k:k,n:0,pl:{}}).n++;m[k].pl[p.place]=1});SUGN=Object.keys(m).map(function(k){return m[k]});return SUGN}
+var sugTouch=0;
+function sugBox(){var b=document.getElementById('gsug');if(!b){b=document.createElement('div');b.id='gsug';b.setAttribute('role','listbox');b.style.display='none';document.body.appendChild(b);b.addEventListener('touchstart',function(){sugTouch=Date.now()},{passive:true});b.addEventListener('touchmove',function(){sugTouch=Date.now()},{passive:true});window.addEventListener('scroll',function(e){if(e.target===b||Date.now()-sugTouch<600)return;sugHide()},true)}return b}
+function sugHide(){var b=document.getElementById('gsug');if(b)b.style.display='none'}
+function suggestWire(inp,id,setQ){
+  (function(){
+    var w=document.createElement('span');w.className='sbox';inp.parentNode.insertBefore(w,inp);w.appendChild(inp);inp.classList.remove('grow');
+    var x=document.createElement('button');x.type='button';x.className='sclr';x.setAttribute('aria-label','Clear search');x.textContent='×';w.appendChild(x);
+    function vis(){x.style.display=inp.value?'':'none'}vis();inp.addEventListener('input',vis);
+    x.onmousedown=function(e){e.preventDefault()};
+    x.onclick=function(){sugHide();setQ('');setTimeout(function(){var e=document.getElementById(id);if(e)e.focus()},0)};
+  })();
+  function show(){
+    var el=document.getElementById(id);if(!el||document.activeElement!==el){return}
+    var q=norm(el.value).split(' ').filter(Boolean);if(!q.length||norm(el.value).length<2){sugHide();return}
+    var hit=sugNames().filter(function(x){return wmatch(x.k,q)});
+    hit.sort(function(a,b){var as=a.k.indexOf(q[0])===0?0:1,bs=b.k.indexOf(q[0])===0?0:1;return as-bs||(a.k<b.k?-1:1)});
+    hit=hit.filter(function(x){return x.k!==norm(el.value)}).slice(0,8);
+    var b=sugBox();if(!hit.length){sugHide();return}
+    b.innerHTML=hit.map(function(x,i){var pn=Object.keys(x.pl).length;return '<div class="gs-row" role="option" data-i="'+i+'"><span class="gs-n">'+nameHtml(x.name)+'</span><small>'+(pn>1?pn+' places':esc(Object.keys(x.pl)[0]))+'</small></div>'}).join('');
+    var r=el.getBoundingClientRect();b.style.left=r.left+'px';b.style.top=(r.bottom+4)+'px';b.style.width=Math.max(r.width,260)+'px';b.style.display='block';
+    Array.prototype.forEach.call(b.children,function(c){c.onmousedown=function(ev){ev.preventDefault()};c.onclick=function(){var x=hit[+c.dataset.i];sugHide();setQ(x.name)}});
+  }
+  inp.addEventListener('input',function(){setTimeout(show,0)});
+  inp.addEventListener('focus',show);
+  inp.addEventListener('blur',function(){setTimeout(function(){var a=document.activeElement;if(Date.now()-sugTouch<700)return;if(!a||a.id!==id)sugHide()},180)});
+  inp.addEventListener('keydown',function(e){if(e.key==='Escape')sugHide()});
+}
+/* ---------- toast ---------- */
+var toastT;function toast(msg){var h=$('#toastHost');h.innerHTML='<div class="toast">'+esc(msg)+'</div>';clearTimeout(toastT);toastT=setTimeout(function(){h.innerHTML=''},2600)}
+
+/* ---------- sheets ---------- */
+var stack=[];
+function push(title,render,live){stack.push({title:title,render:render,live:!!live});drawSheet()}
+function pop(){stack.pop();drawSheet()}
+function closeAll(){stack=[];drawSheet()}
+function drawSheet(){
+  var h=$('#sheetHost');
+  if(!stack.length){h.innerHTML='';document.body.style.overflow='';return}
+  document.body.style.overflow='hidden';
+  var top=stack[stack.length-1];
+  h.innerHTML='<div class="sheet" id="sheetBg"><div class="panel" role="dialog" aria-modal="true" aria-label="'+esc(top.title)+'"><div class="phead"><button id="sBack">'+(stack.length>1?'‹ Back':'')+'</button><span class="t">'+esc(top.title)+'</span><button id="sClose">Close</button></div><div id="sBody"></div></div></div>';
+  $('#sClose').onclick=closeAll;
+  $('#sBack').onclick=function(){if(stack.length>1)pop()};
+  $('#sheetBg').addEventListener('mousedown',function(e){if(e.target.id==='sheetBg')closeAll()});
+  top.render($('#sBody'));
+}
+function refreshSheet(){var top=stack[stack.length-1];if(top&&top.live){var p=$('.panel'),sc=p?p.scrollTop:0;drawSheet();var q=$('.panel');if(q)q.scrollTop=sc}}
+
+/* ---------- plant picker ---------- */
+function pickerHtml(p,v){
+  v=v||{};
+  return '<div class="two pn2"><div class="field"><label for="'+p+'-place">Place</label><select class="select" id="'+p+'-place"><option value="">(none)</option>'+places().map(function(x){return '<option'+(x===v.place?' selected':'')+'>'+esc(x)+'</option>'}).join('')+'</select></div>'+
+  '<div class="field"><label for="'+p+'-no">No.</label><input class="input" id="'+p+'-no" value="'+esc(v.no||'')+'" placeholder="e.g. 5 or N27" autocomplete="off"></div></div>'+
+  '<div class="field"><label for="'+p+'-name">Botanical name</label><div class="xw'+(v.name?' has':'')+'"><input class="input" id="'+p+'-name" value="'+esc(v.name||'')+'" placeholder="Search a name, or type a genus in capitals for all of it, e.g. ROSA" autocomplete="off"><button type="button" class="xw-x" id="'+p+'-x" aria-label="Clear name">×</button></div><div id="'+p+'-sug"></div></div>';
+}
+function wirePicker(p,onChange){
+  var nm=$('#'+p+'-name'),box=$('#'+p+'-sug');
+  function ch(){if(onChange)onChange()}
+  var xw=nm.parentNode,xb=$('#'+p+'-x');
+  function xs(){xw.classList.toggle('has',!!nm.value)}
+  nm.addEventListener('input',xs);
+  if(xb)xb.onclick=function(){nm.value='';xs();nm.dispatchEvent(new Event('input'));nm.focus()};
+  nm.addEventListener('input',function(){
+    ch();
+    var q=norm(nm.value);if(q.length<2){box.innerHTML='';return}
+    var toks=q.split(' '),pl=$('#'+p+'-place').value,res=[];
+    for(var i=0;i<PLANTS.length&&res.length<40;i++){var x=PLANTS[i];if(pl&&x.place!==pl)continue;var h=norm(x.name+' '+x.common+' '+x.jekyll);if(wmatch(h,toks))res.push(x)}
+    box.innerHTML=res.length?'<div class="sug">'+res.map(function(x){return '<button type="button" data-id="'+x.id+'"><span class="latin">'+nameHtml(x.name)+'</span><small>'+esc(x.place)+' · '+esc(x.no||'-')+'</small></button>'}).join('')+'</div>':'';
+    $$('button',box).forEach(function(b){b.onclick=function(){var x=PLANTS.filter(function(z){return z.id===b.dataset.id})[0];$('#'+p+'-place').value=x.place;$('#'+p+'-no').value=x.no;nm.value=x.name;xs();box.innerHTML='';ch()}});
+  });
+  $('#'+p+'-place').addEventListener('change',ch);
+  $('#'+p+'-no').addEventListener('input',ch);
+}
+function pickerVals(p){return {place:$('#'+p+'-place').value,no:$('#'+p+'-no').value.trim(),name:$('#'+p+'-name').value.trim()}}
+
+/* ---------- plant detail ---------- */
+function plantById(id){for(var i=0;i<PLANTS.length;i++)if(PLANTS[i].id===id)return PLANTS[i]}
+function sortLogs(ids){var k=S.logAsc?1:-1;return ids.slice().sort(function(a,b){var x=S.logs[a],y=S.logs[b];return k*((x.date||'').localeCompare(y.date||'')||(x.createdAt||0)-(y.createdAt||0))})}
+function mapLink(place,label){return mapOf(place)?'<a href="'+esc(mapOf(place))+'" target="_blank" rel="noopener">'+esc(label||('Open map of '+place))+'</a>':''}
+function openPlant(id){
+  push('Plant',function(el){
+    var p=plantById(id);if(!p){el.innerHTML='<div class="empty">Plant not found</div>';return}
+    buildIndex();
+    var tids=(IDX.tasks[p.id]||[]).filter(function(i){return inYear(S.tasks[i],S.planYear)}).slice().sort(function(a,b){return (doneRec(S.tasks[a],S.planYear)?1:0)-(doneRec(S.tasks[b],S.planYear)?1:0)||(S.tasks[a].month||99)-(S.tasks[b].month||99)});
+    var lids=sortLogs(IDX.logs[p.id]||[]);
+    var others=PLANTS.filter(function(x){return x.id!==p.id&&norm(x.name)===norm(p.name)});
+    var h='<h2 class="h2 latin">'+nameHtml(p.name)+'</h2>'+
+      '<div class="r-sub">'+placeChip(p.place)+(p.no?SEP+'No. '+esc(p.no):'')+'</div>'+
+      '<dl class="kv sec">'+(p.common?'<dt>Common name</dt><dd>'+esc(p.common)+'</dd>':'')+(p.jekyll?'<dt>Jekyll specified</dt><dd>'+esc(p.jekyll)+'</dd>':'')+(p.tag?'<dt>Note</dt><dd>'+esc(p.tag)+'</dd>':'')+(p.srcT?'<dt>Source</dt><dd>'+(p.srcU?'<a href="'+esc(p.srcU)+'" target="_blank" rel="noopener">'+esc(p.srcT)+'</a>':esc(p.srcT))+'</dd>':'')+(mapOf(p.place)?'<dt>Map</dt><dd>'+mapLink(p.place)+'</dd>':'')+'<dt>RHS</dt><dd><a href="'+esc(rhsUrl(p.name))+'" target="_blank" rel="noopener">Search on RHS</a></dd></dl>'+
+      (others.length?'<div class="sec"><h3>Also in</h3><div class="chips">'+others.map(function(o){return '<button type="button" data-open="'+o.id+'">'+esc(o.place)+' '+esc(o.no)+'</button>'}).join('')+'</div></div>':'')+
+      '<div class="sec"><h3><span>Gardening notes</span><button class="btn sm edit" id="pEdit">✎ Edit</button></h3>'+(p.notes?'<div class="note">'+esc(p.notes)+'</div>':'<div class="r-sub">No notes yet</div>')+editedLine(S.edits[p.id])+'</div>'+
+      '<div class="sec"><h3><span>Planned tasks <span class="ypill">'+S.planYear+'</span> ('+tids.length+')</span><button class="btn sm task" id="pAddTask">+ Task</button></h3>'+(tids.length?tids.map(function(t){return taskCard(t,true)}).join(''):'<div class="r-sub">None</div>')+'</div>'+
+      '<div class="sec"><h3><span>Log ('+lids.length+')</span><button class="btn sm logc" id="pAddLog">+ Log</button></h3>'+(lids.length?lids.map(logEntry).join(''):'<div class="r-sub">No log entries yet</div>')+'</div>';
+    el.innerHTML=h;
+    $$('[data-open]',el).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
+    $('#pEdit').onclick=function(){openPlantForm(p.id)};
+    $('#pAddLog').onclick=function(){openLogForm(null,{place:p.place,no:p.no,name:p.name})};
+    $('#pAddTask').onclick=function(){openTaskForm(null,{place:p.place,no:p.no,name:p.name})};
+    wireCards(el);
+  },true);
+}
+
+function needName(){return ROLE==='view'||askName()}
+function openPlantForm(id,preset){if(!needName())return;
+  var p=id?plantById(id):null,v=p||preset||{};
+  push(p?'Edit plant':'New plant',function(el){
+    el.innerHTML=(p?editedLine(S.edits[p.id]):'')+'<div class="fsec fs-plant"><div class="fs-h">Plant</div><div class="two pn2"><div class="field"><label for="f-place">Place</label><select class="select" id="f-place">'+places().map(function(x){return '<option'+(x===v.place?' selected':'')+'>'+esc(x)+'</option>'}).join('')+'</select></div>'+
+    '<div class="field"><label for="f-no">No.</label><input class="input" id="f-no" value="'+esc(v.no||'')+'" autocomplete="off"></div></div>'+
+    '<div class="r-sub" style="margin:-6px 0 12px">For plants found outside the original plan, number them N plus a number (for example N27).</div>'+
+    '<div class="field"><label for="f-name">Botanical name</label><input class="input" id="f-name" value="'+esc(v.name||'')+'" autocomplete="off"></div>'+
+    '<div class="field"><label for="f-common">Common name</label><input class="input" id="f-common" value="'+esc(v.common||'')+'" autocomplete="off"></div></div>'+
+    '<details class="fsec fs-job fold"><summary class="fs-h">Original note and Jekyll</summary><div class="field"><label for="f-tag">Original note</label><input class="input" id="f-tag" value="'+esc(v.tag||'')+'" placeholder="e.g. Modern name" autocomplete="off"></div>'+
+    '<div class="field"><label for="f-jekyll">Plants specified by Jekyll</label><input class="input" id="f-jekyll" value="'+esc(v.jekyll||'')+'" autocomplete="off"></div></details>'+
+    '<div class="fsec fs-plant"><div class="fs-h">Gardening note</div><div class="field"><textarea class="textarea" id="f-notes" aria-label="Gardening notes">'+esc(v.notes||'')+'</textarea></div></div>'+
+    '<div class="actions"><button class="btn primary" id="f-save">Save</button>'+(p?'<button class="btn danger" id="f-del">Delete</button>':'')+'</div>';
+    function suggest(){if(p)return;var pl=$('#f-place').value,mx=0;PLANTS.forEach(function(x){if(x.place===pl&&/^n/i.test(x.no)){var n=parseInt(x.no.replace(/\D/g,''),10);if(n>mx)mx=n}});if(!$('#f-no').value)$('#f-no').placeholder='Suggest N'+(mx?mx+1:1)}
+    $('#f-place').onchange=suggest;suggest();
+    $('#f-save').onclick=async function(){
+      var d={place:$('#f-place').value,no:$('#f-no').value.trim(),name:$('#f-name').value.trim(),common:$('#f-common').value.trim(),jekyll:$('#f-jekyll').value.trim(),tag:$('#f-tag').value.trim(),notes:$('#f-notes').value};
+      if(!d.name){toast('Please enter a plant name');return}
+      var eid=p?p.id:uid('u'),cur=S.edits[eid]||{};
+      var rec=Object.assign({},cur,d);if(!p)rec.added=true;
+      if(await put('plantEdits',eid,rec)){toast('Saved');pop();if(!p){openPlant(eid)}}
+    };
+    if(p)$('#f-del').onclick=function(){
+      var b=$('#f-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}
+      var cur=S.edits[p.id]||{};
+      var done=p.base?put('plantEdits',p.id,Object.assign({},cur,{deleted:true})):del('plantEdits',p.id);
+      done.then(function(ok){if(ok){toast('Deleted');closeAll()}});
+    };
+  });
+}
+
+/* ---------- logs ---------- */
+function logCard(id,inSheet){
+  var l=S.logs[id];if(!l)return '';
+  var linked=l.taskId&&S.tasks[l.taskId],H=inSheet?{}:hides('log');
+  var idrow=inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):'<span class="idrow">'+((l.no||l.name)?numHtml(l.no,l.name):'')+(l.name?latinHtml(l.name)+openBtn(l.place,l.no,l.name):'')+'</span>';
+  var lchip=(inSheet||H.place)?'':placeChip(l.place);
+  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDate(l.date))+(l.hours?SEP+esc(l.hours)+' h':'')+'</span>'+(H.task?'':'<span class="evt">'+taskTag(l.event)+'</span>')+(linked?'<span class="pill l">✓ From plan</span>':'')+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>'+
+    idrow+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
+}
+function logEntry(id){
+  var l=S.logs[id];if(!l)return '';
+  var linked=l.taskId&&S.tasks[l.taskId];
+  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDate(l.date))+'</span><span class="le-b"><span class="evt">'+taskTag(l.event)+(l.hours?'<span class="r-sub">'+SEP+esc(l.hours)+' h</span>':'')+(linked?' <span class="pill l">✓ From plan</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
+}
+function datesHtml(p,multi){return '<div class="field"><label>'+(multi?'Date (add more for several days)':'Date')+'</label><div id="'+p+'-dates"></div>'+(multi?'<button type="button" class="vbtn" id="'+p+'-adddate" style="align-self:flex-start;margin-left:-8px">+ Add another date</button>':'')+'</div>'}
+function nextDay(d){var x=new Date(d+'T12:00:00');x.setDate(x.getDate()+1);return x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2)+'-'+('0'+x.getDate()).slice(-2)}
+function wireDates(p,first,multi,onChange){
+  var box=$('#'+p+'-dates');
+  function sync(){var rows=$$('.drow',box);rows.forEach(function(r){$('button',r).style.display=rows.length>1?'':'none'})}
+  function add(v){var r=document.createElement('div');r.className='drow';r.innerHTML='<input class="input" type="date" value="'+esc(v)+'" aria-label="Date"><button type="button" class="btn sm ghost" aria-label="Remove date">✕</button>';
+    $('button',r).onclick=function(){r.remove();sync();if(onChange)onChange()};$('input',r).addEventListener('change',function(){if(onChange)onChange()});box.appendChild(r);sync();if(onChange)onChange()}
+  add(first);
+  if(multi)$('#'+p+'-adddate').onclick=function(){var ds=datesVals(p);add(ds.length?nextDay(ds[ds.length-1]):first)};
+}
+function datesVals(p){var out=[];$$('#'+p+'-dates input').forEach(function(i){if(i.value&&out.indexOf(i.value)<0)out.push(i.value)});return out.sort()}
+function planCandidates(v){
+  var p=null;PLANTS.some(function(x){if(x.place===v.place&&String(x.no)===String(v.no)&&norm(x.name)===norm(v.name)){p=x;return true}});
+  var vn=norm(v.name),yy=ydate(v.date)||CUR,same=[],other=[];
+  if(!vn&&!v.place)return {same:same,other:other};
+  Object.keys(S.tasks).forEach(function(id){
+    var t=S.tasks[id];if(!inYear(t,yy))return;
+    var m,tn=norm(t.name);
+    if(p)m=entryMatches(t,p);
+    else if(tn&&vn){
+      m=!(t.place&&v.place&&t.place!==v.place)&&!(t.no&&v.no&&String(t.no)!==String(v.no))&&covers(t.name,v.name);
+    }else m=!tn&&!vn&&v.place&&t.place===v.place;
+    if(!m)return;
+    if(v.event&&t.task===v.event&&isOpen(t,yy))same.push(id);else other.push(id);
+  });
+  return {same:same,other:other};
+}
+function taskLabel(id,yy){var t=S.tasks[id];if(!t)return id;var who=t.name?(t.name+(t.place?' ('+t.place+(t.no?' '+t.no:'')+')':'')):(t.place||'');return t.task+' · '+(t.month?MON[t.month]:'No month')+' · '+who+(isGroup(t.name)?' (whole group)':'')+(doneRec(t,yy)?' · already ticked':'')}
+function planFromLog(lid,d){var y=ydate(d.date)||CUR,db={};db[y]={date:d.date||'',logId:lid};return {place:d.place||'',no:d.no||'',name:d.name||'',month:parseInt((d.date||'').slice(5,7),10)||0,task:d.event,season:'',details:d.details||'',repeat:1,startYear:y,doneBy:db,createdAt:Date.now()}}
+function openLogForm(id,preset){if(!needName())return;
+  var l=id?S.logs[id]:null,v=l||preset||{};
+  push(l?'Edit log entry':'New log',function(el){
+    el.innerHTML=(l?editedLine(l):'')+datesHtml('g',!l)+'<div class="fsec fs-plant"><div class="fs-h">Plants</div>'+pickerHtml('g',v)+(l?'':'<div class="field" id="g-scopebox"></div>'+extraBtns('g'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div>'+
+    '<div class="field"><label for="g-hours">Hours spent (optional)</label><input class="input" type="number" min="0" step="0.25" inputmode="decimal" id="g-hours" value="'+esc(v.hours||'')+'"></div>'+
+    '<div class="field"><label for="g-event">What was done</label><select class="select" id="g-event">'+typeOptions(v.event,'Select…')+'</select></div>'+
+    '<div class="field" id="g-linkbox"><label for="g-link">Related planned task</label><select class="select" id="g-link"></select><div class="r-sub" id="g-linkhint"></div><button type="button" class="vbtn" id="g-openlink" style="align-self:flex-start;margin-left:-8px;display:none">Open the planned task ›</button></div>'+
+    '<label class="rad" id="g-planrow" style="display:none"><input type="checkbox" id="g-addplan"> Also add it to the Plan as a finished task</label>'+
+    '<div class="field"><label for="g-details">Details</label><textarea class="textarea" id="g-details">'+esc(v.details||'')+'</textarea></div>'+(l?'':"<div id='g-xj'></div><button type='button' class='vbtn' id='g-addjob' style='align-self:flex-start;margin-left:-8px'>+ Add another task</button>")+'</div>'+
+    '<div class="actions"><button class="btn primary" id="g-save">Save</button>'+(l?'<button class="btn danger" id="g-del">Delete</button>':'')+'</div>';
+    var current=l&&l.taskId?l.taskId:'',gxp=null,gxj=null,gmain=null;
+    function gUpd(){var b=$('#g-save');if(l||!b)return;var d0=datesVals('g').length||1,n=(Math.max(gmain?gmain.size():1,0)+(gxp?gxp.count():0))*(1+(gxj?gxj.count():0))*d0,x=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode==='pick');b.textContent=x?'Save '+n+' log'+(n>1?'s':''):'Save';refreshLinks()}
+    function refreshLinks(){
+      var pv=pickerVals('g'),ev=$('#g-event').value,sel=$('#g-link'),keep=sel.value||current,d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR;
+      var c=planCandidates({place:pv.place,no:pv.no,name:pv.name,event:ev,date:d0});
+      if(current&&S.tasks[current]&&c.same.indexOf(current)<0&&c.other.indexOf(current)<0)c.same.unshift(current);
+      function opts(a){return a.map(function(t){return '<option value="'+t+'"'+(t===keep?' selected':'')+'>'+esc(taskLabel(t,yy))+'</option>'}).join('')}
+      sel.innerHTML='<option value="">No, this was extra work</option>'+(c.same.length?'<optgroup label="Open for '+yy+', same task">'+opts(c.same)+'</optgroup>':'')+(c.other.length?'<optgroup label="Other planned tasks for this plant in '+yy+'">'+opts(c.other)+'</optgroup>':'');
+      $('#g-linkhint').textContent=(c.same.length||c.other.length)?'Pick the planned task this relates to. An open task is ticked off for '+yy+'.':(ev?'No planned task matches this plant, so this will be saved as extra work.':'Choose what was done to see matching tasks from the Plan.');
+      var xn=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode!=='plant');var lb=$('#g-linkbox');if(lb)lb.style.display=xn?'none':'';
+      var pr=$('#g-planrow');if(pr)pr.style.display=(sel.value||current||xn)?'none':'flex';
+      var ol=$('#g-openlink');if(ol)ol.style.display=sel.value?'':'none';
+    }
+    wireDates('g',(l&&l.date)||v.date||todayStr(),!l,function(){if($('#g-link'))(typeof gUpd==='function'?gUpd():refreshLinks())});
+    if(l)wirePicker('g',refreshLinks);else gmain=plantScope('g',function(){if(typeof gUpd==='function')gUpd()},false,'log entry');
+    $('#g-link').addEventListener('change',refreshLinks);
+    $('#g-event').addEventListener('change',refreshLinks);
+    if(!l){gxp=extraPlants($('#g-xp'),$('#g-addplant'),gUpd,true,'log entry');gxj=extraJobs($('#g-xj'),$('#g-addjob'),'log',gUpd)}
+    refreshLinks();
+    $('#g-openlink').onclick=function(){var tid=$('#g-link').value;if(tid)openTaskForm(tid)};
+    $('#g-save').onclick=async function(){
+      var pv=pickerVals('g'),dates=datesVals('g'),link=$('#g-link').value;
+      var d={event:$('#g-event').value,details:$('#g-details').value.trim(),hours:$('#g-hours').value,place:pv.place,no:pv.no,name:pv.name};
+      if(!dates.length||!d.event){toast('Please enter a date and what was done');return}
+      var gm=gmain&&gmain.ks.mode!=='plant';
+      if(!d.name&&!d.place&&!gm){toast('Please choose a place or a plant');return}
+      if(!l&&(gm||(gxp&&gxp.count())||(gxj&&gxj.count()))){
+        var xs=gxp.vals(),xj=gxj.vals();
+        if(gmain.ks.mode==='pick'&&gmain.pickCount()<1){toast('Tick at least one plant');return}
+        if(gxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
+        if(xj.some(function(j){return !j.event})){toast('Choose what was done for each extra task, or remove it');return}
+        var targets=gmain.targets().concat(xs),jobs=[{event:d.event,hours:d.hours,details:d.details}].concat(xj),pairs=[],k=0;
+        targets.forEach(function(tg){jobs.forEach(function(j){dates.forEach(function(dt){pairs.push([uid('l'),{place:tg.place,no:tg.no,name:tg.name,event:j.event,hours:j.hours,details:j.details,date:dt,createdAt:Date.now()+(k++)}])})})});
+        if(await putMany('logs',pairs)){toast(pairs.length+' log '+(pairs.length>1?'entries':'entry')+' saved');pop()}return;
+      }
+      var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&$('#g-planrow').style.display!=='none',ptid=addPlan?uid('t'):null,done={},first=null;
+      for(var i=0;i<dates.length;i++){
+        var lid=(id&&i===0)?id:uid('l'),rec=Object.assign({},d,{date:dates[i],createdAt:(l&&l.createdAt)||Date.now()+i});
+        if(link)rec.taskId=link;else if(addPlan)rec.taskId=ptid;
+        if(!(await put('logs',lid,rec)))return;
+        if(i===0)first=rec;
+        if(i===0&&addPlan)first.id=lid;
+        if(link&&S.tasks[link]){var yy=ydate(dates[i])||CUR;if(!done[yy]&&isOpen(S.tasks[link],yy)){done[yy]=1;await markDone(link,yy,dates[i],lid)}}
+      }
+      if(addPlan)await put('tasks',ptid,planFromLog(first.id,first));
+      if(current&&current!==link)await unmarkLog(current,id);
+      toast(dates.length>1?dates.length+' log entries saved':'Log saved');pop();
+    };
+    if(l)$('#g-del').onclick=function(){var b=$('#g-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('logs',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
+  });
+}
+
+/* ---------- tasks ---------- */
+var CHECK='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+function hides(tab){var g=S[tab+'Group'],u=S[tab+'Sub'];function h(k){return g===k||u===k}return tab==='plan'?{task:h('task'),month:h('month'),place:h('place')}:{task:h('event'),month:h('month'),place:h('place')}}
+function pnHtml(place,no,hidePlace){var c=hidePlace?'':placeChip(place);return c?'<span class="r-side">'+c+'</span>':''}
+function plantIdFor(place,no,name){return name?PKEYS[(place||'')+'|'+(no||'')+'|'+norm(name)]||'':''}
+function openBtn(place,no,name){var id=plantIdFor(place,no,name);return id?'<span class="olink" role="button" tabindex="0" data-popen="'+id+'">Open ›</span>':''}
+function numHtml(no,name){if(!no&&name&&isGroup(name))return '';return '<span class="num">'+esc(no||'–')+'</span>'}
+function latinHtml(name){return isGroup(name)?'<span class="latin gname" title="Group: covers every matching plant">'+nameHtml(name)+'<span class="gall">all</span></span>':'<span class="latin">'+nameHtml(name)+'</span>'}
+function genusSummary(t){
+  if(!isGroup(t.name))return '';
+  var ms=PLANTS.filter(function(p){return entryMatches(t,p)});
+  if(!ms.length)return '<span class="gsum r-sub">No matching plants yet</span>';
+  var by={},order=[];ms.forEach(function(p){if(!by[p.place]){by[p.place]=[];order.push(p.place)}by[p.place].push(p)});
+  order.sort(function(a,b){return placeIdx(a)-placeIdx(b)});
+  var few=ms.length<=15;
+  return '<span class="gsum"><span class="r-sub"><b>'+ms.length+' plant'+(ms.length>1?'s':'')+'</b></span>'+order.map(function(pl){
+    var l=by[pl].sort(function(a,b){return noKey(a.no)-noKey(b.no)});
+    return '<span class="gp">'+placeChip(pl)+'<span class="r-sub">'+(few?l.map(function(p){return esc(p.no||'–')}).join(', '):'×'+l.length)+'</span></span>'}).join('')+'</span>';
+}
+function genusPlantsHtml(t){
+  if(!isGroup(t.name))return '';
+  var ms=PLANTS.filter(function(p){return entryMatches(t,p)}).sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)});
+  if(!ms.length)return '';
+  return '<div class="sec"><h3><span>Plants this task covers ('+ms.length+')</span></h3><div class="pick" style="margin-left:0;max-height:260px">'+ms.map(function(p){return '<button type="button" class="sug-row" data-open="'+p.id+'"><span class="num">'+esc(p.no||'–')+'</span><span class="latin">'+nameHtml(p.name)+'</span><span class="idsp"></span>'+placeChip(p.place)+'<span class="olink">Open ›</span></button>'}).join('')+'</div></div>';
+}
+function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
+  var t=S.tasks[id];if(!t)return '';
+  var y=yOf(t),rec=doneRec(t,y),logged=rec&&rec.logId&&S.logs[rec.logId],H=inSheet?{}:hides('plan');
+  var pill=logged?'<span class="pill l">Logged</span>':'';
+  var idrow=(inSheet||cm)?'':'<span class="idrow">'+((t.no||t.name)?numHtml(t.no,t.name):'')+(t.name?latinHtml(t.name)+openBtn(t.place,t.no,t.name):'')+'</span>';
+  var tchip=(inSheet||cm||H.place)?'':placeChip(t.place);
+  var head=cm?('<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'+(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':'')):(H.task?idrow:'<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'+idrow);
+  var bits=[];if(S.planAll&&!inSheet)bits.push('<b>'+y+'</b>');if(!H.month)bits.push(t.month?MON[t.month]:'No month');if(t.season)bits.push(esc(t.season));bits.push(esc(repLabel(t)));if(rec&&rec.date)bits.push('Done '+esc(fmtDate(rec.date)));
+  return '<div class="card'+(rec?' done':'')+'"><button class="chk" data-done="'+id+'" aria-pressed="'+(!!rec)+'" aria-label="'+(rec?'Mark as not done for '+y:'Mark as done for '+y)+'"><span>'+CHECK+'</span></button>'+
+   '<button class="body" data-task="'+id+'">'+head+
+   '<span class="lrow"><span class="r-sub">'+((H.task&&pill)?pill+' ':'')+bits.join(SEP)+'</span>'+(tchip?'<span class="lchip">'+tchip+'</span>':'')+'</span>'+
+   genusSummary(t)+(t.details?'<span class="det">'+esc(t.details)+'</span>':'')+'</button></div>';
+}
+
+/* ---------- extra plants and extra tasks inside the normal New task / New log forms ---------- */
+var XSEQ=0;
+function jobRow(kind){
+  var rep=[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only']];
+  var r='<div class="jrow"><div class="xp-h"><span class="lbl">Another task</span><button type="button" class="btn sm ghost b-del">Remove</button></div>';
+  if(kind==='task'){
+    r+='<div class="two"><div class="field"><label>Task</label><select class="select b-ev">'+typeOptions('','Select…')+'</select></div>'+
+    '<div class="field"><label>Month</label><select class="select b-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'">'+m+'</option>'}).join('')+'</select></div></div>'+
+    '<div class="two"><div class="field"><label>Repeats</label><select class="select b-rep">'+rep.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('')+'</select></div>'+
+    '<div class="field"><label>First year it applies</label><select class="select b-year"><option value="0">Any year</option>'+[-2,-1,0,1,2,3,4,5].map(function(o){var y=CUR+o;return '<option value="'+y+'"'+(S.planYear===y?' selected':'')+'>'+y+'</option>'}).join('')+'</select></div></div>'+
+    '<div class="field"><span class="lbl">Season (choose any)</span><div class="chips b-seas">'+SEASONS.map(function(x){return '<button type="button" aria-pressed="false" data-s="'+x+'">'+x+'</button>'}).join('')+'</div></div>';
+  }else{
+    r+='<div class="field"><label>What was done</label><select class="select b-ev">'+typeOptions('','Select…')+'</select></div><div class="field"><label>Hours (optional)</label><input class="input b-hrs" type="number" min="0" step="0.25" inputmode="decimal"></div>';
+  }
+  return r+'<div class="field"><label>Details (optional)</label><input class="input b-det" autocomplete="off"></div></div>';
+}
+function extraPlants(host,btn,onChange,withScope,noun){
+  var ids=[],scopes={};
+  btn.onclick=function(){
+    var id='xp'+(++XSEQ),d=document.createElement('div');d.className='xp';
+    d.innerHTML='<div class="xp-h"><span class="lbl">Another plant</span><button type="button" class="btn sm ghost">Remove</button></div>'+pickerHtml(id,{})+(withScope?'<div class="field" id="'+id+'-scopebox"></div>':'');
+    host.appendChild(d);ids.push(id);
+    if(withScope)scopes[id]=plantScope(id,onChange,false,noun);else wirePicker(id,onChange);
+    $('button',d).onclick=function(){d.remove();delete scopes[id];ids=ids.filter(function(x){return x!==id});if(onChange)onChange()};
+    if(onChange)onChange();
+  };
+  return {vals:function(){var o=[];ids.forEach(function(id){if(withScope)o=o.concat(scopes[id].targets());else o.push(pickerVals(id))});return o},
+    count:function(){var n=0;ids.forEach(function(id){n+=withScope?Math.max(scopes[id].size(),0):1});return n},
+    blank:function(){return ids.some(function(id){if(withScope){var k=scopes[id].ks;return k.mode==='pick'?scopes[id].pickCount()<1:!scopes[id].targets().length}return !pickerVals(id).name})}};
+}
+function extraJobs(host,btn,kind,onChange){
+  btn.onclick=function(){
+    var d=document.createElement('div');d.innerHTML=jobRow(kind);var r=d.firstChild;host.appendChild(r);
+    $('.b-del',r).onclick=function(){r.remove();if(onChange)onChange()};
+    $$('.b-seas button',r).forEach(function(b){b.onclick=function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true')}});
+    if(onChange)onChange();
+  };
+  return {vals:function(){return $$('.jrow',host).map(function(r){return kind==='task'?{task:$('.b-ev',r).value,month:parseInt($('.b-month',r).value,10)||0,repeat:parseInt($('.b-rep',r).value,10)||0,startYear:parseInt($('.b-year',r).value,10)||0,season:$$('.b-seas button',r).filter(function(b){return b.getAttribute('aria-pressed')==='true'}).map(function(b){return b.dataset.s}).join(', '),details:$('.b-det',r).value.trim()}:{event:$('.b-ev',r).value,hours:$('.b-hrs',r).value,details:$('.b-det',r).value.trim()}})},count:function(){return $$('.jrow',host).length}};
+}
+function extraBtns(p,plantsLabel){return '<div id="'+p+'-xp"></div><button type="button" class="vbtn" id="'+p+'-addplant" style="align-self:flex-start;margin-left:-8px">+ Add more plants</button>'}
+function yearJump(d){if(S.planAll)return '';if(d.startYear&&S.planYear!==d.startYear){S.planYear=d.startYear;return 'Saved. Plan now shows '+d.startYear+', the year this task starts.'}return ''}
+/* ---------- plant + scope block (this plant only / all of a genus / choose plants); used for the main plant and each extra plant ---------- */
+function plantScope(P,onChange,editing,noun){noun=noun||'task';
+  var ks={mode:'plant',onlyPlace:false,sel:{},q:'',init:false,groups:[],gi:0,list:[]};
+    function lockFields(on){}
+    function computeGroups(pv){
+      var w=String(pv.name||'').trim().split(/\s+/).filter(Boolean),out=[],seen={};
+      for(var n=w.length;n>=1&&out.length<3;n--){
+        var pre=norm(w.slice(0,n).join(' '));
+        var m=PLANTS.filter(function(p){var x=norm(p.name);return x===pre||x.indexOf(pre+' ')===0});
+        if(m.length<2)continue;
+        var key=m.map(function(p){return p.id}).join(',');if(seen[key])continue;seen[key]=1;
+        out.push({name:w[0].toUpperCase()+(n>1?' '+w.slice(1,n).join(' '):''),list:m});
+      }
+      return out;
+    }
+    function curGroup(){return ks.groups&&ks.groups[ks.gi]}
+    function applyFields(){
+      var pl=$('#'+P+'-place'),no=$('#'+P+'-no'),nm=$('#'+P+'-name');if(!ks.src)return;
+      var sg=$('#'+P+'-sug');if(sg&&ks.mode!=='plant')sg.innerHTML='';
+      if(ks.mode==='group'&&curGroup()){nm.value=curGroup().name;no.value='';pl.value=ks.onlyPlace?ks.src.place:'';lockFields(true)}
+      else if(ks.mode==='pick'){pl.value=ks.src.place;no.value=ks.src.no;nm.value=ks.src.name;lockFields(true)}
+      else{pl.value=ks.src.place;no.value=ks.src.no;nm.value=ks.src.name;lockFields(false)}
+      nm.parentNode.classList.toggle('has',!!nm.value);
+    }
+    function setMode(m,gi){
+      if(ks.mode==='plant'&&m!=='plant'){ks.src=pickerVals(P);ks.groups=computeGroups(ks.src)}
+      ks.gi=gi||0;ks.mode=m;applyFields();drawScope();if(onChange)onChange();
+    }
+    function pickVisible(){
+      var q=norm(ks.q).split(' ').filter(Boolean);
+      if(q.length)return PLANTS.filter(function(p){var h=norm(p.name+' '+p.common+' '+p.jekyll+' '+p.place);return wmatch(h,q)}).sort(function(a,b){return norm(a.name).localeCompare(norm(b.name))||placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).slice(0,120);
+      var seen={},out=ks.list.slice();out.forEach(function(p){seen[p.id]=1});
+      PLANTS.forEach(function(p){if(ks.sel[p.id]&&!seen[p.id])out.push(p)});
+      return out;
+    }
+    function pickCount(){var n=0;for(var k in ks.sel)if(ks.sel[k])n++;return n}
+    function drawPickList(){
+      var box=$('#'+P+'-picklist');if(!box)return;
+      var vis=pickVisible();
+      box.innerHTML=(vis.length?vis.map(function(p){return '<label><input type="checkbox" data-pk="'+p.id+'"'+(ks.sel[p.id]?' checked':'')+'> <span><span class="latin">'+nameHtml(p.name)+'</span> <span class="r-sub">'+esc(p.place)+(p.no?SEP+esc(p.no):'')+'</span></span></label>'}).join(''):'<div class="r-sub" style="padding:10px">'+(ks.q?'No plants match.':'Search above to find plants.')+'</div>');
+      var c=$('#'+P+'-pickcount');if(c)c.textContent=pickCount()+' selected';
+      $$('[data-pk]',box).forEach(function(cb){cb.onchange=function(){if(cb.checked)ks.sel[cb.dataset.pk]=true;else delete ks.sel[cb.dataset.pk];var c2=$('#'+P+'-pickcount');if(c2)c2.textContent=pickCount()+' selected';if(onChange)onChange()}});
+    }
+    function drawScope(){
+      var box=$('#'+P+'-scopebox');if(!box)return;
+      var pv=ks.mode==='plant'?pickerVals(P):(ks.src||{place:'',no:'',name:''});
+      var groups=computeGroups(pv);ks.groups=groups;
+      if(ks.mode==='group'&&!groups[ks.gi]){ks.mode='plant';applyFields()}
+      var gr=ks.mode==='group'?groups[ks.gi]:null;
+      var base=groups.length?groups[0].list:[];
+      ks.list=ks.mode==='group'?(ks.onlyPlace&&pv.place?gr.list.filter(function(p){return p.place===pv.place}):gr.list):base;
+      if(ks.mode==='pick'&&!ks.init){ks.init=true;base.forEach(function(p){ks.sel[p.id]=true})}
+      var h='<span class="lbl">Apply to</span>'+
+        '<label class="rad"><input type="radio" name="'+P+'-scope" value="plant"'+(ks.mode==='plant'?' checked':'')+'> This plant only</label>'+
+        groups.map(function(g,gi){var n=(ks.mode==='group'&&ks.gi===gi)?ks.list.length:g.list.length;return '<label class="rad"><input type="radio" name="'+P+'-scope" value="g'+gi+'"'+(ks.mode==='group'&&ks.gi===gi?' checked':'')+'> <span>All '+esc(g.name)+' ('+n+' plants), as one '+noun+'</span></label>'}).join('')+
+        '<label class="rad"><input type="radio" name="'+P+'-scope" value="pick"'+(ks.mode==='pick'?' checked':'')+'> Choose plants, one '+noun+' each</label>';
+      if(ks.mode==='group'&&pv.place)h+='<label class="rad indent"><input type="checkbox" id="'+P+'-onlyp"'+(ks.onlyPlace?' checked':'')+'> Only in '+esc(pv.place)+'</label>';
+      if(ks.mode==='group')h+='<div class="r-sub" style="margin:4px 0 0 30px">Saved as one '+noun+' named '+esc(gr.name)+', with the number cleared'+(ks.onlyPlace?'':' and the place set to none')+'. It applies to the plants below.</div>'+
+        '<div class="pick" style="max-height:240px">'+ks.list.slice().sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).map(function(p){return '<button type="button" class="sug-row" data-open="'+p.id+'"><span class="num">'+esc(p.no||'–')+'</span><span class="latin">'+nameHtml(p.name)+'</span><span class="idsp"></span>'+placeChip(p.place)+'<span class="olink">Open ›</span></button>'}).join('')+'</div>';
+      if(ks.mode==='pick')h+='<div style="margin:6px 0 0 30px"><input class="input" id="'+P+'-pq" type="search" placeholder="Search plants to tick, e.g. clematis montana" value="'+esc(ks.q)+'" autocomplete="off"></div>'+
+        '<div style="margin-left:30px;display:flex;align-items:center;gap:4px;flex-wrap:wrap"><button type="button" class="vbtn" id="'+P+'-all">Select all</button><button type="button" class="vbtn" id="'+P+'-none">Select none</button><span class="r-sub" id="'+P+'-pickcount" style="margin-left:auto"></span></div><div class="pick" id="'+P+'-picklist"></div>';
+      box.innerHTML=h;
+      $$('input[name="'+P+'-scope"]',box).forEach(function(r){r.onchange=function(){if(r.value==='plant')setMode('plant');else if(r.value==='pick')setMode('pick');else setMode('group',parseInt(r.value.slice(1),10))}});
+      var op=$('#'+P+'-onlyp');if(op)op.onchange=function(){ks.onlyPlace=op.checked;applyFields();drawScope()};
+      $$('[data-open]',box).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
+      var pq=$('#'+P+'-pq');if(pq)pq.addEventListener('input',function(){ks.q=pq.value;drawPickList()});
+      var sa=$('#'+P+'-all'),sn=$('#'+P+'-none');
+      if(sa)sa.onclick=function(){pickVisible().forEach(function(p){ks.sel[p.id]=true});drawPickList()};
+      if(sn)sn.onclick=function(){pickVisible().forEach(function(p){delete ks.sel[p.id]});drawPickList()};
+      drawPickList();
+    }
+  function pickN(){return pickCount()}
+  function targets(){
+    var pv=pickerVals(P);
+    if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){var g=ks.groups[ks.gi];return [{place:(ks.onlyPlace&&pv.place)?pv.place:'',no:'',name:g.name}]}
+    if(ks.mode==='pick')return PLANTS.filter(function(p){return ks.sel[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name}});
+    return (pv.name||pv.place)?[{place:pv.place,no:pv.no,name:pv.name}]:[];
+  }
+  function size(){return ks.mode==='pick'?pickCount():1}
+  /* typing in the plant boxes while a group / pick mode is on returns to "this plant only" with what was typed */
+  ['name','no'].forEach(function(f){var el=$('#'+P+'-'+f);el.addEventListener('input',back)});
+  $('#'+P+'-place').addEventListener('change',back);
+  function back(){if(ks.mode!=='plant'){ks.mode='plant';ks.init=false;ks.sel={};ks.src=null}}
+  wirePicker(P,function(){drawScope();if(onChange)onChange()});drawScope();
+  return {ks:ks,pickCount:pickCount,targets:targets,size:size};
+}
+function openTaskForm(id,preset){if(!needName())return;
+  var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean);
+  push(t?'Edit task':'New task',function(el){
+    el.innerHTML=(t?editedLine(t):'')+'<div class="fsec fs-plant"><div class="fs-h">Plants</div>'+pickerHtml('k',v)+(t?'':'<div class="field" id="k-scopebox"></div>'+extraBtns('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div>'+
+    '<div class="two"><div class="field"><label for="k-task">Task</label><select class="select" id="k-task">'+typeOptions(v.task,'Select…')+'</select></div>'+
+    '<div class="field"><label for="k-month">Month</label><select class="select" id="k-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'"'+((v.month|0)===i+1?' selected':'')+'>'+m+'</option>'}).join('')+'</select></div></div>'+
+    '<div class="two"><div class="field"><label for="k-rep">Repeats</label><select class="select" id="k-rep">'+[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only'],[-1,'Chosen years…']].map(function(r){return '<option value="'+r[0]+'"'+(repOf(v.repeat==null&&!t?{}:v)===r[0]?' selected':'')+'>'+r[1]+'</option>'}).join('')+'</select></div>'+
+    '<div class="field" id="k-yfield"><label for="k-year">First year it applies</label><select class="select" id="k-year"><option value="0"'+(t&&!(t.startYear|0)?' selected':'')+'>Any year</option>'+[-2,-1,0,1,2,3,4,5].map(function(o){var y=CUR+o,sel=t?((t.startYear|0)===y):(S.planYear===y);return '<option value="'+y+'"'+(sel?' selected':'')+'>'+y+'</option>'}).join('')+'</select></div></div>'+
+    '<div class="r-sub" style="margin:-6px 0 12px">Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history.</div>'+
+    '<div class="field" id="k-yrs-wrap" style="display:none"><label for="k-yrs">Years it is due (separate with commas)</label><input class="input" id="k-yrs" inputmode="numeric" placeholder="e.g. 2026, 2028, 2031" value="'+esc(((t&&t.years)||[]).join(', '))+'" autocomplete="off"><div class="r-sub" style="margin-top:4px">Each year in the list is ticked off separately. Years need not be evenly spaced.</div></div>'+
+    '<div class="field"><span class="lbl">Season (choose any)</span><div class="chips" id="k-seas">'+SEASONS.map(function(s){return '<button type="button" aria-pressed="'+(seas.indexOf(s)>=0)+'" data-s="'+s+'">'+s+'</button>'}).join('')+'</div></div>'+
+    '<div class="field"><label for="k-details">Details</label><textarea class="textarea" id="k-details">'+esc(v.details||'')+'</textarea></div>'+
+    "<div id='k-xj'></div><button type='button' class='vbtn' id='k-addjob' style='align-self:flex-start;margin-left:-8px'>+ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t):'')+
+    '<div class="actions"><button class="btn primary" id="k-save">Save</button>'+(t?'<button class="btn danger" id="k-del">Delete</button>':'')+'</div>';
+    var main=plantScope('k',function(){if(window.updSave)window.updSave()},!!t),ks=main.ks,pickCount=main.pickCount;
+    $$('[data-open]',el).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
+    function repToggle(){var sp=$('#k-rep').value==='-1';$('#k-yrs-wrap').style.display=sp?'':'none';$('#k-yfield').style.display=sp?'none':''}
+    $('#k-rep').addEventListener('change',repToggle);repToggle();
+    $$('#k-seas button').forEach(function(b){b.onclick=function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true')}});
+    var kxp=null,kxj=null;
+    function kTotal(){var pl=Math.max(main.size(),0);return (pl+(kxp?kxp.count():0))*(1+(kxj?kxj.count():0))}
+    window.updSave=function(){var b=$('#k-save');if(!b)return;if(t){var e=kxj?kxj.count():0;b.textContent=e?'Save and add '+e+' task'+(e>1?'s':''):'Save';return}var n=kTotal(),x=(kxp&&kxp.count())||(kxj&&kxj.count());b.textContent=x?'Save '+n+' task'+(n>1?'s':''):'Save'};
+    if(!t)kxp=extraPlants($('#k-xp'),$('#k-addplant'),window.updSave,true,'task');
+    kxj=extraJobs($('#k-xj'),$('#k-addjob'),'task',window.updSave);
+    $('#k-save').onclick=async function(){
+      var pv=pickerVals('k'),ss=$$('#k-seas button').filter(function(b){return b.getAttribute('aria-pressed')==='true'}).map(function(b){return b.dataset.s});
+      var d={place:pv.place,no:pv.no,name:pv.name,task:$('#k-task').value,month:parseInt($('#k-month').value,10)||0,season:ss.join(', '),details:$('#k-details').value.trim(),repeat:parseInt($('#k-rep').value,10)||0,startYear:parseInt($('#k-year').value,10)||0,createdAt:(t&&t.createdAt)||Date.now()};
+      if(d.repeat===-1){var yl=($('#k-yrs').value.match(/\d{4}/g)||[]).map(Number).filter(function(y){return y>=1900&&y<=2200});yl=yl.filter(function(y,i){return yl.indexOf(y)===i}).sort();if(!yl.length){toast('Type at least one year, such as 2026');return}d.years=yl;d.startYear=yl[0]}
+      if(t){var mg=migrated(t);if(Object.keys(mg.doneBy).length)d.doneBy=mg.doneBy}
+      if(!d.task){toast('Please choose a task');return}
+      if(!d.name&&!d.place&&!(!t&&ks.mode==='pick')){toast('Please choose a place or a plant');return}
+      if(!t&&((kxp&&kxp.count())||(kxj&&kxj.count()))){
+        var xs=kxp.vals(),xj=kxj.vals();
+        if(kxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
+        if(xj.some(function(j){return !j.task})){toast('Choose a task for each extra task, or remove it');return}
+        var targets;
+        if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){var g2=ks.groups[ks.gi];targets=[{place:(ks.onlyPlace&&pv.place)?pv.place:'',no:'',name:g2.name}]}
+        else if(ks.mode==='pick'){targets=PLANTS.filter(function(p){return ks.sel[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name}});if(!targets.length){toast('Tick at least one plant');return}}
+        else targets=[{place:pv.place,no:pv.no,name:pv.name}];
+        targets=targets.concat(xs);
+        var jobs=[d].concat(xj.map(function(j){return {task:j.task,month:j.month,repeat:j.repeat,season:j.season,details:j.details,startYear:j.startYear,createdAt:d.createdAt}}));
+        var pairs=[],k=0;
+        targets.forEach(function(tg){jobs.forEach(function(j){pairs.push([uid('t'),Object.assign({},j,{place:tg.place,no:tg.no,name:tg.name,createdAt:Date.now()+(k++)})])})});
+        if(await putMany('tasks',pairs)){toast(yearJump(d)||('Added '+pairs.length+' task'+(pairs.length>1?'s':'')));pop()}return;
+      }
+      if(!t&&ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){
+        var gg=ks.groups[ks.gi];d.name=gg.name;d.no='';if(!(ks.onlyPlace&&pv.place))d.place='';
+        if(await put('tasks',uid('t'),d)){toast(yearJump(d)||('Saved for all '+gg.name));pop()}return;
+      }
+      if(!t&&ks.mode==='pick'){
+        var chosen=PLANTS.filter(function(p){return ks.sel[p.id]});
+        if(!chosen.length){toast('Tick at least one plant');return}
+        var n=0;for(var i=0;i<chosen.length;i++){if(await put('tasks',uid('t'),Object.assign({},d,{place:chosen[i].place,no:chosen[i].no,name:chosen[i].name})))n++}
+        toast(yearJump(d)||('Added '+n+' tasks'));pop();return;
+      }
+      var ej=(t&&kxj)?kxj.vals():[];
+      if(ej.some(function(j){return !j.task})){toast('Choose a task for each extra task, or remove it');return}
+      if(!(await put('tasks',id||uid('t'),d)))return;
+      if(ej.length){var ep=ej.map(function(j,i){return [uid('t'),{place:d.place,no:d.no,name:d.name,task:j.task,month:j.month,repeat:j.repeat,season:j.season,details:j.details,startYear:j.startYear,createdAt:Date.now()+i}]});
+        if(!(await putMany('tasks',ep)))return;toast('Saved, and added '+ep.length+' task'+(ep.length>1?'s':''));pop();return}
+      toast(yearJump(d)||'Saved');pop();
+    };
+    if(t)$('#k-del').onclick=function(){var b=$('#k-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('tasks',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
+  });
+}
+function openDone(id){
+  var t=S.tasks[id];if(!t)return;var y=yOf(t);
+  var ms=t.name?PLANTS.filter(function(p){return entryMatches(t,p)}):[],multi=ms.length>1;
+  push('Complete task',function(el){
+    var dv=(y===CUR?todayStr():y+'-'+todayStr().slice(5));
+    el.innerHTML='<div class="evt">'+taskTag(t.task)+' <span class="ypill">'+y+'</span></div>'+(t.name?'<div class="latin">'+nameHtml(t.name)+'</div>':'')+'<div class="r-sub">'+placeChip(t.place)+(t.no?SEP+esc(t.no):'')+'</div><div style="height:14px"></div>'+
+    (multi?'<div class="field"><span class="lbl">Which plants was it done on? ('+ms.length+' match this task)</span><div><button type="button" class="vbtn" id="d-all">Select all</button><button type="button" class="vbtn" id="d-none">Select none</button></div><div class="pick" style="margin-left:0">'+ms.map(function(p){return '<label><input type="checkbox" data-pk="'+p.id+'"> <span><span class="latin">'+nameHtml(p.name)+'</span> <span class="r-sub">'+esc(p.place)+(p.no?SEP+esc(p.no):'')+'</span></span></label>'}).join('')+'</div></div>':'')+
+    datesHtml('d',true)+'<div class="r-sub" id="d-warn" style="display:none;color:var(--warn);background:var(--warn-soft);padding:8px 10px;border-radius:8px;margin:0 0 12px"></div>'+
+    '<div class="field"><label for="d-note">Log details (optional)</label><textarea class="textarea" id="d-note"></textarea></div>'+
+    '<label class="rad"><input type="checkbox" id="d-log" checked> Also add log entries</label><div class="r-sub" id="d-count" style="margin:2px 0 0 30px"></div>'+
+    '<div class="actions"><button class="btn primary" id="d-ok">Mark as done for '+y+'</button></div>';
+    function chosen(){return multi?ms.filter(function(p){var c=$('[data-pk="'+p.id+'"]');return c&&c.checked}):[{place:t.place||'',no:t.no||'',name:t.name||''}]}
+    var okOnce=false;
+    function count(){okOnce=false;$('#d-ok').textContent='Mark as done for '+y;var odd=datesVals('d').filter(function(x){return ydate(x)&&ydate(x)!==y}),w=$('#d-warn');if(odd.length){w.style.display='';w.textContent='Date '+odd.map(function(x){return ydate(x)}).filter(function(v,i,a){return a.indexOf(v)===i}).join(', ')+' is not '+y+'. The task will still be ticked as done for '+y+', and the log entry keeps its own date.'}else w.style.display='none';var n=chosen().length*datesVals('d').length;$('#d-count').textContent=$('#d-log').checked?(n+(n===1?' log entry will be added':' log entries will be added')):'No log entries will be added'}
+    wireDates('d',dv,true,count);
+    $$('[data-pk]',el).forEach(function(c){c.onchange=count});
+    $('#d-log').onchange=count;
+    if(multi){$('#d-all').onclick=function(){$$('[data-pk]',el).forEach(function(c){c.checked=true});count()};$('#d-none').onclick=function(){$$('[data-pk]',el).forEach(function(c){c.checked=false});count()}}
+    count();
+    $('#d-ok').onclick=async function(){
+      var dates=datesVals('d');if(!dates.length)dates=[dv];
+      if($('#d-warn').style.display!=='none'&&!okOnce){okOnce=true;$('#d-ok').textContent='Mark done for '+y+' anyway';return}
+      var who=chosen(),logId='';
+      if($('#d-log').checked){
+        if(!who.length){toast('Tick at least one plant');return}
+        for(var i=0;i<dates.length;i++)for(var j=0;j<who.length;j++){
+          var lid=uid('l');if(!logId)logId=lid;
+          if(!(await put('logs',lid,{date:dates[i],place:who[j].place||'',no:who[j].no||'',name:who[j].name||'',event:t.task,details:$('#d-note').value.trim(),hours:'',taskId:id,createdAt:Date.now()+i*100+j})))return;
+        }
+      }
+      if(await markDone(id,y,dates[0],logId)){toast('Marked as done for '+y);pop()}
+    };
+  });
+}
+function openUndo(id){
+  var t=S.tasks[id];if(!t)return;var y=yOf(t);
+  push('Mark as not done',function(el){
+    el.innerHTML='<div class="evt">'+taskTag(t.task)+'</div>'+(t.name?'<div class="latin">'+nameHtml(t.name)+'</div>':'')+'<p style="margin:14px 0">Mark this task as not done for <b>'+y+'</b>?</p><p class="r-sub">Log entries you already made are kept. Other years are not changed.</p>'+
+    '<div class="actions"><button class="btn primary" id="u-ok">Mark as not done</button><button class="btn" id="u-no">Cancel</button></div>';
+    $('#u-no').onclick=pop;
+    $('#u-ok').onclick=async function(){var n=migrated(S.tasks[id]);delete n.doneBy[y];if(await put('tasks',id,n)){toast('Marked as not done. Log entries are kept.');pop()}};
+  });
+}
+function wireCards(root){
+  $$('[data-popen]',root).forEach(function(b){function go(e){e.stopPropagation();e.preventDefault();openPlant(b.dataset.popen)}b.onclick=go;b.onkeydown=function(e){if(e.key==='Enter'||e.key===' ')go(e)}});
+  $$('[data-task]',root).forEach(function(b){b.onclick=function(){openTaskForm(b.dataset.task)}});
+  $$('[data-log]',root).forEach(function(b){b.onclick=function(){openLogForm(b.dataset.log)}});
+  $$('[data-done]',root).forEach(function(b){b.onclick=function(){var t=S.tasks[b.dataset.done];if(!t)return;if(doneRec(t,yOf(t)))openUndo(b.dataset.done);else openDone(b.dataset.done)}});
+}
+
+/* ---------- task type list ---------- */
+function typeCount(t){var a=0,b=0;Object.keys(S.tasks).forEach(function(i){if(S.tasks[i].task===t)a++});Object.keys(S.logs).forEach(function(i){if(S.logs[i].event===t)b++});return {tasks:a,logs:b}}
+async function saveTypes(list){return put('settings','taskTypes',{list:list})}
+function openTypes(){
+  push('Task list',function(el){
+    var list=types(),h='<p class="r-sub" style="margin:0 0 8px">These are the options in the task and log menus. Existing tasks and log entries keep their label if you delete an option.</p>';
+    h+=list.map(function(t,i){var c=typeCount(t);return '<div class="trow"><span class="tn">'+(taskTag(t)||esc(t))+'</span><span class="tc">'+c.tasks+' tasks · '+c.logs+' logs</span>'+
+      '<button class="btn sm ghost" data-up="'+i+'" aria-label="Move up"'+(i===0?' disabled':'')+'>↑</button><button class="btn sm ghost" data-dn="'+i+'" aria-label="Move down"'+(i===list.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="btn sm" data-ren="'+i+'">Rename</button><button class="btn sm danger" data-rm="'+i+'">Delete</button></div>'}).join('');
+    h+='<div class="sec"><div class="field"><label for="t-new">Add an option</label><input class="input" id="t-new" placeholder="e.g. Feeding 🔵" autocomplete="off"><div class="r-sub" style="margin-top:4px">The coloured emoji (🔵 🟢 🟠 🟤 ⚫ ❗) sets the dot colour. It is not shown in the app.</div></div><button class="btn primary" id="t-add">Add</button></div>';
+    el.innerHTML=h;
+    $$('[data-up]',el).forEach(function(b){b.onclick=function(){var i=+b.dataset.up,l=list.slice();var x=l[i];l[i]=l[i-1];l[i-1]=x;saveTypes(l)}});
+    $$('[data-dn]',el).forEach(function(b){b.onclick=function(){var i=+b.dataset.dn,l=list.slice();var x=l[i];l[i]=l[i+1];l[i+1]=x;saveTypes(l)}});
+    $$('[data-rm]',el).forEach(function(b){b.onclick=function(){
+      if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Confirm';return}
+      if(list.length<2){toast('Keep at least one option');return}
+      var l=list.slice();l.splice(+b.dataset.rm,1);saveTypes(l).then(function(ok){if(ok)toast('Option deleted')})}});
+    $$('[data-ren]',el).forEach(function(b){b.onclick=function(){openRename(+b.dataset.ren)}});
+    $('#t-add').onclick=function(){var v=$('#t-new').value.trim();if(!v)return;if(list.indexOf(v)>=0){toast('That option already exists');return}saveTypes(list.concat([v])).then(function(ok){if(ok){toast('Option added')}})};
+  },true);
+}
+function openRename(i){
+  var list=types(),old=list[i],c=typeCount(old);
+  push('Rename option',function(el){
+    el.innerHTML='<div class="field"><label for="r-name">Name</label><input class="input" id="r-name" value="'+esc(old)+'" autocomplete="off"></div><div class="r-sub">This also updates '+c.tasks+' tasks and '+c.logs+' log entries that use it.</div><div class="actions"><button class="btn primary" id="r-ok">Rename</button></div>';
+    $('#r-ok').onclick=async function(){
+      var nu=$('#r-name').value.trim();if(!nu||nu===old){pop();return}
+      if(list.indexOf(nu)>=0){toast('That option already exists');return}
+      var l=list.slice();l[i]=nu;
+      if(!(await saveTypes(l)))return;
+      var n=0,ids=Object.keys(S.tasks).filter(function(k){return S.tasks[k].task===old}),lids=Object.keys(S.logs).filter(function(k){return S.logs[k].event===old});
+      for(var a=0;a<ids.length;a++){if(await put('tasks',ids[a],Object.assign({},S.tasks[ids[a]],{task:nu})))n++}
+      for(var b=0;b<lids.length;b++){if(await put('logs',lids[b],Object.assign({},S.logs[lids[b]],{event:nu})))n++}
+      toast('Renamed. '+n+' entries updated.');pop();
+    };
+  });
+}
+
+/* ---------- places ---------- */
+function savePlaces(items){return put('settings','places',{items:items})}
+function openPlaces(){
+  push('Places',function(el){
+    var items=placeList().map(function(x){return {name:x.name,color:x.color,map:x.map}});
+    var h='<p class="r-sub" style="margin:0 0 8px">Choose a colour for each place and add a map link. New places appear in every place menu.</p>';
+    h+=items.map(function(x,i){
+      var n=PLANTS.filter(function(p){return p.place===x.name}).length;
+      return '<div class="prow"><div class="prow-h">'+placeChip(x.name)+'<span class="tc r-sub">'+n+' plants</span></div><div class="prow-b">'+
+      '<input type="color" class="clr" data-c="'+i+'" value="'+esc(x.color)+'" aria-label="Colour for '+esc(x.name)+'">'+
+      '<input class="input" data-m="'+i+'" value="'+esc(x.map)+'" placeholder="Map link (optional)" inputmode="url" autocomplete="off" aria-label="Map link for '+esc(x.name)+'">'+
+      '<button class="btn sm ghost" data-up="'+i+'" aria-label="Move up"'+(i===0?' disabled':'')+'>↑</button><button class="btn sm ghost" data-dn="'+i+'" aria-label="Move down"'+(i===items.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="btn sm danger" data-rm="'+i+'"'+(n?' disabled title="Move or delete its plants first"':'')+' aria-label="Delete '+esc(x.name)+'">✕</button></div></div>';
+    }).join('');
+    h+='<div class="sec"><h3>Add a place</h3><div class="field"><label for="pl-name">Name</label><input class="input" id="pl-name" placeholder="e.g. Kitchen garden" autocomplete="off"></div>'+
+      '<div class="field"><label for="pl-color">Colour</label><input type="color" class="clr" id="pl-color" value="#8FB996"></div>'+
+      '<div class="field"><label for="pl-map">Map link (optional)</label><input class="input" id="pl-map" inputmode="url" autocomplete="off"></div><button class="btn primary" id="pl-add">Add place</button></div>';
+    h+='<p class="r-sub" style="margin-top:14px">A place can only be deleted when no plants are in it. To change a name, add the new place and move its plants.</p>';
+    el.innerHTML=h;
+    $$('[data-c]',el).forEach(function(c){c.onchange=function(){var l=items.map(function(x){return Object.assign({},x)});l[+c.dataset.c].color=c.value;savePlaces(l)}});
+    $$('[data-m]',el).forEach(function(c){c.onchange=function(){var l=items.map(function(x){return Object.assign({},x)});l[+c.dataset.m].map=c.value.trim();savePlaces(l)}});
+    $$('[data-up]',el).forEach(function(b){b.onclick=function(){var i=+b.dataset.up,l=items.slice(),x=l[i];l[i]=l[i-1];l[i-1]=x;savePlaces(l)}});
+    $$('[data-dn]',el).forEach(function(b){b.onclick=function(){var i=+b.dataset.dn,l=items.slice(),x=l[i];l[i]=l[i+1];l[i+1]=x;savePlaces(l)}});
+    $$('[data-rm]',el).forEach(function(b){b.onclick=function(){
+      if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Sure?';return}
+      var l=items.slice();l.splice(+b.dataset.rm,1);savePlaces(l).then(function(ok){if(ok)toast('Place deleted')})}});
+    $('#pl-add').onclick=function(){
+      var nm=$('#pl-name').value.trim();if(!nm){toast('Please enter a name');return}
+      if(items.some(function(x){return x.name.toLowerCase()===nm.toLowerCase()})){toast('That place already exists');return}
+      savePlaces(items.concat([{name:nm,color:$('#pl-color').value,map:$('#pl-map').value.trim()}])).then(function(ok){if(ok)toast('Place added')});
+    };
+  },true);
+}
+
+/* ---------- grouping ---------- */
+function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
+  S.keys[tab]=[];
+  var g=cfg[groupBy];
+  if(!g)return '<div class="list">'+items.map(renderItem).join('')+'</div>';
+  var map={},keys=[],has=function(o,k){return Object.prototype.hasOwnProperty.call(o,k)};
+  items.forEach(function(it){var k=g.key(it);if(!has(map,k)){map[k]=[];keys.push(k)}map[k].push(it)});
+  keys.sort(g.cmp);
+  return keys.map(function(k){
+    var ck=tab+':'+groupBy+':'+k;S.keys[tab].push(ck);
+    var open=!S.coll[ck],inner='';
+    if(open){
+      var useSub=subBy&&subBy!=='none'&&subBy!==groupBy&&cfg[subBy]&&!(groupBy==='plant'&&(subBy==='place'||subBy==='genus'));
+      if(g.block&&!useSub)inner=g.block(map[k],k);
+      else if(useSub){
+        var sg=cfg[subBy],sm={},sk=[];
+        map[k].forEach(function(it){var kk=sg.key(it);if(!has(sm,kk)){sm[kk]=[];sk.push(kk)}sm[kk].push(it)});
+        sk.sort(sg.cmp);
+        inner=sk.map(function(kk){var sck=ck+':sub:'+kk;S.keys[tab].push(sck);var so=!S.coll[sck];return '<button class="sh gh" data-g="'+esc(sck)+'" aria-expanded="'+so+'"><span class="gl"><span class="chev"></span>'+sg.label(kk)+'</span><span class="cnt">'+sm[kk].length+'</span></button>'+(so?'<div class="list subl">'+sm[kk].map(g.subRender||renderItem).join('')+'</div>':'')}).join('');
+      }else inner='<div class="list">'+map[k].map(renderItem).join('')+'</div>';
+    }
+    return '<div class="grp g-'+groupBy+(g.cls?' '+g.cls:'')+'"><div class="hdr gh" role="button" tabindex="0" data-g="'+esc(ck)+'" aria-expanded="'+open+'"><span class="gl"><span class="chev"></span>'+g.label(k)+'</span>'+(g.badge?g.badge(k):'')+'<span class="cnt">'+map[k].length+'</span></div>'+inner+'</div>';
+  }).join('');
+}
+function plantGroups(recOf,entry){
+  var PK={};
+  function pk(id){var l=recOf(id),k=(l.place||'')+'|'+(l.no||'')+'|'+norm(l.name);if(!PK[k])PK[k]={place:l.place||'',no:l.no||'',name:l.name||''};return k}
+  function pcmp(a,b){var x=PK[a],y=PK[b];return placeIdx(x.place)-placeIdx(y.place)||noKey(x.no)-noKey(y.no)||norm(x.name).localeCompare(norm(y.name))}
+  function head(k){var x=PK[k];return (x.no?'<span class="num">'+esc(x.no)+'</span>':'')+(x.name?'<span class="latin">'+nameHtml(x.name)+'</span>':'<span class="r-sub">Whole place</span>')+openBtn(x.place,x.no,x.name)+placeChip(x.place)}
+  return {
+    plant:{cls:'plantg',key:pk,label:head,cmp:pcmp,block:function(items){return '<div class="list">'+items.map(entry).join('')+'</div>'}},
+    genusBlock:function(items){var m={},ks=[];items.forEach(function(id){var k=pk(id);if(!m[k]){m[k]=[];ks.push(k)}m[k].push(id)});ks.sort(pcmp);
+      return ks.map(function(k){return '<div class="pb"><div class="pb-h">'+head(k)+'</div><div class="list">'+m[k].map(entry).join('')+'</div></div>'}).join('')}
+  };
+}
+var SUBOPTS={plants:[['place','Place'],['genus','Genus']],plan:[['task','Task'],['month','Month'],['place','Place'],['genus','Genus']],log:[['event','Task'],['month','Month'],['place','Place'],['genus','Genus']]};
+function groupBar(tab,groupBy,options,extra,left){
+  var cur=S[tab+'Sub'],h='<div class="vbar"><select class="select" id="gb-'+tab+'" aria-label="Group by">'+options.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===groupBy?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>';
+  if(SUBOPTS[tab]&&groupBy!=='none')
+    h+='<select class="select" id="sb-'+tab+'" aria-label="Then group by"><option value="none">Then: no sub-groups</option>'+SUBOPTS[tab].filter(function(o){return o[0]!==groupBy&&!(groupBy==='plant'&&(o[0]==='place'||o[0]==='genus'))}).map(function(o){return '<option value="'+o[0]+'"'+(o[0]===cur?' selected':'')+'>Then by '+o[1].toLowerCase()+'</option>'}).join('')+'</select>';
+  h+=left?'<span class="vrow">'+left+'<span class="vend">'+(extra||''):'<span class="vend">'+(extra||'');
+  if(groupBy!=='none'){var ks=S.keys[tab]||[],allClosed=ks.length>0&&ks.every(function(k){return S.coll[k]});h+='<button class="vbtn" data-ec="'+(allClosed?'expand':'collapse')+'" data-tab="'+tab+'">'+(allClosed?'▾ Expand all':'▸ Collapse all')+'</button>'}
+  return h+(left?'</span></span>':'</span>')+'</div>';
+}
+function wireGroups(tab,setGroup){
+  var sel=$('#gb-'+tab);if(sel)sel.onchange=function(e){setGroup(e.target.value);renderAll()};
+  var sb=$('#sb-'+tab);if(sb)sb.onchange=function(e){S[tab+'Sub']=e.target.value;renderAll()};
+  var lo=$('#logOrder');if(lo)lo.onclick=function(){S.logAsc=!S.logAsc;renderAll()};
+  $$('.gh').forEach(function(b){function tg(){S.coll[b.dataset.g]=!S.coll[b.dataset.g];renderAll()}b.onclick=tg;b.onkeydown=function(e){if(e.target===b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tg()}}});
+  $$('a[data-stop]').forEach(function(a){a.onclick=function(e){e.stopPropagation()}});
+  $$('[data-ec]').forEach(function(b){b.onclick=function(){if(b.dataset.ec==='collapse')(S.keys[b.dataset.tab]||[]).forEach(function(k){S.coll[k]=true});else Object.keys(S.coll).forEach(function(k){if(k.indexOf(b.dataset.tab+':')===0)delete S.coll[k]});renderAll()}});
+}
+
+/* ---------- tabs ---------- */
+var ICON={
+ plants:'<svg viewBox="0 0 24 24"><path d="M12 21V11"/><path d="M12 11C12 7 9 4.5 4.5 4.5 4.5 9 7 11 12 11Z"/><path d="M12 14c0-3 2.2-5 7-5 0 4-2.4 5-7 5Z"/></svg>',
+ plan:'<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M9 15l2 2 4-4"/></svg>',
+ log:'<svg viewBox="0 0 24 24"><path d="M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M10 8h5M10 12h5M10 16h3"/></svg>',
+ more:'<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>'};
+var TABS=[['plants','Plants'],['plan','Plan'],['log','Log'],['more','More']];
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'"'+(S.tab===t[0]?' aria-current="page"':'')+'>'+ICON[t[0]]+'<span>'+t[1]+'</span></button>'}).join('');
+  $$('#tabs button').forEach(function(b){b.onclick=function(){if(S.tab!==b.dataset.tab){S.tab=b.dataset.tab;S.plimit=100;S.logLimit=60;renderAll();window.scrollTo(0,0)}}});
+}
+function genusLabel(k){return k==='(no plant)'?'No plant':'<span class="latin"><i>'+esc(k.charAt(0).toUpperCase()+k.slice(1))+'</i></span>'}
+function placeOptions(sel,all){return '<option value="">'+all+'</option>'+places().map(function(x){return '<option'+(x===sel?' selected':'')+'>'+esc(x)+'</option>'}).join('')}
+function banners(){
+  var h='';
+  if(!S.useDb)h+='<div class="banner">The database could not be reached. Data is stored on this device only.</div>';
+  if(ROLE==='view'&&db&&db.call)h+='<div class="banner">Read-only. You can search and read. To change things, open More and tap Unlock editing.</div>';
+  if(S.slow)h+='<div class="banner">The database is slow to respond. What you see may be out of date.</div>';
+  return h;
+}
+
+/* plants tab */
+function viewPlants(){
+  var q=norm(S.pq).split(' ').filter(Boolean),list=PLANTS.filter(function(p){
+    if(S.pplace&&p.place!==S.pplace)return false;
+    if(!q.length)return true;
+    var h=norm(p.name+' '+p.common+' '+p.jekyll+' '+p.tag+' '+p.notes+' '+p.place+' '+p.no);
+    return wmatch(h,q);
+  });
+  list.sort(S.pgroup==='genus'?function(a,b){return norm(a.name).localeCompare(norm(b.name))||placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}
+    :function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)||norm(a.name).localeCompare(norm(b.name))});
+  buildIndex();
+  var grouped=S.pgroup!=='none';
+  var shown=grouped?list:list.slice(0,S.plimit);
+  var cfg={
+    place:{key:function(p){return p.place||'(no place)'},label:function(k){return placeChip(k)+mapBtn(k)},cmp:function(a,b){return placeIdx(a)-placeIdx(b)}},
+    genus:{key:function(p){return (p.name.split(' ')[0]||'(none)').toLowerCase()},label:function(k){return '<span class="latin"><i>'+esc(k.charAt(0).toUpperCase()+k.slice(1))+'</i></span>'},cmp:function(a,b){return a<b?-1:a>b?1:0}}
+  };
+  function row(p){
+    var nt=S.plabels?(IDX.tasks[p.id]||[]).filter(function(i){return isOpen(S.tasks[i],CUR)}).length:0,nl=S.plabels?(IDX.logs[p.id]||[]).length:0,dup=NAMECOUNT[norm(p.name)]-1;
+    return '<div class="row" role="button" tabindex="0" data-id="'+p.id+'"><span class="num">'+esc(p.no||'–')+'</span><span class="r-main"><span class="latin">'+nameHtml(p.name)+'</span>'+
+      ((p.common||p.notes||nt||nl||dup>0)?'<span class="r-line"><span class="r-sub rc">'+(p.common?esc(p.common):'')+'</span><span class="dots">'+(p.notes?'<span class="nt" title="Has gardening notes. Open to read."><svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1.5 1h8v10h-8z M3 4h5 M3 6.3h5 M3 8.6h3" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>':'')+(nt?'<span class="pill a">'+nt+' to do</span>':'')+(nl?'<span class="pill l">'+nl+' logged</span>':'')+(dup>0?'<span class="pill">in '+dup+' more</span>':'')+'</span></span>':'')+
+      '</span>'+((S.pgroup==='place'||S.plantsSub==='place')?'':'<span class="r-side">'+placeChip(p.place)+mapBtn(p.place)+'</span>')+'</div>';
+  }
+  var body=grouped?groupedHtml('plants',S.pgroup,shown,cfg,row,S.plantsSub):'<div class="list">'+shown.map(row).join('')+'</div>';
+  return '<div class="top"><h1><span class="ht">'+hIcon('home')+'Hestercombe Plants</span><span class="right"><button class="ib" id="editPlaces" aria-label="Places" title="Places">'+IB.pin+'</button></span></h1><div class="bar"><input class="input grow" id="pq" type="search" placeholder="Search plants" value="'+esc(S.pq)+'" autocomplete="off"><select class="select half" id="pplace" aria-label="Place">'+placeOptions(S.pplace,'All places')+'</select>'+'</div>'+groupBar('plants',S.pgroup,[['place','Group by place'],['genus','Group by genus'],['none','No grouping']],'<label class="ckl"><input type="checkbox" id="plabels"'+(S.plabels?' checked':'')+'> Task tags</label>')+'</div>'+
+    '<div class="wrap">'+banners()+(BASE_STATE==='ok'?'':'<div class="banner">'+(BASE_STATE==='loading'?'Loading the plant list…':BASE_STATE==='missing'?'The plant list was not found. Add the “base” tab to the Google Sheet (see the setup notes).':'The plant list needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.')+'</div>')+'<div class="meta"><span>'+list.length+' of '+PLANTS.length+' plants</span><span>“in N more” means the same plant grows in other places</span></div>'+(list.length?body:'<div class="empty">No plants match</div>')+(!grouped&&list.length>shown.length?'<button class="btn more" id="morePlants">Show more ('+(list.length-shown.length)+' left)</button>':'')+'</div><button class="btn leaf fab" id="addPlant">+ New plant</button>';
+}
+function wirePlants(){
+  var q=$('#pq');suggestWire(q,'pq',function(v){S.pq=v;S.plimit=100;renderAll()});q.addEventListener('input',function(){S.pq=q.value;S.plimit=100;var pos=q.selectionStart;renderAll();var n=$('#pq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
+  $('#pplace').onchange=function(e){S.pplace=e.target.value;S.plimit=100;renderAll()};
+  wireGroups('plants',function(v){S.pgroup=v});
+  var pl=$('#plabels');if(pl)pl.onchange=function(){S.plabels=pl.checked;try{localStorage.setItem('hpl_plabels',pl.checked?'1':'0')}catch(e){}renderAll()};
+  $$('.row[data-id]').forEach(function(b){b.onclick=function(){openPlant(b.dataset.id)};b.onkeydown=function(e){if(e.target===b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPlant(b.dataset.id)}}});
+  var m=$('#morePlants');if(m)m.onclick=function(){S.plimit+=150;renderAll()};
+  $('#editPlaces').onclick=openPlaces;
+  $('#addPlant').onclick=function(){openPlantForm(null,{place:S.pplace||places()[0]})};
+}
+
+/* plan tab */
+function viewPlan(){
+  var q=norm(S.planQ).split(' ').filter(Boolean),ids=Object.keys(S.tasks).filter(function(id){
+    var t=S.tasks[id];
+    var Y=yOf(t),rec=doneRec(t,Y);
+    if(!S.planAll&&!inYear(t,Y))return false;
+    if(S.planStatus==='open'&&rec)return false;
+    if(S.planStatus==='done'&&!rec)return false;
+    if(S.planMonth!==''&&String(t.month|0)!==S.planMonth)return false;
+    if(S.planPlace&&t.place!==S.planPlace)return false;
+    if(S.planTask&&t.task!==S.planTask)return false;
+    if(q.length){var h=norm(t.name+' '+t.details+' '+t.place+' '+t.task);if(!q.every(function(x){return h.indexOf(x)>=0}))return false}
+    return true;
+  });
+  ids.sort(function(a,b){var x=S.tasks[a],y=S.tasks[b];return (x.month|0)-(y.month|0)||placeIdx(x.place)-placeIdx(y.place)||noKey(x.no)-noKey(y.no)});
+  var cur=new Date().getMonth()+1;
+  var PG=plantGroups(function(id){return S.tasks[id]},function(id){return taskCard(id,'c')});
+  var cfg={
+    plant:PG.plant,
+    month:{key:function(id){return String(S.tasks[id].month|0)},label:function(k){return +k?MONFULL[+k]:'Not scheduled'},cmp:function(a,b){return +a-+b},
+      badge:function(k){return (+k===cur?'<span class="tag-now">This month</span>':'')+(+k===0?'<span class="tag-warn">Needs a month</span>':'')}},
+    task:{key:function(id){return S.tasks[id].task||'(none)'},label:function(k){return taskTag(k)||esc(k)},cmp:function(a,b){return typeIdx(a)-typeIdx(b)}},
+    place:{key:function(id){return S.tasks[id].place||'(no place)'},label:placeChip,cmp:function(a,b){return placeIdx(a)-placeIdx(b)}},
+    genus:{key:function(id){return ((S.tasks[id].name||'').split(' ')[0]||'(no plant)').toLowerCase()},label:genusLabel,cmp:function(a,b){return a<b?-1:a>b?1:0},block:PG.genusBlock}
+  };
+  var Y=S.planYear,tk=Object.keys(S.tasks),oy=function(i){var t=S.tasks[i];return isOpen(t,yOf(t))},open=tk.filter(oy).length,thisM=tk.filter(function(i){return oy(i)&&(S.tasks[i].month|0)===cur}).length,un=tk.filter(function(i){return oy(i)&&!S.tasks[i].month}).length;
+  var segHtml='<div class="seg sm" role="group" aria-label="Status"><button data-st="open" aria-pressed="'+(S.planStatus==='open')+'">Open</button><button data-st="done" aria-pressed="'+(S.planStatus==='done')+'">Done</button><button data-st="all" aria-pressed="'+(S.planStatus==='all')+'">All</button></div>';
+  var body=S.loaded.tasks?(ids.length?groupedHtml('plan',S.planGroup,ids,cfg,function(id){return taskCard(id,false)},S.planSub):'<div class="empty">No matching tasks</div>'):'<div class="empty">Loading…</div>';
+  return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right">'+open+' open <button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><button class="yv" id="yAll" aria-pressed="'+S.planAll+'"><b>'+(S.planAll?'All years':Y)+'</b><span>'+(S.planAll?'Tap to show one year':(Y===CUR?'This year · ':'')+'Tap for all years')+'</span></button><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span><select class="select half" id="qp" aria-label="Place">'+placeOptions(S.planPlace,'All places')+'</select><select class="select half" id="qt" aria-label="Task">'+typeOptions(S.planTask,'All tasks')+'</select></div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']])+'</div>'+
+   '<div class="wrap">'+banners()+(S.loaded.tasks?'<div class="meta"><span>This month '+thisM+' · Not scheduled '+un+'</span><span>Showing '+(S.planAll?'all years':Y)+' · tick the circle to complete</span></div>':'')+body+'</div><button class="btn task fab" id="addTask">+ New task</button>';
+}
+function wirePlan(){
+  var q=$('#qq');suggestWire(q,'qq',function(v){S.planQ=v;renderAll()});q.addEventListener('input',function(){S.planQ=q.value;var pos=q.selectionStart;renderAll();var n=$('#qq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
+  $('#yPrev').onclick=function(){S.planAll=false;S.planYear--;renderAll()};
+  $('#yNext').onclick=function(){S.planAll=false;S.planYear++;renderAll()};
+  $('#yAll').onclick=function(){S.planAll=!S.planAll;renderAll()};
+  $('#qp').onchange=function(e){S.planPlace=e.target.value;renderAll()};
+  $('#qt').onchange=function(e){S.planTask=e.target.value;renderAll()};
+  $$('[data-st]').forEach(function(b){b.onclick=function(){S.planStatus=b.dataset.st;renderAll()}});
+  wireGroups('plan',function(v){S.planGroup=v});
+  $('#editTypes').onclick=openTypes;
+  $('#addTask').onclick=function(){openTaskForm(null,{month:new Date().getMonth()+1})};
+  wireCards($('#app'));
+}
+
+/* log tab */
+function viewLog(){
+  var q=norm(S.logQ).split(' ').filter(Boolean),ids=sortLogs(Object.keys(S.logs)).filter(function(id){
+    var l=S.logs[id];
+    if(S.logEvent&&l.event!==S.logEvent)return false;
+    if(S.logPlace&&l.place!==S.logPlace)return false;
+    var linked=!!(l.taskId&&S.tasks[l.taskId]);
+    if(S.logLink==='planned'&&!linked)return false;
+    if(S.logLink==='unplanned'&&linked)return false;
+    if(q.length){var h=norm(l.name+' '+l.details+' '+l.place+' '+l.event);if(!q.every(function(x){return h.indexOf(x)>=0}))return false}
+    return true;
+  });
+  var grouped=S.logGroup!=='none';
+  var shown=grouped?ids:ids.slice(0,S.logLimit);
+  var PG=plantGroups(function(id){return S.logs[id]},logEntry);
+  var cfg={
+    plant:PG.plant,
+    genus:{key:function(id){return ((S.logs[id].name||'').split(' ')[0]||'(no plant)').toLowerCase()},label:genusLabel,cmp:function(a,b){return a<b?-1:a>b?1:0},block:PG.genusBlock},
+    month:{key:function(id){return (S.logs[id].date||'').slice(0,7)||'none'},label:function(k){if(k==='none')return 'No date';var p=k.split('-');return MONFULL[parseInt(p[1],10)]+' '+p[0]},cmp:function(a,b){return S.logAsc?(a<b?-1:a>b?1:0):(a<b?1:a>b?-1:0)}},
+    event:{key:function(id){return S.logs[id].event||'(none)'},label:function(k){return taskTag(k)||esc(k)},cmp:function(a,b){return typeIdx(a)-typeIdx(b)}},
+    place:{key:function(id){return S.logs[id].place||'(no place)'},label:placeChip,cmp:function(a,b){return placeIdx(a)-placeIdx(b)}}
+  };
+  var hrs=ids.reduce(function(s,i){return s+(parseFloat(S.logs[i].hours)||0)},0);
+  var body=S.loaded.logs?(ids.length?groupedHtml('log',S.logGroup,shown,cfg,function(id){return logCard(id,false)},S.logSub):'<div class="empty">No matching log entries</div>'):'<div class="empty">Loading…</div>';
+  return '<div class="top static"><h1><span class="ht">'+hIcon('log')+'Log</span><span class="right">'+Object.keys(S.logs).length+' entries</span></h1><div class="bar"><input class="input grow" id="lq" type="search" placeholder="Search plant or task" value="'+esc(S.logQ)+'" autocomplete="off"><div class="seg sm" role="group" aria-label="Planned or extra"><button data-ll="planned" aria-pressed="'+(S.logLink==='planned')+'">Planned</button><button data-ll="unplanned" aria-pressed="'+(S.logLink==='unplanned')+'">Extra</button><button data-ll="all" aria-pressed="'+(S.logLink==='all')+'">All</button></div><span class="brk"></span><select class="select half" id="lp" aria-label="Place">'+placeOptions(S.logPlace,'All places')+'</select><select class="select half" id="le" aria-label="Task">'+typeOptions(S.logEvent,'All tasks')+'</select>'+'</div>'+groupBar('log',S.logGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['event','Group by task'],['place','Group by place'],['none','No grouping']],'<button class="vbtn" id="logOrder">'+(S.logAsc?'↓ Newest first':'↑ Oldest first')+'</button>')+'</div>'+
+   '<div class="wrap">'+banners()+(S.loaded.logs?'<div class="meta"><span>Showing '+ids.length+(hrs?' · '+hrs+' hours':'')+'</span></div>':'')+body+(!grouped&&ids.length>shown.length?'<button class="btn more" id="moreLogs">Show more</button>':'')+'</div><button class="btn logc fab" id="addLog">+ New log</button>';
+}
+function wireLog(){
+  var q=$('#lq');suggestWire(q,'lq',function(v){S.logQ=v;S.logLimit=60;renderAll()});q.addEventListener('input',function(){S.logQ=q.value;S.logLimit=60;var pos=q.selectionStart;renderAll();var n=$('#lq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
+  $('#le').onchange=function(e){S.logEvent=e.target.value;renderAll()};
+  $('#lp').onchange=function(e){S.logPlace=e.target.value;renderAll()};
+  $$('[data-ll]').forEach(function(b){b.onclick=function(){S.logLink=b.dataset.ll;renderAll()}});
+  wireGroups('log',function(v){S.logGroup=v});
+  $$('[data-popen]').forEach(function(b){function go(e){e.stopPropagation();e.preventDefault();openPlant(b.dataset.popen)}b.onclick=go;b.onkeydown=function(e){if(e.key==='Enter'||e.key===' ')go(e)}});
+  var m=$('#moreLogs');if(m)m.onclick=function(){S.logLimit+=60;renderAll()};
+  $('#addLog').onclick=function(){openLogForm(null,{})};
+  wireCards($('#app'));
+}
+
+/* more tab */
+function csv(rows){return '﻿'+rows.map(function(r){return r.map(function(c){c=String(c==null?'':c);return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(',')}).join('\r\n')}
+function exportFile(kind){
+  var rows,name;
+  if(kind==='plants'){rows=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag]}));name='master-plant-plan.csv'}
+  else if(kind==='tasks'){rows=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','Starting year','Done in (year: date)']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i];return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(migrated(t).doneBy).sort().map(function(y){return y+': '+(migrated(t).doneBy[y].date||'done')}).join('; ')]}));name='garden-planner.csv'}
+  else{rows=[['Garden LOG date','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent']].concat(sortLogs(Object.keys(S.logs)).map(function(i){var l=S.logs[i];return [l.date,l.place,l.no,l.name,l.event,l.details,l.hours]}));name='garden-logger.csv'}
+  if(!downloads){toast('Export is not available in this view');return}
+  downloads.save({filename:name,data:csv(rows)}).then(function(){toast('Exported')}).catch(function(e){if(!e||e.code!=='cancelled')toast('Export did not complete')});
+}
+function exportXlsx(btn){
+  if(!db||!db.call){toast('Excel download needs the Google Sheet version');return}
+  var T=sortLogs(Object.keys(S.logs));
+  function eb(r){return [r&&r.editedBy||'',r&&r.editedAt?new Date(r.editedAt).toISOString().slice(0,10):'']}
+  var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Last edited by','Last edited']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(eb(S.edits[p.id]))}));
+  var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Last edited by','Last edited']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i],d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; ')].concat(eb(t))}));
+  var logger=[['Garden LOG date','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat(T.map(function(i){var l=S.logs[i];return [l.date,l.place,l.no,l.name,l.event,l.details,l.hours].concat(eb(l))}));
+  var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i],k=[l.place,l.no,l.name].join('|');if(!by[k]){by[k]=[l.place,l.no,l.name,[]];ord.push(k)}by[k][3].push((l.date||'')+' - '+(l.event||'')+(l.details?'| '+l.details:''))});
+  var hist=[['Place','No.','BOTANICAL NAME','LOG Record']].concat(ord.map(function(k){var b=by[k];return [b[0],b[1],b[2],b[3].join('\n')]}));
+  btn.disabled=true;var old=btn.textContent;btn.textContent='Preparing…';
+  db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:4},{name:'Log history',rows:hist,split:3}]}).then(function(j){
+    if(!j||!j.b64)throw new Error(j&&j.error||'no file');
+    return downloads.save({filename:'Hestercombe-garden-plants.xlsx',b64:j.b64});
+  }).then(function(){toast('Excel file downloaded')}).catch(function(e){toast('Excel export failed: '+(e&&e.message||'try again'))}).then(function(){btn.disabled=false;btn.textContent=old});
+}
+function viewMore(){
+  var op=Object.keys(S.tasks).filter(function(i){return isOpen(S.tasks[i],CUR)}).length;
+  return '<div class="top"><h1><span>More</span></h1></div><div class="wrap">'+banners()+
+  '<div class="stat"><div><b>'+PLANTS.length+'</b><span>plants</span></div><div><b>'+op+'</b><span>open tasks this year</span></div><div><b>'+Object.keys(S.logs).length+'</b><span>log entries</span></div></div>'+
+  (db&&db.unlock?'<div class="sec"><h3>Access</h3><p class="r-sub" style="margin:0 0 8px">'+(ROLE==='view'?'You are in read-only mode. You can search and read everything.':'Editing is unlocked on this device.')+'</p>'+(ROLE==='view'?'<div class="actions"><button class="btn primary" id="unlockEdit">Unlock editing</button></div>':'<p class="r-sub" style="margin:0 0 8px">Your name on edits: <b>'+(EDITOR?esc(EDITOR):'not set')+'</b></p><div class="actions"><button class="btn" id="setName">'+(EDITOR?'Change name':'Set your name')+'</button></div>')+'</div>':'')+
+  '<div class="sec"><h3>Settings</h3><div class="actions"><button class="btn ibt" id="openPlaces">'+IB.pin+'Edit places</button><button class="btn ibt" id="openTypes">'+IB.list+'Edit task list</button></div></div>'+
+  '<div class="sec"><h3>Places and maps</h3>'+places().map(function(p){return '<div class="placerow">'+placeChip(p)+(mapOf(p)?'<a href="'+esc(mapOf(p))+'" target="_blank" rel="noopener">Open map</a>':'<span class="r-sub">No map yet</span>')+'</div>'}).join('')+'</div>'+
+  '<div class="sec"><h3>Export</h3><div class="actions">'+(db&&db.call?'<button class="btn primary" id="expXlsx">Download Excel (.xlsx)</button>':'')+'<button class="btn" data-exp="plants">Plants</button><button class="btn" data-exp="tasks">Plan</button><button class="btn" data-exp="logs">Log</button></div></div>'+
+  '<div class="sec help"><h3>How it works</h3>'+
+  '<p><b>Plants</b>: search and browse every plant. Open one to see its details, planned tasks and log history.</p>'+
+  '<p><b>Plan</b>: tasks to do, by year. Tick the circle when a task is done for the year shown at the top.</p>'+
+  '<p><b>Log</b>: a record of work done, with date, task and hours.</p>'+
+  '<p><b>Group tasks</b> <span class="gname latin">FUCHSIA<span class="gall">all</span></span>: one task for many plants: a whole genus (ROSA) or one kind everywhere (FUCHSIA \'Riccartonii\').</p>'+
+  '<details><summary>More detail</summary>'+
+  '<p><b>Searching</b>: type the start of any word in the botanical, common or Jekyll name, or a place. Tap × to clear. Next to the search box, Plan has Open / Done / All and Log has Planned / Extra / All. Below are the place and task filters, then the grouping menus. On the right, Expand all / Collapse all opens or closes every group, and in Log, Newest / Oldest first beside it flips the order. “Task tags” on the Plants page shows or hides each plant’s open tasks and log count. Long place names are shortened on cards; open the entry to see the full name.</p>'+
+  '<p><b>Adding tasks and logs</b>: type a botanical name and pick from the list. Then choose “This plant only”, “All … as one task” for a whole genus (for example all ROSA), or “Choose plants” to tick several. “+ Add more plants” and “+ Add another task” save every combination, for example 2 plants × 2 tasks = 4 entries. A log can cover several dates at once.</p>'+
+  '<p><b>Group tasks in detail</b>: pick a plant, then choose one of two group options. “All ROSA” covers the whole genus: every rose, whatever the species or variety. “All FUCHSIA \'Riccartonii\'” covers only plants with exactly that name (the same species or variety), in every part of the garden. The genus is saved in capitals and the number is left blank. Tick “Only in [place]” to limit it to the place you picked. A group task has a small dashed “all” label after its name, lists the plants it covers, and shows on each of those plants’ pages. New plants with a matching name are included automatically. Use “Choose plants, one task each” instead if each plant needs its own tick.</p>'+
+  '<p><b>Repeats</b>: a task can repeat every year, every few years, only once, or in chosen years. Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history. Use the year bar or “All years” in Plan to look back or ahead.</p>'+
+  '<p><b>Plan and Log together</b>: when logging, pick the matching task under “Related planned task” and it is ticked off for that year; the log entry then shows “✓ From plan”. Work that was not planned is fine: it counts as extra work (use “Extra” next to the Log search to list it), and tick “Also add it to the Plan” (in a new or edited log) to record it in the Plan as a finished task.</p>'+
+  '<p><b>Editing</b>: with the view code you can search and read; tap “Unlock editing” above and enter the edit code to make changes. Before the first edit the app asks for your name (change it any time under More > Access), and each change shows “Last edited by …”.</p>'+
+  '<p><b>Offline</b>: the app works without signal. Changes wait on the phone (see the status at the top) and are sent when you are back online.</p>'+
+  '<p><b>Privacy</b>: the plant list, plans and logs are stored in the team’s Google Sheet and only load after a valid code. They are then kept on the phone so the app works offline.</p>'+
+  '<p><b>Naming</b>: plants found outside the original plan are numbered N plus a number, for example N27. If one replaced an existing position, use that position number with an N, for example N5.</p>'+
+  '<p><b>Excel</b>: “Download Excel” saves Plants, Plan and Log as separate sheets.</p>'+
+  '</details>'+
+  '</div></div>';
+}
+function wireMore(){
+  $$('[data-exp]').forEach(function(b){b.onclick=function(){exportFile(b.dataset.exp)}});
+  $('#openTypes').onclick=openTypes;
+  $('#openPlaces').onclick=openPlaces;
+  var sn2=$('#setName');if(sn2)sn2.onclick=function(){var n=window.prompt('Your name',EDITOR||'');if(n!==null&&n.trim()){setEditor(n);renderAll()}};
+  var ue=$('#unlockEdit');if(ue)ue.onclick=function(){db.unlock().then(renderAll)};
+  var xb=$('#expXlsx');if(xb)xb.onclick=function(){exportXlsx(xb)};
+}
+
+/* ---------- render ---------- */
+function renderAll(){
+  applyRole();drawTabs();
+  var app=$('#app');
+  if(S.tab==='plants'){app.innerHTML=viewPlants();wirePlants()}
+  else if(S.tab==='plan'){app.innerHTML=viewPlan();wirePlan()}
+  else if(S.tab==='log'){app.innerHTML=viewLog();wireLog()}
+  else{app.innerHTML=viewMore();wireMore()}
+  refreshSheet();
+}
+
+/* ---------- boot ---------- */
+buildPlants();renderAll();
+(async function(){
+  try{
+    if(window.claude&&window.claude.use){
+      db=await window.claude.use('db');
+      downloads=await window.claude.use('downloads');
+    }else if(HPL_API_URL){db=sheetDb(HPL_API_URL);downloads=fileDownloads()}
+    else downloads=fileDownloads();
+  }catch(e){db=null}
+  if(db){
+    S.useDb=true;
+    sub('plantEdits');sub('tasks');sub('logs');sub('settings');
+  }else{
+    S.edits=loadLocal('edits');S.tasks=loadLocal('tasks');S.logs=loadLocal('logs');S.settings=loadLocal('settings');
+    S.loaded={edits:true,tasks:true,logs:true,settings:true};buildPlants();
+  }
+  renderAll();
+})();
+})();
+</script>
+</body></html>
