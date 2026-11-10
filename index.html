@@ -37,7 +37,14 @@ button{cursor:pointer}
 .latin i{font-style:italic}
 
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
-.top.static{position:static}
+.top{transition:transform .2s ease}
+body.hdr-hide .top{transform:translateY(calc(-100% - 20px))}
+body.hdr-compact .top{padding:8px 0 8px}body.hdr-compact .top h1{font-size:20px;margin-bottom:8px}body.hdr-compact .top .hic{width:28px;height:28px;border-radius:8px}body.hdr-compact .top .hic svg{width:18px;height:18px}
+body.hdr-compact .yearbar{padding:3px 6px;margin-bottom:8px}body.hdr-compact .yearbar button{width:38px;height:38px;font-size:22px}body.hdr-compact .yearbar .yv b{font-size:22px}body.hdr-compact .yearbar .yv span{display:none}
+#mini{position:fixed;left:0;right:0;top:0;z-index:21;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 6px) max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px));display:none;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--ink);border-left:0;border-right:0;border-top:0;width:100%;text-align:left}
+#mini .hic{width:26px;height:26px;border-radius:7px}#mini .hic svg{width:16px;height:16px}#mini .mf{margin-left:auto;font-size:13px;font-weight:600;color:var(--muted)}
+body.hdr-hide #mini{display:flex}
+.fab{transition:padding .15s,min-width .15s}.fab .fpl{font-size:22px;line-height:1;margin-right:2px}body.fab-mini .fab{padding:0;min-width:52px;justify-content:center}body.fab-mini .fab .flb{display:none}body.fab-mini .fab .fpl{margin:0;font-size:26px}
 .top h1{margin:0 0 10px;font-size:26px;line-height:1.1;letter-spacing:-.4px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .top h1 span.right{font-size:13px;letter-spacing:0;font-weight:500;color:var(--muted);display:flex;gap:8px;align-items:center}
 .bar{display:flex;gap:8px;flex-wrap:wrap}
@@ -82,7 +89,8 @@ button{cursor:pointer}
 .r-main{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}
 .prow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:12px;row-gap:2px;align-items:baseline}
 .prow>.r-main{grid-column:2}.prow>.r-side{grid-column:3;max-width:none}.prow>.r-side .pl{max-width:44vw}
-.prow>.r-line{grid-column:2/-1}.prow .dots{align-items:baseline}.prow .dots .olink{margin-left:4px}
+.prow>.r-line{grid-column:2/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;align-items:baseline}.prow>.r-line.wmap{grid-template-columns:minmax(0,1fr) auto 56px}
+.prow .dots{align-items:center;margin-left:0;justify-content:flex-end}.plink{text-decoration:none;display:inline-block;max-width:100%}.plink .pl{box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
 .num{flex:none;min-width:40px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:14px;padding-top:1px}
 .r-sub{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
 .r-side{flex:none;text-align:right;display:flex;flex-direction:column;gap:2px;align-items:flex-end;font-size:13px;color:var(--muted);max-width:42%}
@@ -215,12 +223,12 @@ button{cursor:pointer}
 :root[data-theme="dark"] .t-blue{--dc:#6FA4F0}:root[data-theme="dark"] .t-green{--dc:#5CCB8C}:root[data-theme="dark"] .t-orange{--dc:#F0AB52}:root[data-theme="dark"] .t-brown{--dc:#C79563}:root[data-theme="dark"] .t-dark{--dc:#AEB8B1}:root[data-theme="dark"] .t-red{--dc:#F0788A}:root[data-theme="dark"] .t-none{--dc:#8FA096}
 .evt{font-weight:600;line-height:1.7}
 
-.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:15;box-shadow:0 4px 14px rgba(0,0,0,.25);border-radius:999px;min-height:52px;padding:0 20px}
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(66px + max(0px,env(safe-area-inset-bottom,0px) - 14px));z-index:15;box-shadow:0 4px 14px rgba(0,0,0,.25);border-radius:999px;min-height:52px;padding:0 20px}
 
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);
-  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));display:flex;justify-content:center}
+  padding:4px max(8px,env(safe-area-inset-right,0px)) max(6px,calc(env(safe-area-inset-bottom,0px) - 14px)) max(8px,env(safe-area-inset-left,0px));display:flex;justify-content:center}
 nav.tabs .in{display:flex;width:100%;max-width:720px}
-nav.tabs button{flex:1;background:none;border:0;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:12px;font-weight:600;border-radius:8px}
+nav.tabs button{flex:1;background:none;border:0;min-height:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:12px;font-weight:600;border-radius:8px}
 nav.tabs button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs button[aria-current="page"]{color:var(--accent)}
 
@@ -278,7 +286,7 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 .actions .btn{flex:1 1 120px}
 .banner{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:13px}
 .empty{color:var(--muted);padding:28px 4px;text-align:center}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:70;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 16px;font-size:14px;max-width:calc(100% - 32px)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(74px + max(0px,env(safe-area-inset-bottom,0px) - 14px));z-index:70;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 16px;font-size:14px;max-width:calc(100% - 32px)}
 .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
 .stat div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
 .stat b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
@@ -1303,14 +1311,15 @@ function viewPlants(){
   };
   function row(p){
     var nt=S.plabels?(IDX.tasks[p.id]||[]).filter(function(i){return isOpen(S.tasks[i],CUR)}).length:0,nl=S.plabels?(IDX.logs[p.id]||[]).length:0,dup=NAMECOUNT[norm(p.name)]-1;
-    var side=(S.pgroup==='place'||S.plantsSub==='place')?'':placeChip(p.place),mb=side?mapBtn(p.place):'';
+    var side=(S.pgroup==='place'||S.plantsSub==='place')?'':placeChip(p.place),mu=side?mapOf(p.place):'',mb='';
+    if(side&&mu)side='<a class="plink" data-stop href="'+esc(mu)+'" target="_blank" rel="noopener" title="Open the map of '+esc(p.place)+'">'+side+'</a>';
     return '<div class="row prow" role="button" tabindex="0" data-id="'+p.id+'"><span class="num">'+esc(p.no||'–')+'</span><span class="r-main"><span class="latin">'+nameHtml(p.name)+'</span></span>'+(side?'<span class="r-side">'+side+'</span>':'')+
-      ((p.common||p.notes||nt||nl||dup>0||mb)?'<span class="r-line"><span class="r-sub rc">'+(p.common?esc(p.common):'')+'</span><span class="dots">'+(p.notes?'<span class="nt" title="Has gardening notes. Open to read."><svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1.5 1h8v10h-8z M3 4h5 M3 6.3h5 M3 8.6h3" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>':'')+(nt?'<span class="pill a">'+nt+' to do</span>':'')+(nl?'<span class="pill l">'+nl+' logged</span>':'')+(dup>0?'<span class="pill">in '+dup+' more</span>':'')+mb+'</span></span>':'')+
+      ((p.common||p.notes||nt||nl||dup>0||mb)?'<span class="r-line"><span class="r-sub rc">'+(p.common?esc(p.common):'')+'</span><span class="dots">'+(p.notes?'<span class="nt" title="Has gardening notes. Open to read."><svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1.5 1h8v10h-8z M3 4h5 M3 6.3h5 M3 8.6h3" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>':'')+(nt?'<span class="pill a">'+nt+' to do</span>':'')+(nl?'<span class="pill l">'+nl+' logged</span>':'')+(dup>0?'<span class="pill" title="The same plant also grows in '+dup+' other place'+(dup>1?'s':'')+'">in '+dup+' more</span>':'')+'</span></span>':'')+
       '</div>';
   }
   var body=grouped?groupedHtml('plants',S.pgroup,shown,cfg,row,S.plantsSub):'<div class="list">'+shown.map(row).join('')+'</div>';
   return '<div class="top"><h1><span class="ht">'+hIcon('home')+'Hestercombe Plants</span><span class="right"><button class="ib" id="editPlaces" aria-label="Places" title="Places">'+IB.pin+'</button></span></h1><div class="bar"><input class="input grow" id="pq" type="search" placeholder="Search plants" value="'+esc(S.pq)+'" autocomplete="off"><select class="select half" id="pplace" aria-label="Place">'+placeOptions(S.pplace,'All places')+'</select>'+'</div>'+groupBar('plants',S.pgroup,[['place','Group by place'],['genus','Group by genus'],['none','No grouping']],'<label class="ckl"><input type="checkbox" id="plabels"'+(S.plabels?' checked':'')+'> Task tags</label>')+'</div>'+
-    '<div class="wrap">'+banners()+(BASE_STATE==='ok'?'':'<div class="banner">'+(BASE_STATE==='loading'?'Loading the plant list…':BASE_STATE==='missing'?'The plant list was not found. Add the “base” tab to the Google Sheet (see the setup notes).':'The plant list needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.')+'</div>')+'<div class="meta"><span>'+list.length+' of '+PLANTS.length+' plants</span><span>“in N more” means the same plant grows in other places</span></div>'+(list.length?body:'<div class="empty">No plants match</div>')+(!grouped&&list.length>shown.length?'<button class="btn more" id="morePlants">Show more ('+(list.length-shown.length)+' left)</button>':'')+'</div><button class="btn leaf fab" id="addPlant">+ New plant</button>';
+    '<div class="wrap">'+banners()+(BASE_STATE==='ok'?'':'<div class="banner">'+(BASE_STATE==='loading'?'Loading the plant list…':BASE_STATE==='missing'?'The plant list was not found. Add the “base” tab to the Google Sheet (see the setup notes).':'The plant list needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.')+'</div>')+'<div class="meta"><span>'+list.length+' of '+PLANTS.length+' plants</span></div>'+(list.length?body:'<div class="empty">No plants match</div>')+(!grouped&&list.length>shown.length?'<button class="btn more" id="morePlants">Show more ('+(list.length-shown.length)+' left)</button>':'')+'</div><button class="btn leaf fab" id="addPlant"><span class="fpl">+</span><span class="flb"> New plant</span></button>';
 }
 function wirePlants(){
   var q=$('#pq');suggestWire(q,'pq',function(v){S.pq=v;S.plimit=100;renderAll()});q.addEventListener('input',function(){S.pq=q.value;S.plimit=100;var pos=q.selectionStart;renderAll();var n=$('#pq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
@@ -1352,7 +1361,7 @@ function viewPlan(){
   var segHtml='<div class="seg sm" role="group" aria-label="Status"><button data-st="open" aria-pressed="'+(S.planStatus==='open')+'">Open</button><button data-st="done" aria-pressed="'+(S.planStatus==='done')+'">Done</button><button data-st="all" aria-pressed="'+(S.planStatus==='all')+'">All</button></div>';
   var body=S.loaded.tasks?(ids.length?groupedHtml('plan',S.planGroup,ids,cfg,function(id){return taskCard(id,false)},S.planSub):'<div class="empty">No matching tasks</div>'):'<div class="empty">Loading…</div>';
   return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right">'+open+' open · '+thisM+' this month <button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><button class="yv" id="yAll" aria-pressed="'+S.planAll+'"><b>'+(S.planAll?'All years':Y)+'</b><span>'+(S.planAll?'Tap to show one year':(Y===CUR?'This year · ':'')+'Tap for all years')+'</span></button><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span><select class="select half" id="qp" aria-label="Place">'+placeOptions(S.planPlace,'All places')+'</select><select class="select half" id="qt" aria-label="Task">'+typeOptions(S.planTask,'All tasks')+'</select></div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']])+'</div>'+
-   '<div class="wrap">'+banners()+(S.loaded.tasks?'<div class="meta"><span>Showing '+ids.length+' · Not scheduled '+un+'</span></div>':'')+body+'</div><button class="btn task fab" id="addTask">+ New task</button>';
+   '<div class="wrap">'+banners()+(S.loaded.tasks?'<div class="meta"><span>Showing '+ids.length+' · Not scheduled '+un+'</span></div>':'')+body+'</div><button class="btn task fab" id="addTask"><span class="fpl">+</span><span class="flb"> New task</span></button>';
 }
 function wirePlan(){
   var q=$('#qq');suggestWire(q,'qq',function(v){S.planQ=v;renderAll()});q.addEventListener('input',function(){S.planQ=q.value;var pos=q.selectionStart;renderAll();var n=$('#qq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
@@ -1393,7 +1402,7 @@ function viewLog(){
   var hrs=ids.reduce(function(s,i){return s+(parseFloat(S.logs[i].hours)||0)},0);
   var body=S.loaded.logs?(ids.length?groupedHtml('log',S.logGroup,shown,cfg,function(id){return logCard(id,false)},S.logSub):'<div class="empty">No matching log entries</div>'):'<div class="empty">Loading…</div>';
   return '<div class="top static"><h1><span class="ht">'+hIcon('log')+'Log</span><span class="right">'+Object.keys(S.logs).length+' entries</span></h1><div class="bar"><input class="input grow" id="lq" type="search" placeholder="Search plant or task" value="'+esc(S.logQ)+'" autocomplete="off"><div class="seg sm" role="group" aria-label="Planned or extra"><button data-ll="planned" aria-pressed="'+(S.logLink==='planned')+'">Planned</button><button data-ll="unplanned" aria-pressed="'+(S.logLink==='unplanned')+'">Extra</button><button data-ll="all" aria-pressed="'+(S.logLink==='all')+'">All</button></div><span class="brk"></span><select class="select half" id="lp" aria-label="Place">'+placeOptions(S.logPlace,'All places')+'</select><select class="select half" id="le" aria-label="Task">'+typeOptions(S.logEvent,'All tasks')+'</select>'+'</div>'+groupBar('log',S.logGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['event','Group by task'],['place','Group by place'],['none','No grouping']],'<button class="vbtn" id="logOrder">'+(S.logAsc?'↓ Newest first':'↑ Oldest first')+'</button>')+'</div>'+
-   '<div class="wrap">'+banners()+(S.loaded.logs?'<div class="meta"><span>Showing '+ids.length+(hrs?' · '+hrs+' hours':'')+'</span></div>':'')+body+(!grouped&&ids.length>shown.length?'<button class="btn more" id="moreLogs">Show more</button>':'')+'</div><button class="btn logc fab" id="addLog">+ New log</button>';
+   '<div class="wrap">'+banners()+(S.loaded.logs?'<div class="meta"><span>Showing '+ids.length+(hrs?' · '+hrs+' hours':'')+'</span></div>':'')+body+(!grouped&&ids.length>shown.length?'<button class="btn more" id="moreLogs">Show more</button>':'')+'</div><button class="btn logc fab" id="addLog"><span class="fpl">+</span><span class="flb"> New log</span></button>';
 }
 function wireLog(){
   var q=$('#lq');suggestWire(q,'lq',function(v){S.logQ=v;S.logLimit=60;renderAll()});q.addEventListener('input',function(){S.logQ=q.value;S.logLimit=60;var pos=q.selectionStart;renderAll();var n=$('#lq');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}});
@@ -1446,7 +1455,8 @@ function viewMore(){
   '<p><b>Log</b>: a record of work done, with date, task and hours.</p>'+
   '<p><b>Group tasks</b> <span class="gname latin">FUCHSIA<span class="gall">all</span></span>: one task for many plants: a whole genus (ROSA) or one kind everywhere (FUCHSIA \'Riccartonii\').</p>'+
   '<details><summary>More detail</summary>'+
-  '<p><b>Searching</b>: type the start of any word in the botanical, common or Jekyll name, or a place. Tap × to clear. Next to the search box, Plan has Open / Done / All and Log has Planned / Extra / All. Below are the place and task filters, then the grouping menus. On the right, Expand all / Collapse all opens or closes every group, and in Log, Newest / Oldest first beside it flips the order. “Task tags” on the Plants page shows or hides each plant’s open tasks and log count. Long place names are shortened on cards; open the entry to see the full name.</p>'+
+  '<p><b>Searching</b>: type the start of any word in the botanical, common or Jekyll name, or a place. Tap × to clear. Next to the search box, Plan has Open / Done / All and Log has Planned / Extra / All. Below are the place and task filters, then the grouping menus. On the right, Expand all / Collapse all opens or closes every group, and in Log, Newest / Oldest first beside it flips the order. “Task tags” on the Plants page shows or hides each plant’s open tasks and log count. Long place names are shortened on cards; open the entry to see the full name. In the Plants list, “in N more” means the same plant also grows in N other places, and tapping a place label opens its map.</p>'+
+  '<p><b>Scrolling</b>: on a phone, the filters fold away as you scroll down and come back as soon as you scroll up (or tap the slim bar at the top). The + button shrinks while you scroll.</p>'+
   '<p><b>Adding tasks and logs</b>: type a botanical name and pick from the list. Then choose “This plant only”, “All … as one task” for a whole genus (for example all ROSA), or “Choose plants” to tick several. “+ Add more plants” and “+ Add another task” save every combination, for example 2 plants × 2 tasks = 4 entries. A log can cover several dates at once.</p>'+
   '<p><b>Group tasks in detail</b>: pick a plant, then choose one of two group options. “All ROSA” covers the whole genus: every rose, whatever the species or variety. “All FUCHSIA \'Riccartonii\'” covers only plants with exactly that name (the same species or variety), in every part of the garden. The genus is saved in capitals and the number is left blank. Tick “Only in [place]” to limit it to the place you picked. A group task has a small dashed “all” label after its name, lists the plants it covers, and shows on each of those plants’ pages. New plants with a matching name are included automatically. Use “Choose plants, one task each” instead if each plant needs its own tick.</p>'+
   '<p><b>Repeats</b>: a task can repeat every year, every few years, only once, or in chosen years. Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history. Use the year bar or “All years” in Plan to look back or ahead. “First year it applies” starts at the current year; pick “Other year…” to type any year.</p>'+
@@ -1471,6 +1481,20 @@ function wireMore(){
 }
 
 /* ---------- render ---------- */
+/* ---------- compact while scrolling: filters fold away going down, come back going up; the + button shrinks ---------- */
+var SC={last:0,idle:null};
+function miniBar(){var m=document.getElementById('mini');if(!m){m=document.createElement('button');m.id='mini';m.type='button';m.onclick=function(){document.body.classList.remove('hdr-hide')};document.body.appendChild(m)}
+  var k=S.tab==='plants'?['home','Hestercombe Plants']:S.tab==='plan'?['plan','Plan'+(S.planAll?' · all years':' · '+S.planYear)]:S.tab==='log'?['log','Log']:null;
+  m.innerHTML=k?hIcon(k[0])+'<span>'+esc(k[1])+'</span><span class="mf">Filters ⌄</span>':'';if(!k)document.body.classList.remove('hdr-hide')}
+window.addEventListener('scroll',function(){
+  var y=window.scrollY||0,dy=y-SC.last,b=document.body,small=!window.matchMedia||window.matchMedia('(max-width:799px)').matches;
+  if(!small||S.tab==='more'){b.classList.remove('hdr-hide','hdr-compact','fab-mini');SC.last=y;return}
+  b.classList.toggle('hdr-compact',y>40);
+  if(y<120)b.classList.remove('hdr-hide');else if(dy>6)b.classList.add('hdr-hide');else if(dy<-6)b.classList.remove('hdr-hide');
+  if(dy>6&&y>60)b.classList.add('fab-mini');else if(dy<-6||y<60)b.classList.remove('fab-mini');
+  clearTimeout(SC.idle);SC.idle=setTimeout(function(){b.classList.remove('fab-mini')},900);
+  if(Math.abs(dy)>6)SC.last=y;
+},{passive:true});
 function renderAll(){
   applyRole();drawTabs();
   var app=$('#app');
@@ -1478,7 +1502,7 @@ function renderAll(){
   else if(S.tab==='plan'){app.innerHTML=viewPlan();wirePlan()}
   else if(S.tab==='log'){app.innerHTML=viewLog();wireLog()}
   else{app.innerHTML=viewMore();wireMore()}
-  refreshSheet();
+  refreshSheet();miniBar();
 }
 
 /* ---------- boot ---------- */
