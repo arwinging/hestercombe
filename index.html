@@ -1,4 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F1F4EE"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Garden"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><style>html,body{margin:0}</style></head><body><title>Hestercombe Plants</title>
+<!doctype html>
+<!-- © 2026 Wing C. All rights reserved. Not licensed for reuse. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F1F4EE"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Garden"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><style>html,body{margin:0}</style></head><body><title>Hestercombe Plants</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 <style>
@@ -493,6 +495,107 @@ body.hdr-compact .yearbar .ylab,body.hdr-compact .yearbar .yall{display:none}
 /* swipe feedback */
 .panel.swx{transition:none!important}
 .panel.swb{transition:transform .18s ease}
+
+/* ---- update 6 ---- */
+:root{--task:#A0690A;--task-ink:#FFFFFF;--task-soft:#F3E7D2;--att:#B3261E;--att-soft:#F9E3E0;
+  --yb:#E2DCCF;--yb-ink:#3A3125;--yb-btn:rgba(58,49,37,.10);--yb-line:rgba(58,49,37,.35);--secgap:14px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--task:#E2A84A;--task-ink:#231502;--task-soft:#3A2C12;--att:#F2A49B;--att-soft:#3D1D1A;
+  --yb:#2F2A22;--yb-ink:#E8DFCF;--yb-btn:rgba(255,255,255,.08);--yb-line:rgba(255,255,255,.3)}}
+:root[data-theme="dark"]{--task:#E2A84A;--task-ink:#231502;--task-soft:#3A2C12;--att:#F2A49B;--att-soft:#3D1D1A;
+  --yb:#2F2A22;--yb-ink:#E8DFCF;--yb-btn:rgba(255,255,255,.08);--yb-line:rgba(255,255,255,.3)}
+.yearbar{background:var(--yb);color:var(--yb-ink)}
+.yearbar button{background:var(--yb-btn)}
+.yearbar .yv{background:none}
+.yearbar .yall{border-color:var(--yb-line)}.yearbar .yall[aria-pressed="true"]{background:var(--yb-btn)}
+.yin{background:var(--yb-btn)}
+.seg.sm button[aria-pressed="true"]{background:color-mix(in srgb,var(--ink) 20%,var(--surface))}
+/* attention = red family; tasks = amber */
+.attsec{border-color:color-mix(in srgb,var(--att) 35%,var(--line));background:color-mix(in srgb,var(--att) 6%,var(--surface))}
+.adot{background:var(--att)}
+.tag-now{background:var(--att);color:#fff}
+.prow2 .date{border-color:color-mix(in srgb,var(--att) 30%,var(--line));background:color-mix(in srgb,var(--att) 7%,var(--surface))}
+.prow2 .date[aria-pressed="true"],.prow2 .mo .mid[aria-pressed="true"]{background:var(--att);border-color:var(--att);color:#fff}
+.prow2 .cat[data-fold="plan-att"]{border-color:color-mix(in srgb,var(--att) 35%,var(--line));background:color-mix(in srgb,var(--att) 6%,var(--surface))}
+.prow2 .cat[data-fold="plan-ns"]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line));background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+/* whole place = name-level label */
+.idrow .wp,.wp{color:var(--ink);font-size:.94em;font-weight:500}
+
+/* C2 floating bar: one line, cut with … */
+#mini .mi .mlab{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#mini .mi .mlab *{display:inline!important;white-space:nowrap}
+
+/* C3 map: in the Home Screen app (no second page possible) the map fills the screen */
+body.mapfull .sheet,body.mapmode .sheet{background:var(--bg);align-items:stretch}
+body.mapfull .panel,body.mapmode .panel{max-height:none;height:100%;width:100%;max-width:none;border-radius:0;box-shadow:none;padding-top:env(safe-area-inset-top,0px);animation:none}
+body.mapfull .mapv,body.mapmode .mapv{height:calc(100vh - 150px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+
+/* one section spacing for the whole app (C4, C5) */
+.sec{margin-top:var(--secgap)}
+.sec h3 .hsub{font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);margin-left:8px}
+
+/* C5 Also in chips: smaller than place tags, tighter */
+.chips.pc{gap:5px}
+.chips.pc button{min-height:26px;padding:0 9px;font-size:12px;line-height:1.2}
+
+/* C6/C7 plant cards (Log and Plan grouped by plant): tighter */
+.grp.plantg{margin:10px 0;padding:0 12px 2px}
+.grp.plantg>.hdr.gh{padding:7px 12px 6px}
+.grp.plantg .le{padding:7px 2px}
+.grp.plantg .le-b{gap:1px}
+
+/* C8 forms more compact (same for plant, task and log forms) */
+.fsec{padding:10px 12px 2px;margin-bottom:10px}
+.fs-h{margin-bottom:8px}
+.fsec .field{margin-bottom:8px;gap:3px}
+.textarea{min-height:64px}
+
+/* C11 / L8 layers: group header > sub-header > entry (plant name about 14px) */
+.hdr.gh>.gl{font-size:16px;font-weight:700}
+.sh.gh{font-size:15px;font-weight:700}
+.sh.gh .gl{font-size:15px}
+.sh .latin,.hdr.gh>.gl>.latin{font-size:1em}
+
+/* dates: one box + own calendar */
+.dbox{display:block;text-align:left;cursor:pointer;font-size:16px}
+.dcal{margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 8px 10px;-webkit-user-select:none;user-select:none}
+.dch{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.dch b{font-size:14px}
+.dnav{border:0;background:none;font-size:22px;line-height:1;width:40px;height:34px;border-radius:8px;color:var(--ink)}
+.dgrid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:4px;touch-action:none}
+.dw{text-align:center;font-size:11px;color:var(--muted);padding-bottom:2px}
+.dd{border:0;background:none;height:38px;font:inherit;font-size:14px;color:var(--ink);border-radius:999px;padding:0;font-variant-numeric:tabular-nums}
+.dd.td{box-shadow:inset 0 0 0 1px var(--muted)}
+.dd.on{background:var(--logc);color:var(--logc-ink);font-weight:600}
+.dd.on.jl{border-top-left-radius:0;border-bottom-left-radius:0}.dd.on.jr{border-top-right-radius:0;border-bottom-right-radius:0}
+.le-d{white-space:normal}
+/* log form: whole task done? (question, box on the right) */
+.lnk.sm{font-size:13px;min-height:0;padding:4px 0 2px;align-self:flex-start}
+.finq{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;padding:8px 2px;border-top:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
+.finq[hidden]{display:none}.finq input{width:22px;height:22px;margin:0;accent-color:var(--logc)}
+.pill.ip{background:var(--task-soft);color:var(--ink);border-color:transparent}
+.dd.on:not(.jl):not(.jr){width:38px;justify-self:center}
+
+/* plant facts box (b59) and month bars */
+.pfbox{border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--ink) 3%,var(--bg));padding:9px 11px;font-size:13px;line-height:1.5;color:var(--muted)}
+.pfbar{display:flex;flex-direction:column;gap:2px;margin:0 0 6px}
+.mbar{display:inline-grid;grid-template-columns:repeat(12,9px);gap:2px;flex:none}
+.mbar i{display:block;height:11px;border-radius:2px;background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.mbar i.on{background:#6E9A62}.mbar i.lt{background:none;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 35%,transparent)}
+.mlet{font-size:9px;text-align:center;color:var(--muted);line-height:1.2}
+
+/* In flower (b58) */
+.swr{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 8px}
+.sline{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0 0}.sline .seg.sm button{padding:0 8px}
+.fll{grid-template-columns:auto auto minmax(0,1fr) auto}
+.fdot{width:11px;height:11px;border-radius:50%;flex:none;align-self:start;margin-top:5px;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);background:none}
+.flr .r-side{align-self:center}
+.mhd{display:flex;justify-content:flex-end;padding:6px 2px 0}
+.fnote{color:var(--muted);font-size:12.5px;padding:10px 2px}
+body.hdr-compact .swr,body.hdr-compact .sline{display:none}
+
+.flr .num .fdot{display:inline-block;margin:0 5px 0 0;vertical-align:-1px}
+body.flmode .vbar .vend{display:none}
+.flr .r-sub b{font-weight:500;color:var(--ink)}
+.plight{border:0!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 60%,#000)}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -643,7 +746,7 @@ function wireFilters(){
   var c=$('#clrAll');if(c)c.onclick=function(){var t=S.tab;if(t==='plants'){S.pplace=[];S.pq='';S.plimit=100}else if(t==='plan'){S.planPlace=[];S.planTask=[];S.planQ='';S.planQuick=''}else{S.logPlace=[];S.logEvent=[];S.logQ=''}renderAll()};
 }
 function statBar(n,detail,allText){return n?'<div class="fstat on"><span><b>'+n+' filter'+(n>1?'s':'')+' on</b> · '+detail+'</span><button type="button" id="clrAll">Clear all</button></div>':'<div class="fstat"><span>'+allText+'</span></div>'}
-function placeTag(p){if(!p)return '';var m=mapOf(p);return '<span class="ptag"><span class="plb" role="button" tabindex="0" data-place="'+esc(p)+'" aria-label="Open the page of '+esc(p)+'">'+placeChip(p)+'<span class="pcv" aria-hidden="true">›</span></span>'+(m?'<a class="pinb s" data-stop data-map="'+esc(p)+'" href="'+esc(m)+'" target="_blank" rel="noopener" aria-label="Open the map of '+esc(p)+'" title="Open the map">'+IB.pin+'</a>':'')+'</span>'}
+function placeTag(p,lt){if(!p)return '';var m=mapOf(p);return '<span class="ptag"><span class="plb" role="button" tabindex="0" data-place="'+esc(p)+'" aria-label="Open the page of '+esc(p)+'">'+(lt?placeChipLight(p):placeChip(p))+'<span class="pcv" aria-hidden="true">›</span></span>'+(m?'<a class="pinb s" data-stop data-map="'+esc(p)+'" href="'+esc(m)+'" target="_blank" rel="noopener" aria-label="Open the map of '+esc(p)+'" title="Open the map">'+IB.pin+'</a>':'')+'</span>'}
 function placeLabel(k){if(!k||k==='(no place)')return placeChip(k);var m=mapOf(k);return '<span class="plb" role="button" tabindex="0" data-place="'+esc(k)+'" aria-label="Open the page of '+esc(k)+'">'+placeChip(k)+'<span aria-hidden="true">›</span></span>'+(m?'<a class="pinb s" data-stop data-map="'+esc(k)+'" href="'+esc(m)+'" target="_blank" rel="noopener" aria-label="Open the map of '+esc(k)+'" title="Open the map">'+IB.pin+'</a>':'')}
 function placeHead(p){var m=mapOf(p);return '<div class="phd">'+'<button type="button" class="plb" data-place="'+esc(p)+'" aria-label="Open the page of '+esc(p)+'">'+placeChip(p)+'<span aria-hidden="true">›</span></button>'+(m?'<a class="pinb" data-stop data-map="'+esc(p)+'" href="'+esc(m)+'" target="_blank" rel="noopener" aria-label="Open the map of '+esc(p)+'" title="Open the map">'+IB.pin+'</a>':'')+'</div>'}
 function plSelStyle(p){var x=p&&placeList().by[p];return x&&/^#[0-9a-fA-F]{6}$/.test(x.color)?' style="box-shadow:inset 7px 0 0 '+x.color+'"':''}
@@ -652,7 +755,7 @@ function noPlantOk(task){return /attention|note/i.test(String(task||''))}
 
 /* ---------- state ---------- */
 var S={tab:'plants',edits:{},tasks:{},logs:{},settings:{},loaded:{edits:false,tasks:false,logs:false,settings:false},useDb:false,
-  planMo:new Date().getMonth()+1,yType:false,chkOpen:'',pq:'',chk:false,pplace:[],pgroup:'place',plantsSub:'none',plimit:100,plabels:(function(){try{return localStorage.getItem('hpl_plabels')!=='0'}catch(e){return true}})(),
+  planMo:new Date().getMonth()+1,yType:false,chkOpen:'',pq:'',chk:false,pplace:[],pgroup:'place',plantsSub:'none',plimit:100,pmode:(function(){try{return localStorage.getItem('hpl_pmode')||'all'}catch(e){return 'all'}})(),fview:(function(){try{return localStorage.getItem('hpl_fview')||'list'}catch(e){return 'list'}})(),fseas:null,plabels:(function(){try{return localStorage.getItem('hpl_plabels')!=='0'}catch(e){return true}})(),
   planStatus:'open',planYear:new Date().getFullYear(),planAll:false,planSub:'task',logSub:'none',logAsc:true,planMonth:'',planQuick:'',planDesc:false,logLinkSeg:1,planPlace:[],planTask:[],planQ:'',planGroup:'month',
   logQ:'',logEvent:[],logPlace:[],logLink:'all',logGroup:'plant',logLimit:60,
   coll:{},keys:{}};
@@ -661,6 +764,29 @@ var BASE=[];function setBase(raw){BASE=[];var seen={};(raw||[]).forEach(function
 setBase(BASE_RAW);
 var BASE_STATE=BASE.length?'ok':'loading';
 function gotMaps(m){if(!m||typeof m!=='object')return;var j=JSON.stringify(m);try{if(localStorage.getItem('hpl_maps')===j)return;localStorage.setItem('hpl_maps',j)}catch(e){}MAPS_R=m;PCACHE=null;if(typeof renderAll==='function'&&S.loaded)renderAll()}
+/* ---------- plant facts (RHS checking sheet, one row per botanical name) ---------- */
+var FACTS={},FACTS_STATE='';
+var FCOL=[['crimson','#B0203F'],['scarlet','#D3302A'],['pinky-red','#D9466A'],['red','#C8343A'],['magenta','#C2338A'],['pink','#E8A0B6'],['rose','#E39AB0'],['orange','#F0A030'],['apricot','#F2B27A'],['peach','#F3BE94'],['cream','#F3EBCF'],['white','#F4F4EE'],['deep yellow','#E4B428'],['golden','#E2B22C'],['yellow','#E9C93A'],['lime','#BFD45A'],['green','#9DBB7A'],['greenish','#A9C08A'],['blue-purple','#7666C9'],['violet','#8E78D6'],['purple','#8E78D6'],['mauve','#B58BC4'],['lilac','#C3A3DD'],['lavender','#A898DA'],['blue-grey','#7F95CC'],['light blue','#9CB8E4'],['blue','#5F86D0'],['brown','#9A6A3E'],['bronze','#A9783A'],['mixed','#EED68E']];
+function fcolor(c){c=String(c||'').toLowerCase();var best=null,bi=1e9;FCOL.forEach(function(x){var i=c.indexOf(x[0]);if(i>=0&&(i<bi||(i===bi&&x[0].length>best[0].length))){bi=i;best=x}});return best?best[1]:''}
+function fv(v){v=String(v==null?'':v).trim();return (!v||v==='?'||/^none\b/i.test(v))?'':v}
+function gotFacts(rows,missing){var out={};(rows||[]).forEach(function(r){var nm=r['Botanical name (app)']||'';if(!nm)return;
+  var ms=String(r['Months (for the bar)']||'').split(/[,\s]+/).map(function(x){return MON.indexOf(x)}).filter(function(i){return i>0});
+  var ck=String(r['Check ✓']||'').trim();
+  out[norm(nm)]={months:ms,flower:fv(r['Flowering (RHS words)']),colour:fv(r['Flower colour']),hex:fcolor(r['Flower colour']),prune:fv(r['Pruning time']),group:fv(r['RHS pruning group']),on:fv(r['Flowers on']),prop:fv(r['Propagation method']),propt:fv(r['Propagation time']),url:fv(r['RHS link']),checked:!!ck&&!/^(false|no|0)$/i.test(ck)}});
+  FACTS=out;FACTS_STATE=missing?'missing':'ok';try{localStorage.setItem('hpl_facts',JSON.stringify(out))}catch(e){}renderAll();if(typeof refreshSheet==='function')refreshSheet()}
+try{FACTS=JSON.parse(localStorage.getItem('hpl_facts')||'{}');if(Object.keys(FACTS).length)FACTS_STATE='ok'}catch(e){FACTS={}}
+function factsOf(name){return FACTS[norm(name)]||null}
+function cap1(x){x=String(x||'');return x.charAt(0).toUpperCase()+x.slice(1)}
+function monthBar(ms,hex,lettered){var h='';for(var i=1;i<=12;i++){var on=ms.indexOf(i)>=0,lt=on&&hex&&['#F4F4EE','#F3EBCF'].indexOf(hex)>=0;h+='<i class="'+(on?(lt?'lt':'on'):'')+'"'+(on&&hex&&!lt?' style="background:'+hex+'"':'')+'></i>'}return '<span class="mbar">'+h+'</span>'}
+function monthLetters(){return '<span class="mbar mlet">'+'JFMAMJJASOND'.split('').map(function(x){return '<span>'+x+'</span>'}).join('')+'</span>'}
+function factsSection(p){var f=factsOf(p.name);if(!f)return '';
+  var lines=[];
+  if(f.flower||f.colour)lines.push('Flower: '+esc([f.flower,f.colour].filter(Boolean).join(', ')));
+  if(f.prune)lines.push('Prune: '+esc(f.prune)+(f.group?' (RHS group '+esc(f.group)+')':''));else if(f.group)lines.push('Prune: RHS pruning group '+esc(f.group));
+  if(f.prop)lines.push('Propagate: by '+esc(f.prop)+(f.propt?', in '+esc(f.propt):''));
+  if(!lines.length&&!f.months.length)return '';
+  var box='<div class="pfbox">'+(f.months.length?'<div class="pfbar">'+monthLetters()+monthBar(f.months,'')+'</div>':'')+lines.map(function(x){return '<div>'+x+'</div>'}).join('')+'</div>';
+  return foldSec('p-facts','Plant facts<span class="hsub">'+(f.checked?'From RHS':'From RHS · not checked yet')+'</span>','',box,true)}
 function gotBase(rows,missing){if(missing&&!rows.length){BASE_STATE='missing';renderAll();return}var j=JSON.stringify(rows);try{if(localStorage.getItem('hpl_base')===j){BASE_STATE='ok';return}localStorage.setItem('hpl_base',j)}catch(e){}setBase(rows);BASE_STATE='ok';buildPlants();renderAll()}
 var PLANTS=[],PKEYS={},NAMECOUNT={},IDX={tasks:{},logs:{}},indexDirty=true;
 
@@ -708,6 +834,8 @@ function entryMatches(e,p){
   if(e.no&&String(e.no)!==String(p.no))return false;
   return covers(e.name,p.name);
 }
+/* a place filter: entries with no place of their own (group tasks like ROSA all) show when a plant they cover is in a chosen place */
+function placeOk(sel,e){if(!sel.length||sel.indexOf(e.place)>=0)return true;if(e.place||!norm(e.name))return false;return PLANTS.some(function(p){return sel.indexOf(p.place)>=0&&entryMatches(e,p)})}
 function buildIndex(){
   if(!indexDirty)return;indexDirty=false;
   IDX={tasks:{},logs:{}};
@@ -790,7 +918,7 @@ function sub(col){
 var HPL_API_URL=window.HPL_API_URL||'https://script.google.com/macros/s/AKfycbzFDi9GyatcdFTnhQmRFUuUejvj-54iClHLb_BYebWOiV9joHBS77PbWWz_aUxy9CDm/exec';
 try{if(HPL_API_URL&&'serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js')}catch(e){}
 function sheetDb(url){
-  var cache={},ls={},started=false,PASS='',listing=null,saved={},baseTried=false;
+  var cache={},ls={},started=false,PASS='',listing=null,saved={},baseTried=false,factsTried=false;
   try{saved=JSON.parse(localStorage.getItem('hpl_sheetcache')||'{}')}catch(e){}
   function persist(){try{localStorage.setItem('hpl_sheetcache',JSON.stringify(cache))}catch(e){}}
   try{PASS=localStorage.getItem('hpl_pass')||''}catch(e){}
@@ -858,6 +986,7 @@ function sheetDb(url){
     if(flushing)return Promise.resolve();
     if(listing)return listing;
     listing=call({action:'list'}).then(function(j){
+      if(!factsTried){factsTried=true;call({action:'facts'},true).then(function(f){gotFacts(f.facts||[],f.missing)}).catch(function(e){if(/unknown action/.test(String(e&&e.message)))FACTS_STATE='oldscript';else factsTried=false})}
       if(BASE_REMOTE&&!baseTried){baseTried=true;call({action:'base'},true).then(function(b){gotMaps(b.maps);gotBase(b.rows||[],b.missing)}).catch(function(e){baseTried=false;if(/unknown action/.test(String(e&&e.message))){BASE_STATE='oldscript';renderAll()}})}
       if(flushing)return;
       var all=j.data||{};
@@ -1023,7 +1152,8 @@ function pop(){var x=stack.pop();if(x)x.el=null;var cur=stack[stack.length-1];if
 function closeAll(){if(MAPMODE){mapClose();return}stack=[];INLINE=null;HIST={pid:''};drawSheet()}
 function drawSheet(restore){
   var h=$('#sheetHost');
-  if(!stack.length){h.innerHTML='';document.body.style.overflow='';return}
+  if(!stack.length){h.innerHTML='';document.body.style.overflow='';document.body.classList.remove('mapfull');return}
+  if(stack.length&&stack[0].title!=='Map')document.body.classList.remove('mapfull');
   document.body.style.overflow='hidden';
   var top=stack[stack.length-1];
   var old=$('#sBody');if(old&&old.firstChild&&old.firstChild.nodeType===1)old.removeChild(old.firstChild);
@@ -1034,21 +1164,7 @@ function drawSheet(restore){
   if(top.el&&restore){$('#sBody').appendChild(top.el);var q=$('.panel');if(q&&top.sc)q.scrollTop=top.sc;return}
   var el=document.createElement('div');el.className='sbody';$('#sBody').appendChild(el);top.el=el;top.render(el);
 }
-(function(){var g=null;
-  function pan(){return document.querySelector('#sheetHost .panel')}
-  document.addEventListener('touchstart',function(e){var p=pan();if(!p||MAPMODE||e.touches.length!==1||!p.contains(e.target)){g=null;return}
-    var t=e.touches[0],tg=e.target;if(tg.closest&&tg.closest('input,textarea,select,[contenteditable="true"],.mapv,#mapv'))return g=null;
-    var r=p.getBoundingClientRect();g={x:t.clientX,y:t.clientY,edge:t.clientX-r.left<28,top:p.scrollTop<=0,m:'',dx:0,dy:0}},{passive:true});
-  document.addEventListener('touchmove',function(e){if(!g)return;var p=pan();if(!p){g=null;return}var t=e.touches[0];g.dx=t.clientX-g.x;g.dy=t.clientY-g.y;
-    if(!g.m){if(g.edge&&g.dx>12&&Math.abs(g.dy)<g.dx)g.m='x';else if(g.top&&g.dy>12&&g.dy>Math.abs(g.dx)*1.5&&p.scrollTop<=0)g.m='y';else if(Math.abs(g.dx)>12||Math.abs(g.dy)>12){g=null;return}}
-    if(g.m==='x'){p.classList.add('swx');p.style.transform='translateX('+Math.max(0,g.dx)+'px)'}
-    else if(g.m==='y'){p.classList.add('swx');p.style.transform='translateY('+Math.max(0,g.dy)+'px)'}},{passive:true});
-  function end(){if(!g)return;var p=pan(),m=g.m,dx=g.dx,dy=g.dy;g=null;if(!p||!m)return;p.classList.remove('swx');
-    if(m==='x'&&dx>90){if(stack.length>1)pop();else closeAll();return}
-    if(m==='y'&&dy>110){closeAll();return}
-    p.classList.add('swb');p.style.transform='';setTimeout(function(){p.classList.remove('swb')},200)}
-  document.addEventListener('touchend',end,{passive:true});document.addEventListener('touchcancel',end,{passive:true});
-})();
+/* swipe gestures removed in update 6 (unreliable in the iPhone browser); Close and ‹ Back are the way out */
 function refreshSheet(){if(INLINE){REF_PEND=true;return}var top=stack[stack.length-1];if(top&&top.live){var p=$('.panel'),sc=p?p.scrollTop:0;drawSheet();var q=$('.panel');if(q)q.scrollTop=sc}}
 
 /* ---------- plant picker ---------- */
@@ -1083,11 +1199,11 @@ function wirePicker(p,onChange){
       gh='<button type="button" class="gen" data-gen="'+esc(gen)+'"><span class="latin gname">'+esc(gen)+'<span class="gall">all</span></span><small>'+gs.length+' plants in '+Object.keys(np).length+' place'+(Object.keys(np).length===1?'':'s')+' · as one group</small></button>'}}
     var inner='';
     if(pres.length){var p0=pres[0],ins=PLANTS.filter(function(x){return x.place===p0}).sort(function(a,b){return noKey(a.no)-noKey(b.no)});
-      inner+='<button type="button" data-pl="'+esc(p0)+'"><span>'+placeChip(p0)+'</span><small>whole place · '+ins.length+' plants</small></button>';
+      inner+='<button type="button" data-pl="'+esc(p0)+'"><span>'+placeChipLight(p0)+'</span><small>whole place · '+ins.length+' plants</small></button>';
       if(ins.length){var all=box.dataset.all===p0;inner+='<div class="sgh">Plants in '+esc(p0)+'</div>'+(all?ins:ins.slice(0,8)).map(function(x){return prow(x,true)}).join('')+(!all&&ins.length>8?'<button type="button" class="more" data-allpl="'+esc(p0)+'">+ '+(ins.length-8)+' more: show all</button>':'')}
-      inner+=pres.slice(1).map(function(n){return '<button type="button" data-pl="'+esc(n)+'"><span>'+placeChip(n)+'</span><small>whole place</small></button>'}).join('');
+      inner+=pres.slice(1).map(function(n){return '<button type="button" data-pl="'+esc(n)+'"><span>'+placeChipLight(n)+'</span><small>whole place</small></button>'}).join('');
       res=res.filter(function(x){return x.place!==p0})}
-    if(combo){inner+='<button type="button" data-pl="'+esc(combo.place)+'"><span>'+placeChip(combo.place)+'</span><small>whole place</small></button><div class="sgh">'+esc(toks.filter(function(t){return !wmatch(norm(combo.place),[t])}).join(' '))+' in '+esc(combo.place)+'</div>'+combo.hits.map(function(x){return prow(x,true)}).join('');res=[]}
+    if(combo){inner+='<button type="button" data-pl="'+esc(combo.place)+'"><span>'+placeChipLight(combo.place)+'</span><small>whole place</small></button><div class="sgh">'+esc(toks.filter(function(t){return !wmatch(norm(combo.place),[t])}).join(' '))+' in '+esc(combo.place)+'</div>'+combo.hits.map(function(x){return prow(x,true)}).join('');res=[]}
     inner+=gh+res.map(function(x){return prow(x,false)}).join('');
     box.innerHTML=inner?'<div class="sug">'+inner+'</div>':'';
     $$('button[data-allpl]',box).forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){box.dataset.all=b.dataset.allpl;nm.dispatchEvent(new Event('input'))}});
@@ -1106,7 +1222,7 @@ function sortLogs(ids){var k=S.logAsc?1:-1;return ids.slice().sort(function(a,b)
 function mapLink(place,label){return mapOf(place)?'<a data-map="'+esc(place)+'" href="'+esc(mapOf(place))+'" target="_blank" rel="noopener">'+esc(label||('Open map of '+place))+'</a>':''}
 var MAPMODE='';try{var mh=/^#map=(.+)$/.exec(location.hash);if(mh)MAPMODE=decodeURIComponent(mh[1])}catch(e){}
 function mapClose(){try{window.close()}catch(e){}setTimeout(function(){location.href=location.pathname},200)}
-function openMapPage(place){var w=null;try{if(/^https?:/.test(location.protocol))w=window.open(location.pathname+'#map='+encodeURIComponent(place),'_blank')}catch(e){}if(!w)openMap(place)}
+function openMapPage(place){var w=null,sa=!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));try{if(!sa&&/^https?:/.test(location.protocol))w=window.open(location.pathname+'#map='+encodeURIComponent(place),'_blank')}catch(e){}if(!w){if(!stack.length)document.body.classList.add('mapfull');openMap(place)}}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-map]');if(!a||!a.dataset.map)return;e.stopPropagation();
   if(a.tagName==='A'&&/^https?:/.test(location.protocol)&&HPL_API_URL&&!window.claude&&!MAPMODE){a.href=location.pathname+'#map='+encodeURIComponent(a.dataset.map);a.target='_blank';a.rel='noopener';return}
   e.preventDefault();if(MAPMODE){openMap(a.dataset.map);return}openMapPage(a.dataset.map)},true);
@@ -1236,7 +1352,7 @@ function mySection(p){if(!hasMy()){if(ROLE!=='view'&&EDITOR&&HPL_API_URL&&!windo
   if(typing)b='<textarea class="ita" id="inlTa" rows="2" placeholder="Your own note about this plant" aria-label="My note">'+esc(INLINE.val)+'</textarea>';
   else b=m&&m.text?'<div class="ntext tapedit" id="myNoteTap" role="button" tabindex="0">'+esc(m.text)+'</div>':'<div class="ntext nempty tapedit" id="myNoteTap" role="button" tabindex="0">Tap to add your own note</div>';
   var d=m&&m.at?new Date(m.at):null;
-  return foldSec('p-my','My note',urHtml('my'),b+'<div class="myh">Only you can see this'+(d?SEP+'changed '+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear():'')+'</div>',true)}
+  return foldSec('p-my','My note<span class="hsub">Only you can see this'+(d?SEP+'changed '+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear():'')+'</span>',urHtml('my'),b,true)}
 function startInline(id,sec,merge){var p=plantById(id);if(!p)return;
   INL_TOK++;INLINE={pid:id,sec:sec,merge:!!merge,val:sec==='my'?((MYN[id]&&MYN[id].text)||''):sec==='ck'?((p.check&&p.check.note)||''):(p.notes||''),before:snapSec(id,sec),tok:INL_TOK};
   var sc=$('.panel')?$('.panel').scrollTop:0;drawSheet();var q=$('.panel');if(q)q.scrollTop=sc;
@@ -1274,7 +1390,7 @@ function openPlant(id){
     var others=PLANTS.filter(function(x){return x.id!==p.id&&norm(x.name)===norm(p.name)});
     var h='<div class="nmrow"><h2 class="h2 latin">'+nameHtml(p.name)+'</h2><button class="btn sm edit" id="pEdit">✎ Edit</button></div>'+
       '<div class="r-sub">'+placeTag(p.place)+(p.no?SEP+'No. '+esc(p.no):'')+'</div>'+
-      '<dl class="kv sec">'+(p.common?'<dt>Common name</dt><dd>'+esc(p.common)+'</dd>':'')+(p.jekyll?'<dt>Jekyll specified</dt><dd>'+esc(p.jekyll)+'</dd>':'')+(p.tag?'<dt>Note</dt><dd>'+esc(p.tag)+'</dd>':'')+(p.srcT?'<dt>Source</dt><dd>'+(p.srcU?'<a href="'+esc(p.srcU)+'" target="_blank" rel="noopener">'+esc(p.srcT)+'</a>':esc(p.srcT))+'</dd>':'')+(mapOf(p.place)?'<dt>Map</dt><dd>'+mapLink(p.place)+'</dd>':'')+'<dt>RHS</dt><dd><a href="'+esc(rhsUrl(p.name))+'" target="_blank" rel="noopener">Search on RHS</a></dd></dl>'+
+      '<dl class="kv sec">'+(p.common?'<dt>Common name</dt><dd>'+esc(p.common)+'</dd>':'')+(p.jekyll?'<dt>Jekyll specified</dt><dd>'+esc(p.jekyll)+'</dd>':'')+(p.tag?'<dt>Note</dt><dd>'+esc(p.tag)+'</dd>':'')+(p.srcT?'<dt>Source</dt><dd>'+(p.srcU?'<a href="'+esc(p.srcU)+'" target="_blank" rel="noopener">'+esc(p.srcT)+'</a>':esc(p.srcT))+'</dd>':'')+(mapOf(p.place)?'<dt>Map</dt><dd>'+mapLink(p.place)+'</dd>':'')+'<dt>RHS</dt><dd>'+(factsOf(p.name)&&factsOf(p.name).url?'<a href="'+esc(factsOf(p.name).url)+'" target="_blank" rel="noopener">RHS page</a>':'<a href="'+esc(rhsUrl(p.name))+'" target="_blank" rel="noopener">Search on RHS</a>')+'</dd></dl>'+factsSection(p)+
       (others.length?'<div class="sec"><h3>Also in</h3><div class="chips pc">'+others.map(function(o){return '<button type="button" style="--pc:'+placeCol(o.place)+'" data-open="'+o.id+'">'+esc(o.place)+' '+esc(o.no)+'</button>'}).join('')+'</div></div>':'')+
       chkSection(p)+
       notesSection(p)+mySection(p)+
@@ -1340,26 +1456,69 @@ function logCard(id,inSheet){
   var l=S.logs[id];if(!l)return '';
   var linked=l.taskId&&S.tasks[l.taskId],H=inSheet?{}:hides('log');
   var idrow=inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):idLine(l.place,l.no,l.name,false);
-  var lchip=(inSheet||H.place)?'':placeTag(l.place);
-  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDate(l.date))+(l.hours?SEP+esc(l.hours)+' h':'')+'</span>'+(H.task?'':'<span class="evt">'+taskTag(l.event)+'</span>')+(linked?'<span class="pill l">✓ From plan</span>':'')+'</span>'+
+  var lchip=(inSheet||H.place)?'':placeTag(l.place,1);
+  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+(l.hours?SEP+esc(l.hours)+' h':'')+'</span>'+(H.task?'':'<span class="evt">'+taskTag(l.event)+'</span>')+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
     (inSheet?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
 }
 function logEntry(id){
   var l=S.logs[id];if(!l)return '';
   var linked=l.taskId&&S.tasks[l.taskId];
-  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDate(l.date))+'</span><span class="le-b"><span class="evt">'+taskTag(l.event)+(l.hours?'<span class="r-sub">'+SEP+esc(l.hours)+' h</span>':'')+(linked?' <span class="pill l">✓ From plan</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
+  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDates(ldates(l)))+'</span><span class="le-b"><span class="evt">'+taskTag(l.event)+(l.hours?'<span class="r-sub">'+SEP+esc(l.hours)+' h</span>':'')+(linked?' <span class="pill l">✓ Planned</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
 }
-function datesHtml(p,multi){return '<div class="fsec fs-date"><div class="fs-h">Date done'+(multi?infoBtn('Worked on it over several days? Add each date: one log entry is saved for every date.'):'')+'</div><div class="dwrap"><div id="'+p+'-dates"></div>'+(multi?'<button type="button" class="lnk" id="'+p+'-adddate">＋ Add another date</button>':'')+'</div></div>'}
+/* Dates: one log entry can hold several days. The calendar is built here (no phone date picker), so it works the same on every phone.
+   Tap a day to add or remove it; slide across days to pick a run; tap outside to close. */
+function ldates(l){return l&&l.dates&&l.dates.length?l.dates.slice():(l&&l.date?[l.date]:[])}
+function d2(n){return ('0'+n).slice(-2)}
+function dstr(y,m,d){return y+'-'+d2(m)+'-'+d2(d)}
+function fmtDates(arr){
+  arr=(arr||[]).filter(Boolean).slice().sort();if(!arr.length)return '';if(arr.length===1)return fmtDate(arr[0]);
+  function nx(a){var x=new Date(a+'T12:00:00');x.setDate(x.getDate()+1);return dstr(x.getFullYear(),x.getMonth()+1,x.getDate())}
+  var runs=[],cur=[arr[0],arr[0]];
+  for(var i=1;i<arr.length;i++){if(arr[i]===nx(cur[1]))cur[1]=arr[i];else{runs.push(cur);cur=[arr[i],arr[i]]}}runs.push(cur);
+  function P(a){var q=a.split('-');return {y:+q[0],m:+q[1],d:+q[2]}}
+  var out='',lastY=P(runs[runs.length-1][1]).y;
+  runs.forEach(function(r,k){var a=P(r[0]),b=P(r[1]),nxt=runs[k+1]?P(runs[k+1][0]):null;
+    var t=(a.m!==b.m||a.y!==b.y)?a.d+' '+MON[a.m]+(a.y!==b.y?' '+a.y:'')+' – '+b.d:(r[0]===r[1]?String(a.d):a.d+'–'+b.d);
+    var endM=!nxt||nxt.m!==b.m||nxt.y!==b.y,endY=!nxt||nxt.y!==b.y;
+    out+=t+(endM?' '+MON[b.m]:'')+(endY?' '+b.y:'')+(nxt?', ':'')});
+  return out;
+}
+var DSEL={};
+function datesHtml(p){return '<div class="fsec fs-date"><div class="fs-h">Date done'+infoBtn('Tap the date box to open the calendar. Tap days to add or remove them; slide across days to pick a run. All the days stay in this one entry. Tap outside the calendar to close it.')+'</div><button type="button" class="input dbox" id="'+p+'-dbox" aria-expanded="false"></button><div class="dcal" id="'+p+'-dcal" hidden></div></div>'}
 function nextDay(d){var x=new Date(d+'T12:00:00');x.setDate(x.getDate()+1);return x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2)+'-'+('0'+x.getDate()).slice(-2)}
 function wireDates(p,first,multi,onChange){
-  var box=$('#'+p+'-dates');
-  function sync(){var rows=$$('.drow',box);rows.forEach(function(r){$('button',r).style.display=rows.length>1?'':'none'})}
-  function add(v){var r=document.createElement('div');r.className='drow';r.innerHTML='<input class="input" type="date" value="'+esc(v)+'" aria-label="Date"><button type="button" class="btn sm ghost" aria-label="Remove date">✕</button>';
-    $('button',r).onclick=function(){r.remove();sync();if(onChange)onChange()};$('input',r).addEventListener('change',function(){if(onChange)onChange()});box.appendChild(r);sync();if(onChange)onChange()}
-  add(first);
-  if(multi)$('#'+p+'-adddate').onclick=function(){var ds=datesVals(p);add(ds.length?nextDay(ds[ds.length-1]):first)};
+  var st=DSEL[p]={sel:(Array.isArray(first)?first:[first]).filter(Boolean),ym:''};
+  var box=$('#'+p+'-dbox'),cal=$('#'+p+'-dcal');
+  var f0=st.sel.slice().sort()[0]||todayStr();st.ym=f0.slice(0,7);
+  function label(){box.textContent=st.sel.length?fmtDates(st.sel):'Choose a date'}
+  function changed(){st.sel.sort();label();draw();if(onChange)onChange()}
+  function draw(){
+    var y=+st.ym.slice(0,4),m=+st.ym.slice(5,7),n=new Date(y,m,0).getDate(),lead=(new Date(y,m-1,1).getDay()+6)%7,today=todayStr(),h='';
+    h+='<div class="dch"><button type="button" class="dnav" data-dm="-1" aria-label="Previous month">‹</button><b>'+MONFULL[m]+' '+y+'</b><button type="button" class="dnav" data-dm="1" aria-label="Next month">›</button></div><div class="dgrid">';
+    ['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="dw">'+w+'</span>'});
+    for(var i=0;i<lead;i++)h+='<span></span>';
+    for(var d=1;d<=n;d++){var k=dstr(y,m,d),on=st.sel.indexOf(k)>=0,pv=on&&d>1&&st.sel.indexOf(dstr(y,m,d-1))>=0&&(lead+d-1)%7!==0,nv=on&&d<n&&st.sel.indexOf(dstr(y,m,d+1))>=0&&(lead+d)%7!==0;
+      h+='<button type="button" class="dd'+(on?' on':'')+(pv?' jl':'')+(nv?' jr':'')+(k===today?' td':'')+'" data-day="'+k+'" aria-pressed="'+on+'">'+d+'</button>'}
+    cal.innerHTML=h+'</div>';
+    $$('[data-dm]',cal).forEach(function(b){b.onclick=function(e){e.stopPropagation();var q=new Date(y,m-1+(+b.dataset.dm),1);st.ym=q.getFullYear()+'-'+d2(q.getMonth()+1);draw()}});
+  }
+  var drag=null;
+  cal.addEventListener('pointerdown',function(e){var c=e.target.closest&&e.target.closest('[data-day]');if(!c)return;e.preventDefault();
+    drag={start:c.dataset.day,add:st.sel.indexOf(c.dataset.day)<0,base:st.sel.slice(),last:c.dataset.day};apply(c.dataset.day);try{cal.setPointerCapture(e.pointerId)}catch(x){}});
+  cal.addEventListener('pointermove',function(e){if(!drag)return;var el=document.elementFromPoint(e.clientX,e.clientY),c=el&&el.closest&&el.closest('[data-day]');if(c&&c.dataset.day!==drag.last){drag.last=c.dataset.day;apply(c.dataset.day)}});
+  function endDrag(){drag=null}
+  cal.addEventListener('pointerup',endDrag);cal.addEventListener('pointercancel',endDrag);
+  function apply(to){var a=drag.start<to?drag.start:to,b=drag.start<to?to:drag.start,set=drag.base.slice(),x=a;
+    while(x<=b){var i=set.indexOf(x);if(drag.add&&i<0)set.push(x);if(!drag.add&&i>=0)set.splice(i,1);x=nextDay(x)}
+    st.sel=set;changed()}
+  function open(on){cal.hidden=!on;box.setAttribute('aria-expanded',on);if(on){if(st.sel.length)st.ym=st.sel[st.sel.length-1].slice(0,7);draw()}}
+  box.onclick=function(){open(cal.hidden)};
+  function outside(e){if(!document.body.contains(cal)){document.removeEventListener('pointerdown',outside,true);return}if(cal.hidden)return;if(e.target.closest&&(e.target.closest('#'+p+'-dcal')||e.target.closest('#'+p+'-dbox')))return;open(false)}
+  document.addEventListener('pointerdown',outside,true);
+  label();
+  if(onChange)onChange();
 }
-function datesVals(p){var out=[];$$('#'+p+'-dates input').forEach(function(i){if(i.value&&out.indexOf(i.value)<0)out.push(i.value)});return out.sort()}
+function datesVals(p){return DSEL[p]?DSEL[p].sel.slice().sort():[]}
 function planCandidates(v){
   var p=null;PLANTS.some(function(x){if(x.place===v.place&&String(x.no)===String(v.no)&&norm(x.name)===norm(v.name)){p=x;return true}});
   var vn=norm(v.name),yy=ydate(v.date)||CUR,same=[],other=[];
@@ -1381,27 +1540,28 @@ function planFromLog(lid,d){var y=ydate(d.date)||CUR,db={};db[y]={date:d.date||'
 function openLogForm(id,preset){if(!needName())return;
   var l=id?S.logs[id]:null,v=l||preset||{};
   push(l?'Edit log entry':'New log',function(el){
-    el.innerHTML=(l?editedLine(l):'')+datesHtml('g',!l)+'<div class="fsec fs-plant"><div class="fs-h">Plants and places'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('g',v)+(l?'':moreBox('g'))+'</div><div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
+    el.innerHTML=(l?editedLine(l):'')+datesHtml('g')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('g',v)+(l?'':moreBox('g'))+'</div><div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
     '<div class="two keep jd"><div class="field"><label for="g-event">Job done</label><select class="select" id="g-event">'+typeOptions(v.event,'Select…')+'</select></div>'+
     '<div class="field"><label for="g-hours">Hours</label><input class="input" type="number" min="0" step="0.25" inputmode="decimal" id="g-hours" placeholder="optional" value="'+esc(v.hours||'')+'"></div></div>'+
-    '<div class="field" id="g-linkbox"><label for="g-link">Related planned task<button type="button" class="info" aria-label="More information" aria-expanded="false" data-tip="tipg" data-tipel="g-linkhint">i</button></label><select class="select" id="g-link"></select><div class="r-sub" id="g-linkhint" hidden></div><button type="button" class="vbtn" id="g-openlink" style="align-self:flex-start;margin-left:-8px;display:none">Open the planned task ›</button></div>'+
+    '<div class="field" id="g-linkbox"><label for="g-link">Related planned task<button type="button" class="info" aria-label="More information" aria-expanded="false" data-tip="tipg" data-tipel="g-linkhint">i</button></label><select class="select" id="g-link"></select><div class="r-sub" id="g-linkhint" hidden></div><button type="button" class="lnk sm" id="g-openlink" style="display:none">Open the planned task ›</button><label class="finq" id="g-finrow" hidden><span>Whole task done?</span><input type="checkbox" id="g-fin"></label></div>'+
     '<label class="rad" id="g-planrow" style="display:none"><input type="checkbox" id="g-addplan"> Also add it to the Plan as a finished task</label>'+
     '<div class="field"><label for="g-details">Note</label><textarea class="textarea" id="g-details">'+esc(v.details||'')+'</textarea></div>'+(l?'':"<div id='g-xj'></div><button type='button' class='lnk' id='g-addjob'>＋ Add another job</button>")+'</div>'+
     '<div class="acts">'+(l?'<button class="btn danger" id="g-del">Delete</button>':'')+'<button class="btn primary" id="g-save">Save</button></div>';
-    var current=l&&l.taskId?l.taskId:'',gxp=null,gxj=null,gmain=null;
-    function gUpd(){var b=$('#g-save');if(l||!b)return;var d0=datesVals('g').length||1,n=(Math.max(gmain?gmain.size():1,0)+(gxp?gxp.count():0))*(1+(gxj?gxj.count():0))*d0,x=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode==='pick');b.textContent=x?'Save '+n+' log'+(n>1?'s':''):'Save';refreshLinks()}
+    var current=l&&l.taskId?l.taskId:'',gxp=null,gxj=null,gmain=null,FINFOR='';
+    function gUpd(){var b=$('#g-save');if(l||!b)return;var n=(Math.max(gmain?gmain.size():1,0)+(gxp?gxp.count():0))*(1+(gxj?gxj.count():0)),x=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode==='pick');b.textContent=x?'Save '+n+' log'+(n>1?'s':''):'Save';refreshLinks()}
     function refreshLinks(){
       var pv=pickerVals('g'),ev=$('#g-event').value,sel=$('#g-link'),keep=sel.value||current,d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR;
       var c=planCandidates({place:pv.place,no:pv.no,name:pv.name,event:ev,date:d0});
       if(current&&S.tasks[current]&&c.same.indexOf(current)<0&&c.other.indexOf(current)<0)c.same.unshift(current);
       function opts(a){return a.map(function(t){return '<option value="'+t+'"'+(t===keep?' selected':'')+'>'+esc(taskLabel(t,yy))+'</option>'}).join('')}
       sel.innerHTML='<option value="">No, this was extra work</option>'+(c.same.length?'<optgroup label="Open for '+yy+', same task">'+opts(c.same)+'</optgroup>':'')+(c.other.length?'<optgroup label="Other planned tasks for this plant in '+yy+'">'+opts(c.other)+'</optgroup>':'');
-      $('#g-linkhint').textContent=(c.same.length||c.other.length)?'Pick the planned task this relates to. An open task is ticked off for '+yy+'.':(ev?'No planned task matches this plant, so this will be saved as extra work.':'Choose what was done to see matching tasks from the Plan.');
+      $('#g-linkhint').textContent=(c.same.length||c.other.length)?'Pick the planned task this relates to. Tick “Whole task done?” when this entry finishes the task for '+yy+'; leave it unticked while the work is still going on.':(ev?'No planned task matches this plant, so this will be saved as extra work.':'Choose what was done to see matching tasks from the Plan.');
       var xn=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode!=='plant');var lb=$('#g-linkbox');if(lb)lb.style.display=xn?'none':'';
       var pr=$('#g-planrow');if(pr)pr.style.display=(sel.value||current||xn)?'none':'flex';
       var ol=$('#g-openlink');if(ol)ol.style.display=sel.value?'':'none';
+      var fr=$('#g-finrow'),fb=$('#g-fin');if(fr){fr.hidden=!sel.value;if(sel.value&&sel.value!==FINFOR){FINFOR=sel.value;var tk=S.tasks[sel.value],rc=tk&&doneRec(tk,yy);fb.checked=(l&&sel.value===current)?!!(rc&&rc.logId===id):!!(tk&&tk.name&&!isGroup(tk.name))}}
     }
-    wireDates('g',(l&&l.date)||v.date||todayStr(),!l,function(){if($('#g-link'))(typeof gUpd==='function'?gUpd():refreshLinks())});
+    wireDates('g',l?ldates(l):(v.date||todayStr()),true,function(){if($('#g-link'))(typeof gUpd==='function'?gUpd():refreshLinks())});
     if(l){wirePicker('g',refreshLinks);wireSelp('g',{mode:'plant'},el.querySelector('.fs-plant'))}else{gmain=plantScope('g',function(){if(typeof gUpd==='function')gUpd()},false,'log entry');wireSelp('g',gmain.ks,el.querySelector('.fs-plant'))}
     $('#g-link').addEventListener('change',refreshLinks);
     $('#g-event').addEventListener('change',refreshLinks);
@@ -1420,21 +1580,19 @@ function openLogForm(id,preset){if(!needName())return;
         if(gxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
         if(xj.some(function(j){return !j.event})){toast('Choose what was done for each extra task, or remove it');return}
         var targets=gmain.targets().concat(xs),jobs=[{event:d.event,hours:d.hours,details:d.details}].concat(xj),pairs=[],k=0;
-        targets.forEach(function(tg){jobs.forEach(function(j){dates.forEach(function(dt){pairs.push([uid('l'),{place:tg.place,no:tg.no,name:tg.name,event:j.event,hours:j.hours,details:j.details,date:dt,createdAt:Date.now()+(k++)}])})})});
+        targets.forEach(function(tg){jobs.forEach(function(j){var r={place:tg.place,no:tg.no,name:tg.name,event:j.event,hours:j.hours,details:j.details,date:dates[0],createdAt:Date.now()+(k++)};if(dates.length>1)r.dates=dates;pairs.push([uid('l'),r])})});
         if(await putMany('logs',pairs)){toast(pairs.length+' log '+(pairs.length>1?'entries':'entry')+' saved');pop()}return;
       }
-      var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&$('#g-planrow').style.display!=='none',ptid=addPlan?uid('t'):null,done={},first=null;
-      for(var i=0;i<dates.length;i++){
-        var lid=(id&&i===0)?id:uid('l'),rec=Object.assign({},d,{date:dates[i],createdAt:(l&&l.createdAt)||Date.now()+i});
-        if(link)rec.taskId=link;else if(addPlan)rec.taskId=ptid;
-        if(!(await put('logs',lid,rec)))return;
-        if(i===0)first=rec;
-        if(i===0&&addPlan)first.id=lid;
-        if(link&&S.tasks[link]){var yy=ydate(dates[i])||CUR;if(!done[yy]&&isOpen(S.tasks[link],yy)){done[yy]=1;await markDone(link,yy,dates[i],lid)}}
-      }
-      if(addPlan)await put('tasks',ptid,planFromLog(first.id,first));
+      var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&$('#g-planrow').style.display!=='none',ptid=addPlan?uid('t'):null;
+      var lid=id||uid('l'),rec=Object.assign({},d,{date:dates[0],createdAt:(l&&l.createdAt)||Date.now()});
+      if(dates.length>1)rec.dates=dates;
+      if(link)rec.taskId=link;else if(addPlan)rec.taskId=ptid;
+      if(!(await put('logs',lid,rec)))return;
+      if(link&&S.tasks[link]){var yy=ydate(dates[0])||CUR,rc=doneRec(S.tasks[link],yy),fin=$('#g-fin')&&$('#g-fin').checked;
+        if(fin){if(!rc||rc.logId!==lid)await markDone(link,yy,dates[dates.length-1],lid)}else if(rc&&rc.logId===lid)await unmarkLog(link,lid)}
+      if(addPlan){rec.id=lid;await put('tasks',ptid,planFromLog(lid,rec))}
       if(current&&current!==link)await unmarkLog(current,id);
-      toast(dates.length>1?dates.length+' log entries saved':'Log saved');pop();
+      toast('Log saved');pop();
     };
     if(l)$('#g-del').onclick=function(){var b=$('#g-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('logs',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
   });
@@ -1444,12 +1602,12 @@ function openLogForm(id,preset){if(!needName())return;
 var CHECK='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
 function hides(tab){var g=S[tab+'Group'],u=(g==='none'||g==='plant')?'none':S[tab+'Sub'];function h(k){return g===k||u===k}var pf=(tab==='plan'?S.planPlace:S.logPlace).length===1;return tab==='plan'?{task:h('task')||HIDE_TASK,month:h('month'),place:h('place')||pf}:{task:h('event'),month:h('month'),place:h('place')||pf}}
 var HIDE_TASK=false;
-function pnHtml(place,no,hidePlace){var c=hidePlace?'':placeTag(place);return c?'<span class="r-side">'+c+'</span>':''}
+function pnHtml(place,no,hidePlace){var c=hidePlace?'':placeTag(place,1);return c?'<span class="r-side">'+c+'</span>':''}
 function plantIdFor(place,no,name){return name?PKEYS[(place||'')+'|'+(no||'')+'|'+norm(name)]||'':''}
 function nameLink(place,no,name){var id=plantIdFor(place,no,name),h=latinHtml(name);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+h+'</span>':h}
 function openBtn(place,no,name){var id=plantIdFor(place,no,name);return id?'<span class="olink" role="button" tabindex="0" data-popen="'+id+'">Open ›</span>':''}
 function idNum(no,name){return numHtml(no,name)||'<span class="num"></span>'}
-function idLine(place,no,name,showPlace){if(!no&&!name)return '<span class="idrow"><span class="num"></span><span class="wp">Whole place</span>'+(showPlace?placeTag(place):'')+'</span>';return '<span class="idrow">'+idNum(no,name)+(name?nameLink(place,no,name):'')+'</span>'}
+function idLine(place,no,name,showPlace){if(!no&&!name)return '<span class="idrow"><span class="num"></span><span class="wp">⌂ Whole place</span>'+(showPlace?placeTag(place):'')+'</span>';return '<span class="idrow">'+idNum(no,name)+(name?nameLink(place,no,name):'')+'</span>'}
 function numHtml(no,name){if(!no&&name&&isGroup(name))return '';return '<span class="num">'+esc(no||'–')+'</span>'}
 function latinHtml(name){return isGroup(name)?'<span class="latin gname" title="Group: covers every matching plant">'+nameHtml(name)+'<span class="gall">all</span></span>':'<span class="latin">'+nameHtml(name)+'</span>'}
 function genusSummary(t){
@@ -1461,7 +1619,12 @@ function genusSummary(t){
   var few=ms.length<=15;
   return '<span class="gsum"><span class="r-sub"><b>'+ms.length+' plant'+(ms.length>1?'s':'')+'</b></span>'+order.map(function(pl){
     var l=by[pl].sort(function(a,b){return noKey(a.no)-noKey(b.no)});
-    return '<span class="gp">'+placeChip(pl)+'<span class="r-sub">'+(few?l.map(function(p){return esc(p.no||'–')}).join(', '):'×'+l.length)+'</span></span>'}).join('')+'</span>';
+    return '<span class="gp">'+placeChipLight(pl)+'<span class="r-sub">'+(few?l.map(function(p){return esc(p.no||'–')}).join(', '):'×'+l.length)+'</span></span>'}).join('')+'</span>';
+}
+function taskLogsHtml(id){
+  var ids=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id}).sort(function(a,b){return (S.logs[b].date||'').localeCompare(S.logs[a].date||'')});
+  if(!ids.length)return '';var h=ids.reduce(function(a,k){return a+(parseFloat(S.logs[k].hours)||0)},0);
+  return '<div class="sec"><h3><span>Logs for this task ('+ids.length+(h?' · '+h+' h':'')+')</span></h3><div class="list">'+ids.map(logEntry).join('')+'</div></div>';
 }
 function genusPlantsHtml(t){
   if(!isGroup(t.name))return '';
@@ -1472,10 +1635,11 @@ function genusPlantsHtml(t){
 function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
   var t=S.tasks[id];if(!t)return '';
   var y=yOf(t),rec=doneRec(t,y),logged=rec&&rec.logId&&S.logs[rec.logId],H=inSheet?{}:hides('plan');
-  var pill=logged?'<span class="pill l">Logged</span>':'';
+  var nlog=rec?0:Object.keys(S.logs).filter(function(k){var x=S.logs[k];return x.taskId===id&&ydate(x.date)===y}).length;
+  var pill=logged?'<span class="pill l">Logged</span>':(nlog?'<span class="pill ip">In progress · '+nlog+' log'+(nlog>1?'s':'')+'</span>':'');
   var wp=!t.no&&!t.name;
   var idrow=(inSheet||cm)?'':idLine(t.place,t.no,t.name,false);
-  var tchip=(inSheet||cm||H.place)?'':placeTag(t.place);
+  var tchip=(inSheet||cm||H.place)?'':placeTag(t.place,1);
   var head=cm?('<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'+(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':'')):(H.task?idrow:'<span class="evt">'+taskTag(t.task)+(pill?' '+pill:'')+'</span>'+idrow);
   var bits=[];if(S.planAll&&!inSheet)bits.push('<b>'+y+'</b>');if(!H.month)bits.push(t.month?MON[t.month]:'No month');if(t.season)bits.push(esc(t.season));bits.push(esc(repLabel(t)));if(rec&&rec.date)bits.push('Done '+esc(fmtDate(rec.date)));
   return '<div class="card'+(rec?' done':'')+'"><button class="chk" data-done="'+id+'" aria-pressed="'+(!!rec)+'" aria-label="'+(rec?'Mark as not done for '+y:'Mark as done for '+y)+'"><span>'+CHECK+'</span></button>'+
@@ -1538,7 +1702,7 @@ function wireSelp(P,ks,root,onRemove){var blk=$('#'+P+'-blk'),sp=$('#'+P+'-selp'
   function upd(){if(!sp||!sp.isConnected)return;var picked=(nm.dataset.sel==='1'||ks.mode!=='plant')&&(nm.value.trim()||pl.value);
     blk.classList.toggle('sel',!!picked);
     if(!picked){sp.hidden=true;return}
-    sp.hidden=false;sp.innerHTML=(pl.value?placeChip(pl.value):'')+(no.value?'<span class="num">'+esc(no.value)+'</span>':'')+(nm.value.trim()?(function(){var nv=nm.value.trim(),id=plantIdFor(pl.value,no.value,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():'<span class="r-sub">Whole place</span>')+'<button type="button" aria-label="'+(onRemove?'Remove this plant':'Clear plant')+'" class="selx">✕</button>';
+    sp.hidden=false;sp.innerHTML=(pl.value?placeChip(pl.value):'')+(no.value?'<span class="num">'+esc(no.value)+'</span>':'')+(nm.value.trim()?(function(){var nv=nm.value.trim(),id=plantIdFor(pl.value,no.value,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():'<span class="wp">⌂ Whole place</span>')+'<button type="button" aria-label="'+(onRemove?'Remove this plant':'Clear plant')+'" class="selx">✕</button>';
     var lk=sp.querySelector('[data-popen]');if(lk)lk.onclick=function(e){e.stopPropagation();openPlant(lk.dataset.popen)};
     sp.onclick=function(e){if(e.target.closest('.selx')||e.target.closest('[data-popen]'))return;var keep=nm.value;if(ks.mode!=='plant'){ks.mode='plant';ks.init=false;ks.sel={};ks.src=null;ks.onlyPlace=false;try{[pl,no,nm].forEach(function(x){x.disabled=false})}catch(_){}}
       nm.value=keep;nm.dataset.sel='';upd();nm.focus();try{nm.setSelectionRange(nm.value.length,nm.value.length)}catch(_){}nm.dispatchEvent(new Event('input',{bubbles:true}))};
@@ -1657,10 +1821,11 @@ function openTaskForm(id,preset){if(!needName())return;
     '<div class="field" id="k-yrs-wrap" style="display:none"><label for="k-yrs">Years it is due (separate with commas)</label><input class="input" id="k-yrs" inputmode="numeric" placeholder="e.g. 2026, 2028, 2031" value="'+esc(((t&&t.years)||[]).join(', '))+'" autocomplete="off"><div class="r-sub" style="margin-top:4px">Each year in the list is ticked off separately. Years need not be evenly spaced.</div></div>'+
     '<div class="field"><span class="lbl">Season (choose any)</span><div class="chips" id="k-seas">'+SEASONS.map(function(s){return '<button type="button" aria-pressed="'+(seas.indexOf(s)>=0)+'" data-s="'+s+'">'+s+'</button>'}).join('')+'</div></div>'+
     '<div class="field"><label for="k-details">Note</label><textarea class="textarea" id="k-details">'+esc(v.details||'')+'</textarea></div>'+
-    "<div id='k-xj'></div><button type='button' class='lnk' id='k-addjob'>＋ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t):'')+
+    "<div id='k-xj'></div><button type='button' class='lnk' id='k-addjob'>＋ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t)+taskLogsHtml(id):'')+
     '<div class="acts">'+(t?'<button class="btn danger" id="k-del">Delete</button>':'')+'<button class="btn primary" id="k-save">Save</button></div>';
     var main=plantScope('k',function(){if(window.updSave)window.updSave()},!!t),ks=main.ks,pickCount=main.pickCount;
     $$('[data-open]',el).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
+    $$('[data-log]',el).forEach(function(b){b.onclick=function(){openLogForm(b.dataset.log)}});
     function repToggle(){var sp=$('#k-rep').value==='-1';$('#k-yrs-wrap').style.display=sp?'':'none';$('#k-yfield').style.display=sp?'none':''}
     $('#k-rep').addEventListener('change',repToggle);repToggle();
     $$('#k-seas button').forEach(function(b){b.onclick=function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true')}});
@@ -1718,13 +1883,13 @@ function openDone(id){
     var dv=(y===CUR?todayStr():y+'-'+todayStr().slice(5));
     el.innerHTML='<div class="evt">'+taskTag(t.task)+' <span class="ypill">'+y+'</span></div>'+(t.name?'<div class="latin">'+nameHtml(t.name)+'</div>':'')+'<div class="r-sub">'+placeChip(t.place)+(t.no?SEP+esc(t.no):'')+'</div><div style="height:14px"></div>'+
     (multi?'<div class="field"><span class="lbl">Which plants was it done on? ('+ms.length+' match this task)</span><div><button type="button" class="vbtn" id="d-all">Select all</button><button type="button" class="vbtn" id="d-none">Select none</button></div><div class="pick" style="margin-left:0">'+ms.map(function(p){return '<label><input type="checkbox" data-pk="'+p.id+'"> <span><span class="latin">'+nameHtml(p.name)+'</span> <span class="r-sub">'+esc(p.place)+(p.no?SEP+esc(p.no):'')+'</span></span></label>'}).join('')+'</div></div>':'')+
-    datesHtml('d',true)+'<div class="r-sub" id="d-warn" style="display:none;color:var(--warn);background:var(--warn-soft);padding:8px 10px;border-radius:8px;margin:0 0 12px"></div>'+
+    datesHtml('d')+'<div class="r-sub" id="d-warn" style="display:none;color:var(--warn);background:var(--warn-soft);padding:8px 10px;border-radius:8px;margin:0 0 12px"></div>'+
     '<div class="field"><label for="d-note">Log details (optional)</label><textarea class="textarea" id="d-note"></textarea></div>'+
     '<label class="rad"><input type="checkbox" id="d-log" checked> Also add log entries</label><div class="r-sub" id="d-count" style="margin:2px 0 0 30px"></div>'+
     '<div class="actions"><button class="btn primary" id="d-ok">Mark as done for '+y+'</button></div>';
     function chosen(){return multi?ms.filter(function(p){var c=$('[data-pk="'+p.id+'"]');return c&&c.checked}):[{place:t.place||'',no:t.no||'',name:t.name||''}]}
     var okOnce=false;
-    function count(){okOnce=false;$('#d-ok').textContent='Mark as done for '+y;var odd=datesVals('d').filter(function(x){return ydate(x)&&ydate(x)!==y}),w=$('#d-warn');if(odd.length){w.style.display='';w.textContent='Date '+odd.map(function(x){return ydate(x)}).filter(function(v,i,a){return a.indexOf(v)===i}).join(', ')+' is not '+y+'. The task will still be ticked as done for '+y+', and the log entry keeps its own date.'}else w.style.display='none';var n=chosen().length*datesVals('d').length;$('#d-count').textContent=$('#d-log').checked?(n+(n===1?' log entry will be added':' log entries will be added')):'No log entries will be added'}
+    function count(){okOnce=false;$('#d-ok').textContent='Mark as done for '+y;var odd=datesVals('d').filter(function(x){return ydate(x)&&ydate(x)!==y}),w=$('#d-warn');if(odd.length){w.style.display='';w.textContent='Date '+odd.map(function(x){return ydate(x)}).filter(function(v,i,a){return a.indexOf(v)===i}).join(', ')+' is not '+y+'. The task will still be ticked as done for '+y+', and the log entry keeps its own date.'}else w.style.display='none';var n=chosen().length;$('#d-count').textContent=$('#d-log').checked?(n+(n===1?' log entry will be added':' log entries will be added')):'No log entries will be added'}
     wireDates('d',dv,true,count);
     $$('[data-pk]',el).forEach(function(c){c.onchange=count});
     $('#d-log').onchange=count;
@@ -1736,12 +1901,12 @@ function openDone(id){
       var who=chosen(),logId='';
       if($('#d-log').checked){
         if(!who.length){toast('Tick at least one plant');return}
-        for(var i=0;i<dates.length;i++)for(var j=0;j<who.length;j++){
-          var lid=uid('l');if(!logId)logId=lid;
-          if(!(await put('logs',lid,{date:dates[i],place:who[j].place||'',no:who[j].no||'',name:who[j].name||'',event:t.task,details:$('#d-note').value.trim(),hours:'',taskId:id,createdAt:Date.now()+i*100+j})))return;
+        for(var j=0;j<who.length;j++){
+          var lid=uid('l');if(!logId)logId=lid;var lr={date:dates[0],place:who[j].place||'',no:who[j].no||'',name:who[j].name||'',event:t.task,details:$('#d-note').value.trim(),hours:'',taskId:id,createdAt:Date.now()+j};if(dates.length>1)lr.dates=dates;
+          if(!(await put('logs',lid,lr)))return;
         }
       }
-      if(await markDone(id,y,dates[0],logId)){toast('Marked as done for '+y);pop()}
+      if(await markDone(id,y,dates[dates.length-1],logId)){toast('Marked as done for '+y);pop()}
     };
   });
 }
@@ -1837,7 +2002,7 @@ function openRename(i){
 
 /* ---------- places ---------- */
 function savePlaces(items){return put('settings','places',{items:items})}
-var PARTOF_TIP='The bigger area this place belongs to, for example all “Shrubbery-” beds are part of Shrubbery. Places that are part of the same area fold together in the lists.';
+var PARTOF_TIP='Part of area: the bigger area a place belongs to, for example all “Shrubbery-” beds are part of Shrubbery. Places in the same area fold together in the lists.';
 async function doRenamePlace(old,nu){
   var items=placeList().map(function(x){return {name:x.name,color:x.color,map:x.map,area:x.area||'',note:x.note||''}}),i=-1;items.forEach(function(x,k){if(x.name===old)i=k});if(i<0)return false;
   var pls=PLANTS.filter(function(p){return p.place===old}),tk=Object.keys(S.tasks).filter(function(k){return S.tasks[k].place===old}),lg=Object.keys(S.logs).filter(function(k){return S.logs[k].place===old});
@@ -1867,17 +2032,17 @@ function openPlaces(){
   SETH.places={u:[],r:[]};
   push('Places',function(el){
     var items=placeList().map(function(x){return {name:x.name,color:x.color,map:x.map,area:x.area||'',note:x.note||''}});
-    var h='<div class="sethead"><p class="r-sub">Tap a place to change its colour. Each place has a map link and “Part of”.</p>'+infoBtn(PARTOF_TIP+' A place can only be deleted when no plants are in it. Rename (pencil) changes the name on every plant, task and log entry in that place. Place colours come from the original garden plan, so a change asks first and can be reset.')+shBtns('places')+'</div>';
+    var h='<div class="sethead"><p class="r-sub">Tap a place to change its colour. Edit map link and “Part of area” below.</p>'+infoBtn(PARTOF_TIP)+shBtns('places')+'</div>';
     h+=items.map(function(x,i){
       var n=PLANTS.filter(function(p){return p.place===x.name}).length;
       return '<div class="prow pe"><div class="plrow2"><button type="button" class="pcb" data-pcol="'+i+'" aria-label="Change colour of '+esc(x.name)+'">'+placeChip(x.name)+'</button><span class="tc r-sub">'+n+'</span>'+rowBtns(i,items.length,'data-pren',n?'Move or delete its plants first':'',x.name)+'</div>'+
       '<div class="pal" id="ppal-'+i+'" hidden>'+placePal(i,x.color,COLOR0[x.name])+'</div><div class="pcf" id="pcf-'+i+'" hidden></div>'+
-      '<div class="pfl"><input class="input pm" data-m="'+i+'" value="'+esc(x.map)+'" placeholder="Map link" inputmode="url" autocomplete="off" aria-label="Map link for '+esc(x.name)+'"><input class="input pa" data-a="'+i+'" list="areaList" value="'+esc(x.area||'')+'" placeholder="Part of…" autocomplete="off" aria-label="Part of (area) for '+esc(x.name)+'"></div></div>';
+      '<div class="pfl"><input class="input pm" data-m="'+i+'" value="'+esc(x.map)+'" placeholder="Map link" inputmode="url" autocomplete="off" aria-label="Map link for '+esc(x.name)+'"><input class="input pa" data-a="'+i+'" list="areaList" value="'+esc(x.area||'')+'" placeholder="Part of area" autocomplete="off" aria-label="Part of (area) for '+esc(x.name)+'"></div></div>';
     }).join('');
     h+='<datalist id="areaList">'+Array.from(new Set(items.map(function(x){return x.area}).filter(Boolean))).map(function(a){return '<option value="'+esc(a)+'">'}).join('')+'</datalist>';
     h+='<div class="sec"><h3>Add a place</h3><div class="field"><label for="pl-name">Name</label><input class="input" id="pl-name" placeholder="e.g. Kitchen garden" autocomplete="off"></div>'+
       '<div class="field"><label>Colour</label><div class="pal" id="ppal-new">'+placePal('new','#8FB996','')+'</div><input type="hidden" id="pl-color" value="#8FB996"></div>'+
-      '<div class="pfl"><input class="input pm" id="pl-map" placeholder="Map link (optional)" inputmode="url" autocomplete="off"><input class="input pa" id="pl-area" list="areaList" autocomplete="off" placeholder="Part of…"></div><div class="actions"><button class="btn primary" id="pl-add">Add place</button></div></div>';
+      '<div class="pfl"><input class="input pm" id="pl-map" placeholder="Map link (optional)" inputmode="url" autocomplete="off"><input class="input pa" id="pl-area" list="areaList" autocomplete="off" placeholder="Part of area"></div><div class="actions"><button class="btn primary" id="pl-add">Add place</button></div></div>';
     el.innerHTML=h;
     function cl(){return items.map(function(x){return Object.assign({},x)})}
     function saveL(l){shRec('places',{k:'pl',b:cl(),a:l});return savePlaces(l)}
@@ -1935,7 +2100,7 @@ function plantGroups(recOf,entry){
   var PK={};
   function pk(id){var l=recOf(id),k=(l.place||'')+'|'+(l.no||'')+'|'+norm(l.name);if(!PK[k])PK[k]={place:l.place||'',no:l.no||'',name:l.name||''};return k}
   function pcmp(a,b){var x=PK[a],y=PK[b];return placeIdx(x.place)-placeIdx(y.place)||noKey(x.no)-noKey(y.no)||norm(x.name).localeCompare(norm(y.name))}
-  function head(k){var x=PK[k];return (x.no?'<span class="num">'+esc(x.no)+'</span>':'')+(x.name?nameLink(x.place,x.no,x.name):'<span class="r-sub">Whole place</span>')+placeTag(x.place)}
+  function head(k){var x=PK[k];return (x.no?'<span class="num">'+esc(x.no)+'</span>':'')+(x.name?nameLink(x.place,x.no,x.name):'<span class="wp">⌂ Whole place</span>')+placeTag(x.place,1)}
   return {
     plant:{cls:'plantg',key:pk,label:head,cmp:pcmp,block:function(items){return '<div class="list">'+items.map(entry).join('')+'</div>'}},
     genusBlock:function(items){var m={},ks=[];items.forEach(function(id){var k=pk(id);if(!m[k]){m[k]=[];ks.push(k)}m[k].push(id)});ks.sort(pcmp);
@@ -1943,7 +2108,7 @@ function plantGroups(recOf,entry){
   };
 }
 var SUBOPTS={plants:[['place','Place'],['genus','Genus']],plan:[['task','Task'],['month','Month'],['place','Place'],['genus','Genus']],log:[['event','Task'],['month','Month'],['place','Place'],['genus','Genus']]};
-function groupBar(tab,groupBy,options,extra,left){
+function groupBar(tab,groupBy,options,extra,left,bare){if(bare){extra='';left=''}
   var cur=S[tab+'Sub'],h='<div class="vbar"><span class="vsel"><select class="select" id="gb-'+tab+'" aria-label="Group by">'+options.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===groupBy?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>';
   if(SUBOPTS[tab]&&groupBy!=='none')
     h+='<select class="select" id="sb-'+tab+'" aria-label="Then group by"><option value="none">Then: none</option>'+SUBOPTS[tab].filter(function(o){return o[0]!==groupBy&&!(groupBy==='plant'&&(o[0]==='place'||o[0]==='genus'))}).map(function(o){return '<option value="'+o[0]+'"'+(o[0]===cur?' selected':'')+'>Then by '+o[1].toLowerCase()+'</option>'}).join('')+'</select>';
@@ -1983,12 +2148,21 @@ function banners(){
 }
 
 /* plants tab */
+/* In flower (flowering guide inside Plants) */
+var SEASM={Spring:[3,4,5],Summer:[6,7,8],Autumn:[9,10,11],Winter:[12,1,2]};
+function curSeason(){var m=new Date().getMonth()+1;return m>=3&&m<=5?'Spring':m<=8&&m>=6?'Summer':m>=9&&m<=11?'Autumn':'Winter'}
+function flMonths(){var ms=[];(S.fseas||[]).forEach(function(k){ms=ms.concat(SEASM[k])});return ms}
+function flRange(){var ss=['Spring','Summer','Autumn','Winter'].filter(function(k){return (S.fseas||[]).indexOf(k)>=0});if(!ss.length)return 'any time of year';
+  var t=ss.map(function(x){return x.toLowerCase()}).join(' + ');if(ss.length===4)return 'the whole year';
+  var a=SEASM[ss[0]][0],b=SEASM[ss[ss.length-1]][2],cont=ss.every(function(k,i){return !i||['Spring','Summer','Autumn','Winter'].indexOf(k)===['Spring','Summer','Autumn','Winter'].indexOf(ss[i-1])+1});
+  return t+(cont?' ('+MON[a]+'–'+MON[b]+')':'')}
 function viewPlants(){
-  var q=norm(S.pq).split(' ').filter(Boolean),list=PLANTS.filter(function(p){
+  var FL=S.pmode==='flower';document.body.classList.toggle('flmode',FL&&S.tab==='plants');if(FL&&!S.fseas)S.fseas=[curSeason()];var FM=FL?flMonths():[],noFl=0;
+  var q=norm(S.pq).split(' ').filter(Boolean),base0=0,list=PLANTS.filter(function(p){
     if(!inSel(S.pplace,p.place))return false;
-    if(!q.length)return true;
-    var h=norm(p.name+' '+p.common+' '+p.jekyll+' '+p.tag+' '+p.notes+' '+p.place+' '+p.no);
-    return wmatch(h,q);
+    if(q.length){var h=norm(p.name+' '+p.common+' '+p.jekyll+' '+p.tag+' '+p.notes+' '+p.place+' '+p.no);if(!wmatch(h,q))return false}
+    if(FL){base0++;var f=factsOf(p.name);if(!f||!f.months.length){noFl++;return false}if(FM.length&&!f.months.some(function(m){return FM.indexOf(m)>=0}))return false}
+    return true;
   });
   list.sort(S.pgroup==='genus'?function(a,b){return norm(a.name).localeCompare(norm(b.name))||placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}
     :function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)||norm(a.name).localeCompare(norm(b.name))});
@@ -1999,9 +2173,14 @@ function viewPlants(){
     place:{key:function(p){return p.place||'(no place)'},label:placeLabel,cmp:function(a,b){return placeIdx(a)-placeIdx(b)}},
     genus:{key:function(p){return (p.name.split(' ')[0]||'(none)').toLowerCase()},label:function(k){return '<span class="latin"><i>'+esc(k.charAt(0).toUpperCase()+k.slice(1))+'</i></span>'},cmp:function(a,b){return a<b?-1:a>b?1:0}}
   };
+  function flrow(p){var f=factsOf(p.name)||{months:[]},nm='<span class="latin">'+nameHtml(p.name)+'</span>';
+    if(S.fview==='cal')return '<div class="row plrow flr" role="button" tabindex="0" data-id="'+p.id+'"><span class="num">'+esc(p.no||'–')+'</span><span class="r-main">'+nm+'</span><span class="r-side">'+monthBar(f.months,f.hex||'')+'</span></div>';
+    var sub=[p.common?esc(p.common):'',f.colour?esc(cap1(f.colour.split(/[,(;]/)[0].trim())):'',f.flower?'<b>'+esc(f.flower.split(/[,;(]/)[0].trim())+'</b>':''].filter(Boolean).join(SEP);
+    return '<div class="row plrow flr" role="button" tabindex="0" data-id="'+p.id+'"><span class="num"><span class="fdot" style="'+(f.hex?'background:'+f.hex:'')+'"></span>'+esc(p.no||'–')+'</span><span class="r-main">'+nm+'</span>'+(sub?'<span class="r-line"><span class="r-sub rc">'+sub+'</span></span>':'')+'</div>'}
   function row(p){
+    if(FL)return flrow(p);
     var nt=S.plabels?(IDX.tasks[p.id]||[]).filter(function(i){return isOpen(S.tasks[i],CUR)}).length:0,nl=S.plabels?(IDX.logs[p.id]||[]).length:0,dup=NAMECOUNT[norm(p.name)]-1;
-    var side=(S.pgroup==='place'||(S.pgroup!=='none'&&S.pgroup!=='plant'&&S.plantsSub==='place')||S.pplace.length===1)?'':placeTag(p.place),mb='';
+    var side=(S.pgroup==='place'||(S.pgroup!=='none'&&S.pgroup!=='plant'&&S.plantsSub==='place')||S.pplace.length===1)?'':placeTag(p.place,1),mb='';
     var ck=p.check,miss=ck&&ck.st==='missing',ed=(S.chk&&ROLE!=='view'),sq=ed?ckSquares(p.id,ck):'';
     if(sq)side=side?sq+side:sq;
     var ckh=ck?'<span class="ckm '+chkCls(ck)+'" title="'+esc((ck.st==='missing'?'Missing':ck.st==='unsure'?'Unsure':'Here')+' · '+chkDate(ck)+(ck.note?' · '+ck.note:''))+'">'+chkSym(ck)+'</span>':'';
@@ -2012,8 +2191,12 @@ function viewPlants(){
   var body=(grouped&&!(one&&S.pgroup==='place'))?groupedHtml('plants',S.pgroup,shown,cfg,row,one?'none':S.plantsSub):'<div class="list">'+shown.map(row).join('')+'</div>';
   if(one)body=placeHead(one)+body;
   var nf=(S.pplace.length?1:0)+(S.pq.trim()?1:0);
-  return '<div class="top"><h1><span class="ht">'+hIcon('home')+'Hestercombe Plants</span><span class="right"><button class="ib" id="editPlaces" aria-label="Places" title="Places">'+IB.pin+'</button></span></h1><div class="bar"><input class="input grow" id="pq" type="search" placeholder="Search plants" value="'+esc(S.pq)+'" autocomplete="off">'+fbox('pplace','place',S.pplace,'All places')+'</div>'+groupBar('plants',S.pgroup,[['place','Group by place'],['genus','Group by genus'],['none','No grouping']],'<label class="ckl"><input type="checkbox" id="plabels"'+(S.plabels?' checked':'')+'> Task tags</label>','<button type="button" class="chkpill" id="chkMode" aria-pressed="'+S.chk+'">✓ Still there?</button>')+'</div>'+
-    '<div class="wrap">'+banners()+(BASE_STATE==='ok'?'':'<div class="banner">'+(BASE_STATE==='loading'?'Loading the plant list…':BASE_STATE==='missing'?'The plant list was not found. Add the “base” tab to the Google Sheet (see the setup notes).':'The plant list needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.')+'</div>')+(S.chk?'<div class="fstat on"><span class="ckhelp">Still there? check'+infoBtn('Tap ✓ (here), ✗ (missing) or ? (unsure) next to each plant. One tap saves it with today’s date. Tap the same square again to clear it.')+'</span><button type="button" id="chkDone">Done</button></div>':'')+statBar(nf,list.length+' of '+PLANTS.length+' plants','Showing all '+PLANTS.length+' plants')+(list.length?body:'<div class="empty">No plants match</div>')+(!grouped&&list.length>shown.length?'<button class="btn more" id="morePlants">Show more ('+(list.length-shown.length)+' left)</button>':'')+'</div><button class="btn leaf fab" id="addPlant"><span class="fpl">+</span><span class="flb"> New plant</span></button>';
+  if(FL&&S.fview==='cal')body='<div class="mhd">'+monthLetters()+'</div>'+body;
+  var swr='<div class="swr"><span class="seg sm" role="group" aria-label="Show"><button data-pm="all" aria-pressed="'+!FL+'">All plants</button><button data-pm="flower" aria-pressed="'+FL+'">In flower</button></span></div>';
+  var sline=FL?'<div class="sline"><span class="seg sm" role="group" aria-label="Seasons, pick one or more">'+['Spring','Summer','Autumn','Winter'].map(function(k){return '<button data-fs="'+k+'" aria-pressed="'+(S.fseas.indexOf(k)>=0)+'">'+k+'</button>'}).join('')+'</span><span class="seg sm" role="group" aria-label="View"><button data-fv="list" aria-pressed="'+(S.fview!=='cal')+'">List</button><button data-fv="cal" aria-pressed="'+(S.fview==='cal')+'">Calendar</button></span></div>':'';
+  var fban=FL&&FACTS_STATE!=='ok'?'<div class="banner">'+(FACTS_STATE==='oldscript'?'In flower needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.':FACTS_STATE==='missing'?'The plant facts were not found. Add the “plant facts” tab to the Google Sheet (see the update notes).':'Loading the plant facts…')+'</div>':'';
+  return '<div class="top"><h1><span class="ht">'+hIcon('home')+'Hestercombe Plants</span><span class="right"><button class="ib" id="editPlaces" aria-label="Places" title="Places">'+IB.pin+'</button></span></h1>'+swr+'<div class="bar"><input class="input grow" id="pq" type="search" placeholder="Search plants" value="'+esc(S.pq)+'" autocomplete="off">'+fbox('pplace','place',S.pplace,'All places')+'</div>'+groupBar('plants',S.pgroup,[['place','Group by place'],['genus','Group by genus'],['none','No grouping']],'<label class="ckl"><input type="checkbox" id="plabels"'+(S.plabels?' checked':'')+'> Task tags</label>','<button type="button" class="chkpill" id="chkMode" aria-pressed="'+S.chk+'">✓ Still there?</button>',FL)+sline+'</div>'+
+    '<div class="wrap">'+banners()+(BASE_STATE==='ok'?'':'<div class="banner">'+(BASE_STATE==='loading'?'Loading the plant list…':BASE_STATE==='missing'?'The plant list was not found. Add the “base” tab to the Google Sheet (see the setup notes).':'The plant list needs the updated Apps Script code (Code.gs). Paste it in and deploy a new version.')+'</div>')+(S.chk?'<div class="fstat on"><span class="ckhelp">Still there? check'+infoBtn('Tap ✓ (here), ✗ (missing) or ? (unsure) next to each plant. One tap saves it with today’s date. Tap the same square again to clear it.')+'</span><button type="button" id="chkDone">Done</button></div>':'')+fban+(FL?'<div class="fstat"><span>'+list.length+' of '+base0+' plants in flower in '+esc(flRange())+'</span></div>':statBar(nf,list.length+' of '+PLANTS.length+' plants','Showing all '+PLANTS.length+' plants'))+(list.length?body:'<div class="empty">'+(FL?'Nothing in flower here at that time':'No plants match')+'</div>')+(FL&&noFl?'<div class="fnote">'+noFl+' plant'+(noFl>1?'s':'')+' here '+(noFl>1?'have':'has')+' no flowering time yet.</div>':'')+(!grouped&&list.length>shown.length?'<button class="btn more" id="morePlants">Show more ('+(list.length-shown.length)+' left)</button>':'')+'</div><button class="btn leaf fab" id="addPlant"><span class="fpl">+</span><span class="flb"> New plant</span></button>';
 }
 function wirePlants(){
   var q=$('#pq');suggestWire(q,'pq',function(v){S.pq=v;S.plimit=100;renderAll()});q.addEventListener('input',function(){S.pq=q.value;S.plimit=100;var pos=q.selectionStart;clearTimeout(TYPT);TYPT=setTimeout(function(){renderAll();var n=$('#pq');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}},180)});
@@ -2024,6 +2207,9 @@ function wirePlants(){
   $$('[data-ckopen]').forEach(function(b){b.onclick=function(e){e.stopPropagation();S.chkOpen=S.chkOpen===b.dataset.ckopen?'':b.dataset.ckopen;renderAll();var i=$('[data-cknote="'+b.dataset.ckopen+'"]');if(i)i.focus()}});
   $$('[data-cknote]').forEach(function(i){var id=i.dataset.cknote;i.onclick=function(e){e.stopPropagation()};i.oninput=function(){CKNOTE[id]=i.value.trim()};i.onkeydown=function(e){e.stopPropagation();if(e.key==='Enter'){e.preventDefault();i.blur()}};i.onblur=function(){setTimeout(function(){if(id in CKNOTE)setCheckNote(id,CKNOTE[id])},250)}});
   wireGroups('plants',function(v){S.pgroup=v});
+  $$('[data-pm]').forEach(function(b){b.onclick=function(){S.pmode=b.dataset.pm;S.chk=false;try{localStorage.setItem('hpl_pmode',S.pmode)}catch(e){}renderAll()}});
+  $$('[data-fs]').forEach(function(b){b.onclick=function(){var k=b.dataset.fs,i=S.fseas.indexOf(k);if(i>=0)S.fseas.splice(i,1);else S.fseas.push(k);renderAll()}});
+  $$('[data-fv]').forEach(function(b){b.onclick=function(){S.fview=b.dataset.fv;try{localStorage.setItem('hpl_fview',S.fview)}catch(e){}renderAll()}});
   var pl=$('#plabels');if(pl)pl.onchange=function(){S.plabels=pl.checked;try{localStorage.setItem('hpl_plabels',pl.checked?'1':'0')}catch(e){}renderAll()};
   $$('.row[data-id]').forEach(function(b){b.onclick=function(){openPlant(b.dataset.id)};b.onkeydown=function(e){if(e.target===b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPlant(b.dataset.id)}}});
   var m=$('#morePlants');if(m)m.onclick=function(){S.plimit+=150;renderAll()};
@@ -2041,7 +2227,7 @@ function viewPlan(){
     if(S.planStatus==='done'&&!rec)return false;
     if(S.planMonth!==''&&String(t.month|0)!==S.planMonth)return false;
     if(S.planQuick){var qm=t.month|0,qv=yOf(t),qo=S.planQuick;if(qo==='over'){if(!(qv<CUR||(qv===CUR&&qm>0&&qm<new Date().getMonth()+1)))return false}else if(qm!==S.planMo)return false}
-    if(!inSel(S.planPlace,t.place))return false;
+    if(!placeOk(S.planPlace,t))return false;
     if(!inSel(S.planTask,t.task))return false;
     if(q.length){var h=norm(t.name+' '+t.details+' '+t.place+' '+t.task);if(!q.every(function(x){return h.indexOf(x)>=0}))return false}
     return true;
@@ -2065,7 +2251,7 @@ function viewPlan(){
   var attHtml='';HIDE_TASK=true;if(att.length)attHtml+='<details class="attsec" data-fk="plan-att"'+(FOLD['plan-att']===false?'':' open')+'><summary class="atth"><span class="ftl"><span class="chev" aria-hidden="true"></span>'+taskTag(S.tasks[att[0]].task)+'</span><span class="cnt">'+att.length+'</span></summary><div class="list">'+att.map(function(id){return taskCard(id,false)}).join('')+'</div></details>';
   HIDE_TASK=false;if(nsl.length)attHtml+='<details class="attsec ns" data-fk="plan-ns"'+(FOLD['plan-ns']===false?'':' open')+'><summary class="atth"><span class="ftl"><span class="chev" aria-hidden="true"></span><span class="nstag">Not scheduled</span> <span class="r-sub">needs a month</span></span><span class="cnt">'+nsl.length+'</span></summary><div class="list">'+nsl.map(function(id){return taskCard(id,false)}).join('')+'</div></details>';
   var body=S.loaded.tasks?(ids.length?attHtml+(rest.length?groupedHtml('plan',S.planGroup,rest,cfg,function(id){return taskCard(id,false)},S.planSub):''):'<div class="empty">No matching tasks</div>'):'<div class="empty">Loading…</div>';
-  return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right"><button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="prow2"><button type="button" class="pb date" data-pq="over" aria-pressed="'+(S.planQuick==='over')+'">Overdue <b>'+overdue+'</b></button><span class="pb date mo" role="group" aria-label="Month"><button type="button" data-mo="-1" aria-label="Previous month">‹</button><button type="button" class="mid" data-pq="month" aria-pressed="'+(S.planQuick==='month')+'">'+MON[S.planMo]+' <b>'+monN+'</b></button><button type="button" data-mo="1" aria-label="Next month">›</button></span><button type="button" class="pb cat" data-fold="plan-att"><i class="adot"></i>Attention <b>'+attN+'</b></button><button type="button" class="pb cat" data-fold="plan-ns">Not sched. <b>'+un+'</b></button></div><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><span class="ymid">'+(!S.planAll&&Y===CUR&&!S.yType?'<span class="ylab">This year</span>':'')+'<button class="yv" id="yAll" aria-label="Year. Hold to type a year">'+(S.yType?'<input class="yin" id="yIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" value="" placeholder="'+Y+'" aria-label="Type a year">':'<b>'+(S.planAll?'All years':Y)+'</b>')+'</button>'+(S.yType?'':'<button class="yall" id="yAllB" aria-pressed="'+S.planAll+'">'+(S.planAll?'One year':'All years')+'</button>')+'</span><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span>'+fbox('planPlace','place',S.planPlace,'All places')+fbox('planTask','task',S.planTask,'All tasks')+'</div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']],(S.planGroup==='month'||S.planSub==='month')?'<button class="vbtn" id="planOrder">'+(S.planDesc?'Dec → Jan ⇅':'Jan → Dec ⇅')+'</button>':'',PNF?'':'<span class="vcount">'+(S.loaded.tasks?'Showing all '+ids.length+' tasks':'')+'</span>')+'</div>'+
+  return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right"><button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="prow2"><button type="button" class="pb date" data-pq="over" aria-pressed="'+(S.planQuick==='over')+'">Overdue <b>'+overdue+'</b></button><span class="pb date mo" role="group" aria-label="Month"><button type="button" data-mo="-1" aria-label="Previous month">‹</button><button type="button" class="mid" data-pq="month" aria-pressed="'+(S.planQuick==='month')+'">'+MON[S.planMo]+' <b>'+monN+'</b></button><button type="button" data-mo="1" aria-label="Next month">›</button></span><button type="button" class="pb cat" data-fold="plan-att"><i class="adot"></i>Attention <b>'+attN+'</b></button><button type="button" class="pb cat" data-fold="plan-ns">Not sched. <b>'+un+'</b></button></div><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><span class="ymid">'+(!S.planAll&&Y===CUR&&!S.yType?'<span class="ylab">This year</span>':'')+'<button class="yv" id="yAll" aria-label="Year. Hold to type a year">'+(S.yType?'<input class="yin" id="yIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" value="" placeholder="'+Y+'" aria-label="Type a year">':'<b>'+(S.planAll?'All years':Y)+'</b>')+'</button>'+(S.yType?'':'<button class="yall" id="yAllB" aria-pressed="'+S.planAll+'">'+(S.planAll?'This year':'All years')+'</button>')+'</span><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span>'+fbox('planPlace','place',S.planPlace,'All places')+fbox('planTask','task',S.planTask,'All tasks')+'</div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']],(S.planGroup==='month'||S.planSub==='month')?'<button class="vbtn" id="planOrder">'+(S.planDesc?'Dec → Jan ⇅':'Jan → Dec ⇅')+'</button>':'',PNF?'':'<span class="vcount">'+(S.loaded.tasks?'Showing all '+ids.length+' tasks':'')+'</span>')+'</div>'+
    '<div class="wrap">'+banners()+(S.loaded.tasks&&PNF?statBar(PNF,ids.length+' shown',''):'')+body+'</div><button class="btn task fab" id="addTask"><span class="fpl">+</span><span class="flb"> New task</span></button>';
 }
 function wirePlan(){
@@ -2101,7 +2287,7 @@ function viewLog(){
   var q=norm(S.logQ).split(' ').filter(Boolean),ids=sortLogs(Object.keys(S.logs)).filter(function(id){
     var l=S.logs[id];
     if(!inSel(S.logEvent,l.event))return false;
-    if(!inSel(S.logPlace,l.place))return false;
+    if(!placeOk(S.logPlace,l))return false;
     var linked=!!(l.taskId&&S.tasks[l.taskId]);
     if(S.logLink==='planned'&&!linked)return false;
     if(S.logLink==='unplanned'&&linked)return false;
@@ -2140,7 +2326,7 @@ function exportFile(kind){
   var rows,name;
   if(kind==='plants'){rows=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag]}));name='master-plant-plan.csv'}
   else if(kind==='tasks'){rows=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','Starting year','Done in (year: date)']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i];return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(migrated(t).doneBy).sort().map(function(y){return y+': '+(migrated(t).doneBy[y].date||'done')}).join('; ')]}));name='garden-planner.csv'}
-  else{rows=[['Garden LOG date','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent']].concat(sortLogs(Object.keys(S.logs)).map(function(i){var l=S.logs[i];return [l.date,l.place,l.no,l.name,l.event,l.details,l.hours]}));name='garden-logger.csv'}
+  else{rows=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent']].concat(sortLogs(Object.keys(S.logs)).map(function(i){var l=S.logs[i],ds=ldates(l);return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),l.place,l.no,l.name,l.event,l.details,l.hours]}));name='garden-logger.csv'}
   if(!downloads){toast('Export is not available in this view');return}
   downloads.save({filename:name,data:csv(rows)}).then(function(){toast('Exported')}).catch(function(e){if(!e||e.code!=='cancelled')toast('Export did not complete')});
 }
@@ -2151,11 +2337,11 @@ function exportXlsx(btn){
   function ckc(p){var c=p.check;if(!c)return ['',''];return [(c.st==='missing'?'Missing':c.st==='unsure'?'Unsure':'Here')+(c.at?' · '+fmtDate(new Date(c.at).toISOString().slice(0,10)):''),c.note||'']}
   var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note','Last edited by','Last edited']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),eb(S.edits[p.id]))}));
   var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Last edited by','Last edited']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i],d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; ')].concat(eb(t))}));
-  var logger=[['Garden LOG date','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat(T.map(function(i){var l=S.logs[i];return [l.date,l.place,l.no,l.name,l.event,l.details,l.hours].concat(eb(l))}));
-  var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i],k=[l.place,l.no,l.name].join('|');if(!by[k]){by[k]=[l.place,l.no,l.name,[]];ord.push(k)}by[k][3].push((l.date||'')+' - '+(l.event||'')+(l.details?'| '+l.details:''))});
+  var logger=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat(T.map(function(i){var l=S.logs[i],ds=ldates(l);return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),l.place,l.no,l.name,l.event,l.details,l.hours].concat(eb(l))}));
+  var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i],k=[l.place,l.no,l.name].join('|');if(!by[k]){by[k]=[l.place,l.no,l.name,[]];ord.push(k)}by[k][3].push((ldates(l).length>1?fmtDates(ldates(l)):(l.date||''))+' - '+(l.event||'')+(l.details?'| '+l.details:''))});
   var hist=[['Place','No.','BOTANICAL NAME','LOG Record']].concat(ord.map(function(k){var b=by[k];return [b[0],b[1],b[2],b[3].join('\n')]}));
   btn.disabled=true;var old=btn.textContent;btn.textContent='Preparing…';
-  db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:4},{name:'Log history',rows:hist,split:3}]}).then(function(j){
+  db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:6},{name:'Log history',rows:hist,split:3}]}).then(function(j){
     if(!j||!j.b64)throw new Error(j&&j.error||'no file');
     return downloads.save({filename:'Hestercombe-garden-plants.xlsx',b64:j.b64});
   }).then(function(){toast('Excel file downloaded')}).catch(function(e){toast('Excel export failed: '+(e&&e.message||'try again'))}).then(function(){btn.disabled=false;btn.textContent=old});
@@ -2174,12 +2360,12 @@ function viewMore(){
   '<div class="sec"><h3>Export</h3><div class="actions">'+(db&&db.call?'<button class="btn primary" id="expXlsx">Download Excel (.xlsx)</button>':'<button class="btn" data-exp="plants">Plants</button><button class="btn" data-exp="tasks">Plan</button><button class="btn" data-exp="logs">Log</button>')+'</div></div>'+
   foldSec('m-help','How it works','',
   '<h4>The basics</h4>'+
-  '<p><b>Plants</b>: every plant in the garden. Search by any name or a place, or filter by place. Tap a plant to see its details, tasks, log and notes.</p>'+
+  '<p><b>Plants</b>: every plant in the garden. Search by any name or a place, or filter by place. Tap a plant to see its details, tasks, log and notes. “In flower” at the top shows what flowers in the chosen seasons.</p>'+
   '<p><b>Plan</b>: the jobs to do, by month and year. Tick the circle when a job is done this year. “+ New task” adds one.</p>'+
   '<p><b>Log</b>: the work that was done, with date, job and hours. “+ New log” adds an entry.</p>'+
   '<p><b>More</b>: your name and password, People (managers), Edit places, Edit task list and Download Excel.</p>'+
   '<p><b>Tapping</b>: a coloured place tag with › opens that place’s page. The pin next to it opens the map. An underlined plant name opens the plant. ⓘ shows a short explanation.</p>'+
-  '<p><b>Pop-up pages</b>: Close at the top, or swipe down from the top of the page. ‹ Back, or swipe from the left edge to the right.</p>'+
+  '<p><b>Pop-up pages</b>: Close at the top closes the page; ‹ Back goes back one page.</p>'+
   '<details><summary>More details</summary>'+
   '<h4>Plants</h4>'+
   '<p><b>Search</b>: type the start of any word in the botanical, common or Jekyll name, or a place. Tap × to clear.</p>'+
@@ -2188,7 +2374,9 @@ function viewMore(){
   '<p><b>Still there?</b>: tap “✓ Still there?” to start a check, then tap ✓ (here), ✗ (missing) or ? (unsure) next to each plant. One tap saves it with today’s date. Tap the same mark again to clear it. The list shows the result as a small mark left of the number.</p>'+
   '<p><b>Plant page</b>: “✎ Edit” changes the plant. Tap a heading with an arrow to fold it. Notes: tap the text to type, tap anywhere else to finish; it saves by itself. The small arrows next to the heading undo or redo a change while the page is open.</p>'+
   '<p><b>Place page</b>: plant count, open tasks, the latest logs (“See all” opens the Plan or Log for that place), a place note, and + Task, + Log and View plants.</p>'+
-  '<p><b>Maps</b>: the pin opens the map in its own page, so you can switch between map and app. The first time it may ask for the code. Pinch to zoom. A map you have opened also works without signal.</p>'+
+  '<p><b>Maps</b>: the pin opens the map. In a browser it opens in its own page, so you can switch between map and app (the first time it may ask for the code). In the Home Screen app it fills the screen; Close takes you back. Pinch to zoom. A map you have opened also works without signal.</p>'+
+  '<p><b>In flower</b>: tap one or more seasons. List shows each plant with a dot in its flower colour, the colour and when it flowers; Calendar shows the months it flowers as a bar in the flower colour (white flowers as outlined squares). Group by place or genus as usual. The facts come from the RHS website and are marked “not checked yet” until they have been checked.</p>'+
+  '<p><b>Plant facts</b>: on the plant page, when it flowers, when to prune and how to propagate, from the RHS. “RHS page” opens the plant’s page on the RHS website.</p>'+
   '<p><b>New plant</b>: pick an existing place (new places are added in More > Edit places). Plants outside the original plan are numbered N plus a number, e.g. N27; the grey number is the next free one.</p>'+
   '<h4>Plan</h4>'+
   '<p><b>Year</b>: ‹ › change the year. “All years” shows every year; tap it again (or the year) to go back. Hold the year to type any year. Each year is ticked off on its own.</p>'+
@@ -2197,13 +2385,15 @@ function viewMore(){
   '<p><b>New task</b>: in “Plants and places”, type a plant or a place. A place shows first with its plants under it (“+ N more: show all” lists them all); picking the place alone makes a whole-place task. Type a place and a plant together, e.g. “east rill iris”, to find that plant in that place. Typing a genus (e.g. Rosa) also offers “ROSA all”. Add more plants or more tasks: every combination is saved, e.g. 2 plants × 2 tasks = 4 tasks.</p>'+
   '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. New matching plants join automatically.</p>'+
   '<h4>Log</h4>'+
-  '<p><b>New log</b>: “Date done” is the day of the work (add more dates for work over several days). Job done first, hours are optional. Pick the planned task under “Related planned task” and it is ticked off in the Plan; the entry shows “✓ From plan”. Other work is extra work: tick “Also add it to the Plan” to record it there as done.</p>'+
+  '<p><b>New log</b>: tap the “Date done” box to open the calendar. Tap days to add or remove them, or slide across days to pick a run; all the days stay in one entry (shown like “13, 15–18 Jul 2026”), and the hours are the total for the entry. Tap outside the calendar to close it. Job done first, hours are optional.</p>'+
+  '<p><b>Planned task</b>: pick it under “Related planned task”; the entry then shows “✓ Planned”. Tick “Whole task done?” when this entry finishes the job for the year: the Plan ticks it off. Leave it unticked while the work is still going on; the Plan then shows “In progress · 2 logs”. A task for one plant starts ticked, a group task (ROSA all) or a whole-place task starts unticked. Other work is extra work: tick “Also add it to the Plan” to record it there as done. A task’s own page lists all its logs and their hours.</p>'+
+  '<p><b>Edit a log</b>: the same calendar, so you can add more days to an entry you made yesterday.</p>'+
   '<p><b>Filters</b>: Planned / Extra / All, place and task boxes, “Newest first ⇅” flips the order.</p>'+
   '<h4>More</h4>'+
   '<p><b>Codes and names</b>: the view code lets you search and read. The edit code plus your name lets you make changes; your name goes on each one (“Last edited by …”). Set a password for your name (More > Set a password) to keep the name for yourself and get a private My note on each plant. Sign out forgets your name on this phone.</p>'+
   '<p><b>Forgot your password?</b> A manager or the admin resets it in More > People and gives you a temporary one; you choose your own at the next sign-in. Your My notes are kept. After 5 wrong tries the name is locked for 5 minutes.</p>'+
   '<p><b>My note</b>: a private note on each plant, only for you. Nobody else sees it in the app, managers included.</p>'+
-  '<p><b>Edit places</b>: tap a place to change its colour (it asks first, and “Reset colour” goes back to the original). ↑ ↓ reorder, the pencil renames (every plant, task and log follows), the bin deletes an empty place. Map link and “Part of” are under each place. The arrows at the top undo or redo.</p>'+
+  '<p><b>Edit places</b>: tap a place to change its colour (it asks first, and “Reset colour” goes back to the original). ↑ ↓ reorder, the pencil renames (every plant, task and log follows), the bin deletes a place only when no plants are in it. Map link and “Part of area” are under each place: places in the same area fold together in the lists. Place colours come from the original garden plan, so a change asks first and can be reset. The arrows at the top undo or redo.</p>'+
   '<p><b>Edit task list</b>: tap a task to change its dot colour (the rainbow circle picks any colour). ↑ ↓ reorder, pencil renames, bin deletes. The arrows at the top undo or redo.</p>'+
   '<p><b>Download Excel</b>: one file with four tabs like the original Excel: Master Plant plan (with Still there?), Garden Planner, Garden logger and Log history. Private notes and passwords are never included.</p>'+
   '<h4>General</h4>'+
@@ -2236,7 +2426,7 @@ var IREDO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wid
 function miniHeads(){return $$('#app .grp>.hdr.gh')}
 function miniLabel(h){var g=h.querySelector('.gl');if(!g)return '';var c=g.cloneNode(true);$$('.chev,.olink,.pinb,[data-map],svg,.pcv,.cnt',c).forEach(function(x){x.remove()});
   var lat=c.querySelector('.latin'),num=c.querySelector('.num'),chip=c.querySelector('.pl');
-  if(lat){var l2=lat.cloneNode(true);l2.removeAttribute('title');return (num?'<b style="color:var(--muted);margin-right:6px">'+esc(num.textContent)+'</b>':'')+'<span class="latin">'+l2.innerHTML+'</span>'}
+  if(lat){var l2=lat.cloneNode(true);l2.removeAttribute('title');$$('.gtag,.alltag,small',l2).forEach(function(x){x.replaceWith(document.createTextNode(' '+x.textContent))});return '<span class="mlab">'+(num?'<b style="color:var(--muted);margin-right:6px">'+esc(num.textContent)+'</b>':'')+'<span class="latin">'+l2.innerHTML+'</span></span>'}
   var tk=c.querySelector('.tk');if(tk&&!chip)return tk.outerHTML;
   if(chip){var c2=chip.cloneNode(true);return c2.outerHTML}
   return esc((c.textContent||'').replace(/[›▾▸∧⌄]/g,'').trim())}
@@ -2276,6 +2466,7 @@ window.addEventListener('scroll',function(){
 },{passive:true});
 function renderAll(){
   applyRole();drawTabs();
+  document.body.classList.remove('flmode');
   var app=$('#app');
   if(S.tab==='plants'){app.innerHTML=viewPlants();wirePlants()}
   else if(S.tab==='plan'){app.innerHTML=viewPlan();wirePlan()}
@@ -2292,6 +2483,7 @@ window.addEventListener('orientationchange',function(){setTimeout(fixBars,300)})
 var STARTED=false;function lsGet(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
 function startData(){if(STARTED)return;STARTED=true;sub('plantEdits');sub('tasks');sub('logs');sub('settings');myFetch();setInterval(myFlush,20000)}
 if(MAPMODE)document.body.classList.add('mapmode');
+window.__hpl={S:function(){return S},fmtDates:function(a){return fmtDates(a)}};/* for automated tests */
 buildPlants();renderAll();
 (async function(){
   try{
