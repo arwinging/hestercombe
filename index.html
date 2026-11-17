@@ -2,7 +2,7 @@
 <!-- © 2026 Wing C. All rights reserved. Not licensed for reuse. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F1F4EE"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Garden"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><style>html,body{margin:0}</style></head><body><title>Hestercombe Plants</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 <style>
 /* Layout: one narrow column app, sticky filter bar on top, bottom tab bar, bottom sheets for detail and forms.
    Colour: chalk-green paper, ink-green text, madder-rose accent (the garden is mostly roses), leaf green = done.
@@ -604,6 +604,24 @@ body.hdr-compact .swr,body.hdr-compact .sline{display:none}
 body.flmode .vbar .vend{display:none}
 .flr .r-sub b{font-weight:500;color:var(--ink)}
 .plight{border:0!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 60%,#000)}
+
+/* update 8: several plants / jobs in one entry, People x Hours, required marks */
+.mtag{margin-left:7px;display:inline-flex}.pnames{display:block;margin-left:7px;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.pnames i{font-style:italic}
+.pl .p1{font-weight:400;opacity:.8;margin-left:4px}.gall.jt{margin-left:6px;font-weight:400;letter-spacing:0}
+.evt .r-sub,.r-sub.hrs{font-weight:400}.l1 .hrs{margin-left:-2px}
+.num{font-weight:400!important}.plantg .hdr .latin,.plantg .hdr .gl{font-weight:400}
+.tk{font-weight:550}
+.req{color:var(--danger,#B3261E);margin-left:3px;font-weight:700}
+.errm{color:var(--danger,#B3261E);font-size:13px;margin-top:4px;font-weight:600}.fbox.err{border-color:var(--danger,#B3261E);box-shadow:0 0 0 1px var(--danger,#B3261E) inset}
+.fsplit{display:flex;min-width:0;gap:4px}.fsplit .fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.fsplit .fc{flex:none}
+.jbox{flex:none}.jbox .fb .ft{color:var(--ink);font-weight:600}.jbox:not(.on) .fb .ft{color:var(--muted);font-weight:400}
+.crow{display:flex;align-items:center;gap:6px;margin-top:4px}.crow .input{height:28px;min-height:0;width:32px;padding:0 2px;border-radius:7px;text-align:center}.crow .w{font-size:14px;color:var(--muted)}.crow .x{color:var(--muted);font-size:13px}
+.tot2{margin-left:auto;font-weight:700;font-size:14.5px;color:var(--ink);padding:2px 8px;border-radius:8px;background:color-mix(in srgb,var(--logc,#2A5F75) 9%,transparent);white-space:nowrap}.tot2.none{font-weight:400;color:var(--muted);background:none;border:1px dashed var(--line)}
+.gall{white-space:nowrap}.evt .tk+.tk{margin-left:8px}.crow .input{text-align:center!important;-moz-appearance:textfield;appearance:textfield}.crow .input::-webkit-inner-spin-button,.crow .input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.crow .cx{border:0;background:none;color:var(--muted);font-size:14px;width:24px;cursor:pointer;padding:0}
+.edl2{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin:14px 2px 8px}.edl2 .lnk{font-size:13.5px;padding:0;min-height:0}
+.dch .today{font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;margin-left:8px;color:var(--ink)}
+.delq{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px}.delq .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -707,15 +725,15 @@ function tagColCls(raw){raw=String(raw||'');var c='';Object.keys(TAGC).forEach(f
 function taskTxt(raw){var txt=String(raw||'').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim();return txt?txt.charAt(0).toUpperCase()+txt.slice(1).toLowerCase():String(raw||'')}
 function fbox(key,kind,arr,allLabel){
   var on=arr.length,txt,segs='';
-  if(kind==='place'){txt=on?arr[0]+(on>1?' + '+(on-1):''):allLabel;segs=arr.map(function(p){return '<i style="--dc:'+placeCol(p)+'"></i>'}).join('')}
-  else{txt=on?taskTxt(arr[0])+(on>1?' + '+(on-1):''):allLabel;segs=arr.map(function(t){var c=tagColCls(t);return '<i class="'+c.cls+'"'+(c.style?' style="'+c.style+'"':'')+'></i>'}).join('')}
-  return '<div class="fbox'+(on?' on':'')+'">'+(on?'<span class="fs">'+segs+'</span>':'')+'<button type="button" class="fb" data-fb="'+key+'" data-kind="'+kind+'" aria-label="'+(kind==='place'?'Places':'Tasks')+': '+esc(txt)+'"><span class="ft">'+esc(txt)+'</span>'+(on?'':'<span class="fcv">⌄</span>')+'</button>'+(on?'<button type="button" class="fx" data-fx="'+key+'" aria-label="Clear">✕</button>':'')+'</div>';
+  var more=on>1?'+'+(on-1):'';if(kind==='place'){txt=on?arr[0]:allLabel;segs=arr.map(function(p){return '<i style="--dc:'+placeCol(p)+'"></i>'}).join('')}
+  else{txt=on?taskTxt(arr[0]):allLabel;segs=arr.map(function(t){var c=tagColCls(t);return '<i class="'+c.cls+'"'+(c.style?' style="'+c.style+'"':'')+'></i>'}).join('')}
+  return '<div class="fbox'+(on?' on':'')+'">'+(on?'<span class="fs">'+segs+'</span>':'')+'<button type="button" class="fb" data-fb="'+key+'" data-kind="'+kind+'" aria-label="'+(kind==='place'?'Places':'Tasks')+': '+esc(txt+(more?' '+more:''))+'"><span class="ft fsplit"><span class="fn">'+esc(txt)+'</span>'+(more?'<span class="fc">'+more+'</span>':'')+'</span>'+(on?'':'<span class="fcv">⌄</span>')+'</button>'+(on?'<button type="button" class="fx" data-fx="'+key+'" aria-label="Clear">✕</button>':'')+'</div>';
 }
-function openPicker(kind,key){
+function openPicker(kind,key,opts){
   var q='',openA={};
   push(kind==='place'?'Choose places':'Choose tasks',function(b){
     b.innerHTML='<div class="pk"><input class="input" id="pkq" type="search" placeholder="'+(kind==='place'?'Search places':'Search tasks')+'" autocomplete="off"><div class="pkall"><button type="button" class="vbtn" id="pkAll">Select all</button></div><div id="pkl"></div><div class="pkf"><button type="button" class="btn leaf" id="pkDone">Done</button></div></div>';
-    function setSel(a){S[key]=a;S.plimit=100;renderAll();draw()}
+    function setSel(a){S[key]=a;if(opts){if(opts.onChange)opts.onChange()}else{S.plimit=100;renderAll()}draw()}
     function toggle(vals,allOn){var a=S[key].slice();vals.forEach(function(v){var i=a.indexOf(v);if(allOn){if(i>=0)a.splice(i,1)}else if(i<0)a.push(v)});setSel(a)}
     function draw(){
       var h='',sel=S[key],ql=norm(q);
@@ -744,7 +762,7 @@ function openPicker(kind,key){
     function prow(name,sub){var on=S[key].indexOf(name)>=0;return '<label class="pkr'+(sub?' sub':'')+'"><input type="checkbox" data-v="'+esc(name)+'"'+(on?' checked':'')+'><span class="pkn">'+placeChip(name)+'</span></label>'}
     $('#pkq').oninput=function(e){q=e.target.value;draw()};
     $('#pkAll').onclick=function(){var vis=visibleVals(),allOn=vis.length&&vis.every(function(v){return S[key].indexOf(v)>=0});toggle(vis,allOn)};
-    $('#pkDone').onclick=closeAll;
+    $('#pkDone').onclick=opts?function(){pop()}:closeAll;
     draw();
   },false);
 }
@@ -818,6 +836,7 @@ function isOpen(t,y){return dueIn(t,y)&&!doneRec(t,y)}
 function migrated(t){var n=Object.assign({},t);n.doneBy=Object.assign({},t.doneBy);if(t.done&&!n.doneBy[legacyYear(t)])n.doneBy[legacyYear(t)]={date:t.doneDate||'',logId:t.logId||''};delete n.done;delete n.doneDate;delete n.logId;return n}
 function repLabel(t){var r=repOf(t),st=t.startYear|0;if(r===-1)return 'Years: '+(t.years||[]).join(', ');return r===0?'Once'+(st?' '+st:''):(r===1?'Every year':'Every '+r+' years')}
 async function markDone(id,y,date,logId){var n=migrated(S.tasks[id]);n.doneBy[y]={date:date,logId:logId||''};return put('tasks',id,n)}
+async function reopenYear(id,y){var t=S.tasks[id];if(!t)return;var n=migrated(t);if(n.doneBy[y]){delete n.doneBy[y];await put('tasks',id,n)}}
 async function unmarkLog(id,lid){var t=S.tasks[id];if(!t)return;var n=migrated(t),ch=false;Object.keys(n.doneBy).forEach(function(y){if(n.doneBy[y].logId===lid){delete n.doneBy[y];ch=true}});if(ch)await put('tasks',id,n)}
 function typeIdx(t){var i=usedTypes().indexOf(t);return i<0?999:i}
 function typeOptions(sel,blank){var l=types().slice();if(sel&&l.indexOf(sel)<0)l.push(sel);return (blank?'<option value="">'+blank+'</option>':'')+l.map(function(x){var lab=String(x).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim();lab=lab?lab.charAt(0).toUpperCase()+lab.slice(1).toLowerCase():x;var em=String(x).replace(/[\w\s'’().,\-\/&]+/g,'').trim();return '<option value="'+esc(x)+'"'+(x===sel?' selected':'')+'>'+esc((em?em+' ':'')+lab)+'</option>'}).join('')}
@@ -838,13 +857,14 @@ function covers(raw,plantName){
   return pn===tn;
 }
 function entryMatches(e,p){
+  if(e.plants&&e.plants.length>1)return e.plants.some(function(q){return entryMatches(q,p)});
   if(!norm(e.name))return false;
   if(e.place&&e.place!==p.place)return false;
   if(e.no&&String(e.no)!==String(p.no))return false;
   return covers(e.name,p.name);
 }
 /* a place filter: entries with no place of their own (group tasks like ROSA all) show when a plant they cover is in a chosen place */
-function placeOk(sel,e){if(!sel.length||sel.indexOf(e.place)>=0)return true;if(e.place||!norm(e.name))return false;return PLANTS.some(function(p){return sel.indexOf(p.place)>=0&&entryMatches(e,p)})}
+function placeOk(sel,e){if(e.plants&&e.plants.length>1)return e.plants.some(function(q){return placeOk(sel,q)});if(!sel.length||sel.indexOf(e.place)>=0)return true;if(e.place||!norm(e.name))return false;return PLANTS.some(function(p){return sel.indexOf(p.place)>=0&&entryMatches(e,p)})}
 function buildIndex(){
   if(!indexDirty)return;indexDirty=false;
   IDX={tasks:{},logs:{}};
@@ -1170,7 +1190,7 @@ function drawSheet(restore){
   $('#sClose').onclick=closeAll;
   $('#sBack').onclick=function(){if(stack.length>1)pop()};
   $('#sheetBg').addEventListener('mousedown',function(e){if(e.target.id==='sheetBg')closeAll()});
-  if(top.el&&restore){$('#sBody').appendChild(top.el);var q=$('.panel');if(q&&top.sc)q.scrollTop=top.sc;return}
+  if(top.el&&restore){$('#sBody').appendChild(top.el);var q=$('.panel');if(q&&top.sc)q.scrollTop=top.sc;if(top.onShow)try{top.onShow()}catch(e){}return}
   var el=document.createElement('div');el.className='sbody';$('#sBody').appendChild(el);top.el=el;top.render(el);
 }
 /* swipe gestures removed in update 6 (unreliable in the iPhone browser); Close and ‹ Back are the way out */
@@ -1295,7 +1315,7 @@ function openPlace(name){
     buildIndex();
     var pls=PLANTS.filter(function(p){return p.place===name}),
       tids=Object.keys(S.tasks).filter(function(i){var t=S.tasks[i];return t.place===name&&isOpen(t,yOf(t))}).sort(function(a,b){return (S.tasks[a].month||99)-(S.tasks[b].month||99)}),
-      lids=Object.keys(S.logs).filter(function(i){return S.logs[i].place===name}).sort(function(a,b){return String(S.logs[b].date||'').localeCompare(String(S.logs[a].date||''))});
+      lids=Object.keys(S.logs).filter(function(i){return lps(S.logs[i]).some(function(x){return x.place===name})}).sort(function(a,b){return String(S.logs[b].date||'').localeCompare(String(S.logs[a].date||''))});
     var last=lids.length?fmtDate(S.logs[lids[0]].date):'–';
     var h='<div class="phd" style="padding-top:0">'+placeChip(name)+(x.map?'<a class="olink" data-map="'+esc(name)+'" href="'+esc(x.map)+'" target="_blank" rel="noopener">Map ↗</a>':'')+'</div>'+
       '<div class="plst"><div><b>'+pls.length+'</b><span>plants</span></div><div><b>'+tids.length+'</b><span>open tasks</span></div><div><b>'+esc(last)+'</b><span>last log</span></div></div>'+
@@ -1464,21 +1484,34 @@ function openPlantForm(id,preset){if(!needName())return;
 }
 
 /* ---------- logs ---------- */
+function jobTags(l){return levs(l).map(function(e){return taskTag(e)}).join(' ')}
+function hrsSpan(l){return l.hours?'<span class="r-sub hrs">'+SEP+esc(r1(l.hours))+' h</span>':''}
+/* several plants in one entry: line 2 = "ROSA [3 plants]" (same genus) or "[5 plants]", line 3 = the plant names */
+function multiTag(ps){var gs={};ps.forEach(function(x){gs[norm((x.name||'').split(' ')[0])]=1});var one=Object.keys(gs).length===1&&ps[0].name;
+  return '<span class="mtag">'+(one?'<span class="latin gname">'+esc(String(ps[0].name.split(' ')[0]).toUpperCase())+'<span class="gall">'+ps.length+' plants</span></span>':'<span class="gname"><span class="gall">'+ps.length+' plants</span></span>')+'</span>'}
+function multiPlace(ps){var pl=[];ps.forEach(function(x){if(x.place&&pl.indexOf(x.place)<0)pl.push(x.place)});if(!pl.length)return '';if(pl.length===1)return placeTag(pl[0],1);
+  return '<span class="ptag"><span class="plb" role="button" tabindex="0" data-place="'+esc(pl[0])+'" aria-label="Open the page of '+esc(pl[0])+'"><span class="pl plight" title="'+esc(pl.join(', '))+'" style="--pc:'+placeCol(pl[0])+'">'+esc(pl[0])+'<span class="p1">+'+(pl.length-1)+'</span></span><span class="pcv" aria-hidden="true">›</span></span></span>'}
+function multiNames(ps){return '<span class="pnames latin">'+ps.map(function(x){return (x.no?esc(x.no)+' ':'')+nameHtml(x.name||'')}).join(', ')+'</span>'}
 function logCard(id,inSheet){
   var l=S.logs[id];if(!l)return '';
-  var linked=l.taskId&&S.tasks[l.taskId],H=inSheet?{}:hides('log');
-  var idrow=inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):idLine(l.place,l.no,l.name,false);
-  var lchip=(inSheet||H.place)?'':placeTag(l.place,1);
-  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+(l.hours?SEP+esc(l.hours)+' h':'')+'</span>'+(H.task?'':'<span class="evt">'+taskTag(l.event)+'</span>')+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
-    (inSheet?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
+  var linked=l.taskId&&S.tasks[l.taskId],H=inSheet?{}:hides('log'),ps=lps(l),many=ps.length>1;
+  var idrow=many?'<span class="idrow">'+multiTag(ps)+'</span>':(inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):idLine(l.place,l.no,l.name,false));
+  var lchip=(inSheet||H.place)?'':(many?multiPlace(ps):placeTag(l.place,1));
+  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+'</span>'+(H.task?'':'<span class="evt">'+jobTags(l)+'</span>')+hrsSpan(l)+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
+    (inSheet&&!many?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>')+(many?multiNames(ps):'')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
 }
 function logEntry(id){
   var l=S.logs[id];if(!l)return '';
-  var linked=l.taskId&&S.tasks[l.taskId];
-  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDates(ldates(l)))+'</span><span class="le-b"><span class="evt">'+taskTag(l.event)+(l.hours?'<span class="r-sub">'+SEP+esc(l.hours)+' h</span>':'')+(linked?' <span class="pill l">✓ Planned</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
+  var linked=l.taskId&&S.tasks[l.taskId],n=lps(l).length;
+  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDates(ldates(l)))+'</span><span class="le-b"><span class="evt">'+jobTags(l)+(n>1?' <span class="gall jt">'+n+' plants</span>':'')+hrsSpan(l)+(linked?' <span class="pill l">✓ Planned</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
 }
 /* Dates: one log entry can hold several days. The calendar is built here (no phone date picker), so it works the same on every phone.
    Tap a day to add or remove it; slide across days to pick a run; tap outside to close. */
+/* export rows: one row per plant x job; hours on the first row only so totals stay right */
+function logRows(l){var out=[],ds=ldates(l),k=0;lps(l).forEach(function(p){(levs(l).length?levs(l):['']).forEach(function(e){out.push({ds:ds,place:p.place,no:p.no,name:p.name,event:e,details:l.details,hours:k++?'':l.hours})})});return out}
+function lps(l){return l&&l.plants&&l.plants.length?l.plants:[{place:(l&&l.place)||'',no:(l&&l.no)||'',name:(l&&l.name)||''}]}
+function levs(l){return l&&l.events&&l.events.length?l.events:(l&&l.event?[l.event]:[])}
+function r1(x){return Math.round((parseFloat(x)||0)*10)/10}
 function ldates(l){return l&&l.dates&&l.dates.length?l.dates.slice():(l&&l.date?[l.date]:[])}
 function d2(n){return ('0'+n).slice(-2)}
 function dstr(y,m,d){return y+'-'+d2(m)+'-'+d2(d)}
@@ -1496,7 +1529,7 @@ function fmtDates(arr){
   return out;
 }
 var DSEL={};
-function datesHtml(p){return '<div class="fsec fs-date"><div class="fs-h">Date done'+infoBtn('Tap the date box to open the calendar. Tap days to add or remove them; slide across days to pick a run. All the days stay in this one entry. Tap outside the calendar to close it.')+'</div><div class="dxw"><button type="button" class="input dbox" id="'+p+'-dbox" aria-expanded="false"></button><button type="button" class="dx" id="'+p+'-dx" aria-label="Clear the dates">✕</button></div><div class="dcal" id="'+p+'-dcal" hidden></div></div>'}
+function datesHtml(p){return '<div class="fsec fs-date"><div class="fs-h">Date done<span class="req" aria-hidden="true">*</span>'+infoBtn('Tap the date box to open the calendar. Tap days to add or remove them; slide across days to pick a run. All the days stay in this one entry. Tap outside the calendar to close it.')+'</div><div class="dxw"><button type="button" class="input dbox" id="'+p+'-dbox" aria-expanded="false"></button><button type="button" class="dx" id="'+p+'-dx" aria-label="Clear the dates">✕</button></div><div class="dcal" id="'+p+'-dcal" hidden></div></div>'}
 function nextDay(d){var x=new Date(d+'T12:00:00');x.setDate(x.getDate()+1);return x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2)+'-'+('0'+x.getDate()).slice(-2)}
 function wireDates(p,first,multi,onChange){
   var st=DSEL[p]={sel:(Array.isArray(first)?first:[first]).filter(Boolean),ym:''};
@@ -1507,12 +1540,13 @@ function wireDates(p,first,multi,onChange){
   function changed(){st.sel.sort();label();draw();if(onChange)onChange()}
   function draw(){
     var y=+st.ym.slice(0,4),m=+st.ym.slice(5,7),n=new Date(y,m,0).getDate(),lead=(new Date(y,m-1,1).getDay()+6)%7,today=todayStr(),h='';
-    h+='<div class="dch"><button type="button" class="dnav" data-dm="-1" aria-label="Previous month">‹</button><b>'+MONFULL[m]+' '+y+'</b><button type="button" class="dnav" data-dm="1" aria-label="Next month">›</button></div><div class="dgrid">';
+    h+='<div class="dch"><button type="button" class="dnav" data-dm="-1" aria-label="Previous month">‹</button><b>'+MONFULL[m]+' '+y+'</b><button type="button" class="dnav" data-dm="1" aria-label="Next month">›</button><button type="button" class="today" data-today="1">Today</button></div><div class="dgrid">';
     ['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="dw">'+w+'</span>'});
     for(var i=0;i<lead;i++)h+='<span></span>';
     for(var d=1;d<=n;d++){var k=dstr(y,m,d),on=st.sel.indexOf(k)>=0,pv=on&&d>1&&st.sel.indexOf(dstr(y,m,d-1))>=0&&(lead+d-1)%7!==0,nv=on&&d<n&&st.sel.indexOf(dstr(y,m,d+1))>=0&&(lead+d)%7!==0;
       h+='<button type="button" class="dd'+(on?' on':'')+(pv?' jl':'')+(nv?' jr':'')+(k===today?' td':'')+'" data-day="'+k+'" aria-pressed="'+on+'">'+d+'</button>'}
     cal.innerHTML=h+'</div>';
+    var tb=$('[data-today]',cal);if(tb)tb.onclick=function(e){e.stopPropagation();var t=todayStr();st.ym=t.slice(0,7);if(st.sel.indexOf(t)<0)st.sel.push(t);changed()};
     $$('[data-dm]',cal).forEach(function(b){b.onclick=function(e){e.stopPropagation();var q=new Date(y,m-1+(+b.dataset.dm),1);st.ym=q.getFullYear()+'-'+d2(q.getMonth()+1);draw()}});
   }
   var drag=null;
@@ -1550,66 +1584,87 @@ function planCandidates(v){
 }
 function taskLabel(id,yy){var t=S.tasks[id];if(!t)return id;var who=t.name?(t.name+(t.place?' ('+t.place+(t.no?' '+t.no:'')+')':'')):(t.place||'');return t.task+' · '+(t.month?MON[t.month]:'No month')+' · '+who+(isGroup(t.name)?' (whole group)':'')+(doneRec(t,yy)?' · already ticked':'')}
 function planFromLog(lid,d,done){var y=ydate(d.date)||CUR,db={},ds=ldates(d);if(done!==false)db[y]={date:ds[ds.length-1]||d.date||'',logId:lid};return {place:d.place||'',no:d.no||'',name:d.name||'',month:parseInt((d.date||'').slice(5,7),10)||0,task:d.event,season:'',details:d.details||'',repeat:1,startYear:y,doneBy:db,createdAt:Date.now()}}
+function jboxHtml(arr){var on=arr.length,segs=arr.map(function(t){var c=tagColCls(t);return '<i class="'+c.cls+'"'+(c.style?' style="'+c.style+'"':'')+'></i>'}).join('');
+  return '<div class="fbox jbox'+(on?' on':'')+'" id="g-jb">'+(on?'<span class="fs">'+segs+'</span>':'')+'<button type="button" class="fb" id="g-jopen" aria-label="Job done: '+esc(on?arr.map(taskTxt).join(', '):'choose')+'"><span class="ft fsplit"><span class="fn">'+esc(on?taskTxt(arr[0]):'Choose a job')+'</span>'+(on>1?'<span class="fc">+'+(on-1)+'</span>':'')+'</span>'+(on?'':'<span class="fcv">⌄</span>')+'</button>'+(on?'<button type="button" class="fx" id="g-jx" aria-label="Clear">✕</button>':'')+'</div>'}
+function crewTotal(cr){var t=0,any=false;cr.forEach(function(c){var h=parseFloat(c.h);if(h>0){any=true;t+=(parseFloat(c.n)>0?parseFloat(c.n):1)*h}});return any?r1(t):null}
 function openLogForm(id,preset){if(!needName())return;
-  var l=id?S.logs[id]:null,v=l||preset||{};
+  var l=id?S.logs[id]:null,v=l||preset||{},P0=lps(v);
   push(l?'Edit log entry':'New log',function(el){
-    el.innerHTML=(l?editedLine(l):'')+datesHtml('g')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('g',v)+(l?'':moreBox('g'))+'</div><div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
-    '<div class="two keep jd"><div class="field"><label for="g-event">Job done</label><select class="select" id="g-event">'+typeOptions(v.event,'Select…')+'</select></div>'+
-    '<div class="field"><label for="g-hours">Hours</label><input class="input" type="number" min="0" step="0.25" inputmode="decimal" id="g-hours" placeholder="optional" value="'+esc(v.hours||'')+'"></div></div>'+
+    el.innerHTML=datesHtml('g')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it. Plants added here are saved together as one log entry.')+'</div>'+plantBlock('g',P0[0])+moreBox('g')+'</div><div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
+    '<div class="field"><label id="g-jl">Job done<span class="req" aria-hidden="true">*</span></label><div id="g-jhost"></div><div class="errm" id="g-jerr" hidden>Choose a job to save</div><input type="hidden" id="g-event"></div>'+
+    '<div class="field" id="g-crew"><label>Time</label><div id="g-crows"></div><button type="button" class="lnk sm2" id="g-addcrew">＋ Add more people</button></div>'+
     '<div class="field" id="g-linkbox"><label for="g-link">Related planned task<button type="button" class="info" aria-label="More information" aria-expanded="false" data-tip="tipg" data-tipel="g-linkhint">i</button></label><select class="select" id="g-link"></select><div class="r-sub" id="g-linkhint" hidden></div><button type="button" class="lnk sm" id="g-openlink" style="display:none">Open the planned task ›</button><label class="finq" id="g-finrow" hidden><span>Whole task done?</span><input type="checkbox" id="g-fin"></label>'+
     '<div id="g-planrow" hidden><label class="finq"><span>Also add it to the Plan?</span><input type="checkbox" id="g-addplan"></label><label class="finq" id="g-pfinrow" hidden><span>Whole task done?</span><input type="checkbox" id="g-pfin"></label></div></div>'+
-    '<div class="field"><label for="g-details">Note</label><textarea class="textarea" id="g-details">'+esc(v.details||'')+'</textarea></div>'+(l?'':"<div id='g-xj'></div><button type='button' class='lnk' id='g-addjob'>＋ Add another job</button>")+'</div>'+
-    '<div class="acts">'+(l?'<button class="btn danger" id="g-del">Delete</button>':'')+'<button class="btn primary" id="g-save">Save</button></div>';
-    var current=l&&l.taskId?l.taskId:'',gxp=null,gxj=null,gmain=null,FINFOR='',PFINFOR=null;
-    function gUpd(){var b=$('#g-save');if(l||!b)return;var n=(Math.max(gmain?gmain.size():1,0)+(gxp?gxp.count():0))*(1+(gxj?gxj.count():0)),x=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode==='pick');b.textContent=x?'Save '+n+' log'+(n>1?'s':''):'Save';refreshLinks()}
+    '<div class="field"><label for="g-details">Note</label><textarea class="textarea" id="g-details">'+esc(v.details||'')+'</textarea></div></div>'+
+    (l?'<div class="edl2"><span>'+(l.editedBy||l.editedAt?'Last edited'+(l.editedBy?' by '+esc(l.editedBy):'')+(l.editedAt?SEP+fmtDate(new Date(l.editedAt).toISOString().slice(0,10)):''):'')+'</span><button type="button" class="lnk" id="g-dup">⧉ Duplicate</button></div>':'')+
+    '<div class="acts">'+(l?'<button class="btn danger" id="g-del">Delete</button>':'')+'<button class="btn primary" id="g-save">Save</button></div><div id="g-delq"></div>';
+    var current=l&&l.taskId?l.taskId:'',plink=!l&&v.taskId&&S.tasks[v.taskId]?v.taskId:'',gxp=null,gmain=null,FINFOR='',PFINFOR=null;
+    var GJ=levs(v).slice(),CR=v.crew&&v.crew.length?v.crew.map(function(c){return {n:c.n||'',h:c.h||''}}):[{n:'',h:v.hours||''}];
+    function drawJ(){$('#g-jhost').innerHTML=jboxHtml(GJ);$('#g-event').value=GJ[0]||'';
+      $('#g-jopen').onclick=function(){S.__fj=GJ.slice();stack[stack.length-1].onShow=function(){GJ=S.__fj.slice();drawJ();refreshLinks()};openPicker('task','__fj',{onChange:function(){}})};
+      var jx=$('#g-jx');if(jx)jx.onclick=function(){GJ=[];drawJ();refreshLinks()};if(GJ.length){$('#g-jerr').hidden=true}}
+    function totHtml(){var t=crewTotal(CR);return t===null?'<span class="tot2 none" id="g-tot">No time given</span>':'<span class="tot2" id="g-tot">Total = '+t+' h</span>'}
+    function drawC(){$('#g-crows').innerHTML=CR.map(function(c,i){return '<div class="crow"><input class="input" type="number" min="0" step="1" inputmode="numeric" data-ci="'+i+'" data-cf="n" aria-label="People" value="'+esc(c.n)+'"><span class="w">people</span><span class="x">×</span><input class="input" type="number" min="0" step="0.25" inputmode="decimal" data-ci="'+i+'" data-cf="h" aria-label="Hours" value="'+esc(c.h)+'"><span class="w">h</span>'+(i>0?'<button type="button" class="cx" data-cr="'+i+'" aria-label="Remove this line">✕</button>':'')+(i===CR.length-1?totHtml():'')+'</div>'}).join('');
+      $$('#g-crows [data-ci]').forEach(function(x){x.oninput=function(){CR[+x.dataset.ci][x.dataset.cf]=x.value;var t=$('#g-tot');if(t)t.outerHTML=totHtml()}});
+      $$('#g-crows [data-cr]').forEach(function(x){x.onclick=function(){CR.splice(+x.dataset.cr,1);drawC()}})}
+    $('#g-addcrew').onclick=function(){CR.push({n:'',h:''});drawC();var ins=$$('#g-crows [data-cf="n"]');if(ins.length)ins[ins.length-1].focus()};
+    function allTargets(){var t=gmain?gmain.targets():[pickerVals('g')];if(gxp)t=t.concat(gxp.vals());return t.filter(function(x){return x.name||x.place})}
+    function linkVals(){var t=allTargets();if(t.length<=1)return {ok:true,pv:t[0]||pickerVals('g')};var gs={};t.forEach(function(x){gs[norm((x.name||'').split(' ')[0])]=1});var k=Object.keys(gs);return k.length===1&&k[0]?{ok:true,pv:{place:'',no:'',name:k[0]}}:{ok:false}}
+    function gUpd(){refreshLinks()}
     function refreshLinks(){
-      var pv=pickerVals('g'),ev=$('#g-event').value,sel=$('#g-link'),keep=sel.value||current,d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR;
-      var c=planCandidates({place:pv.place,no:pv.no,name:pv.name,event:ev,date:d0});
-      if(current&&S.tasks[current]&&c.same.indexOf(current)<0&&c.other.indexOf(current)<0)c.same.unshift(current);
+      var lv=linkVals(),pv=lv.pv||{},ev=GJ[0]||'',sel=$('#g-link'),keep=sel.value||current||plink,d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR;
+      var c=lv.ok?planCandidates({place:pv.place,no:pv.no,name:pv.name,event:ev,date:d0}):{same:[],other:[]};
+      [current,plink].forEach(function(k){if(k&&S.tasks[k]&&c.same.indexOf(k)<0&&c.other.indexOf(k)<0)c.same.unshift(k)});
       function opts(a){return a.map(function(t){return '<option value="'+t+'"'+(t===keep?' selected':'')+'>'+esc(taskLabel(t,yy))+'</option>'}).join('')}
       sel.innerHTML='<option value="">No, this was extra work</option>'+(c.same.length?'<optgroup label="Open for '+yy+', same task">'+opts(c.same)+'</optgroup>':'')+(c.other.length?'<optgroup label="Other planned tasks for this plant in '+yy+'">'+opts(c.other)+'</optgroup>':'');
-      $('#g-linkhint').textContent=(c.same.length||c.other.length)?'Pick the planned task this relates to. Tick “Whole task done?” when this entry finishes the task for '+yy+'; leave it unticked while the work is still going on.':(ev?'No planned task matches this plant, so this will be saved as extra work.':'Choose what was done to see matching tasks from the Plan.');
-      var xn=(gxp&&gxp.count())||(gxj&&gxj.count())||(gmain&&gmain.ks.mode!=='plant');var lb=$('#g-linkbox');if(lb)lb.style.display=xn?'none':'';
-      var pr=$('#g-planrow');if(pr){pr.hidden=!!(l||sel.value||current||xn);var ap=$('#g-addplan'),pf=$('#g-pfinrow');pf.hidden=pr.hidden||!ap.checked;
+      $('#g-linkhint').textContent=(c.same.length||c.other.length)?'Pick the planned task this relates to. Tick “Whole task done?” when the task is finished for '+yy+'; leave it unticked while the work is still going on. The tick is shared by every log linked to the task.':(ev?'No planned task matches this plant, so this will be saved as extra work.':'Choose what was done to see matching tasks from the Plan.');
+      var multi=allTargets().length>1,xn=!lv.ok||(gmain&&gmain.ks.mode==='group');var lb=$('#g-linkbox');if(lb)lb.style.display=!lv.ok?'none':'';
+      var pr=$('#g-planrow');if(pr){pr.hidden=!!(sel.value||current||multi||!lv.ok||(gmain&&gmain.ks.mode!=='plant'));var ap=$('#g-addplan'),pf=$('#g-pfinrow');pf.hidden=pr.hidden||!ap.checked;
         var one=!!(pv.name&&!isGroup(pv.name)),key=pv.place+'|'+pv.no+'|'+pv.name;if(PFINFOR!==key){PFINFOR=key;$('#g-pfin').checked=one}}
       var ol=$('#g-openlink');if(ol)ol.style.display=sel.value?'':'none';
-      var fr=$('#g-finrow'),fb=$('#g-fin');if(fr){fr.hidden=!sel.value;if(sel.value&&sel.value!==FINFOR){FINFOR=sel.value;var tk=S.tasks[sel.value],rc=tk&&doneRec(tk,yy);fb.checked=(l&&sel.value===current)?!!(rc&&rc.logId===id):!!(tk&&tk.name&&!isGroup(tk.name))}}
+      var fr=$('#g-finrow'),fb=$('#g-fin');if(fr){fr.hidden=!sel.value;if(sel.value&&sel.value!==FINFOR){FINFOR=sel.value;var tk=S.tasks[sel.value],rc=tk&&doneRec(tk,yy);fb.checked=rc?true:!!(tk&&tk.name&&!isGroup(tk.name)&&!multi)}}
     }
-    wireDates('g',l?ldates(l):(v.date||todayStr()),true,function(){if($('#g-link'))(typeof gUpd==='function'?gUpd():refreshLinks())});
-    if(l){wirePicker('g',refreshLinks);wireSelp('g',{mode:'plant'},el.querySelector('.fs-plant'))}else{gmain=plantScope('g',function(){if(typeof gUpd==='function')gUpd()},false,'log entry');wireSelp('g',gmain.ks,el.querySelector('.fs-plant'))}
+    wireDates('g',l?ldates(l):(v.dates&&v.dates.length?v.dates:(v.date||todayStr())),true,function(){if($('#g-link'))refreshLinks()});
+    gmain=plantScope('g',gUpd,!!l,'log entry');wireSelp('g',gmain.ks,el.querySelector('.fs-plant'));
+    gxp=extraPlants($('#g-xp'),$('#g-addplant'),gUpd,true,'log entry');
+    P0.slice(1).forEach(function(x){gxp.add(x)});
+    drawJ();drawC();
     $('#g-link').addEventListener('change',refreshLinks);
     $('#g-addplan').addEventListener('change',refreshLinks);
-    $('#g-event').addEventListener('change',refreshLinks);
-    if(!l){gxp=extraPlants($('#g-xp'),$('#g-addplant'),gUpd,true,'log entry');gxj=extraJobs($('#g-xj'),$('#g-addjob'),'log',gUpd)}
     refreshLinks();
     $('#g-openlink').onclick=function(){var tid=$('#g-link').value;if(tid)openTaskForm(tid)};
+    if(l)$('#g-dup').onclick=function(){var src={dates:ldates(l),date:l.date,events:levs(l),crew:l.crew,hours:l.hours,details:l.details,taskId:l.taskId};pop();setTimeout(function(){openLogForm(null,src)},50)};
     $('#g-save').onclick=async function(){
-      var pv=pickerVals('g'),dates=datesVals('g'),link=$('#g-link').value;
-      var d={event:$('#g-event').value,details:$('#g-details').value.trim(),hours:$('#g-hours').value,place:pv.place,no:pv.no,name:pv.name};
-      if(!dates.length||!d.event){toast('Please enter a date and what was done');return}
-      var gm=gmain&&gmain.ks.mode!=='plant';
-      if(!d.name&&!d.place&&!gm&&!noPlantOk(d.event)){toast('Please choose a place or a plant (only Attention can be saved without one)');return}
-      if(!l&&(gm||(gxp&&gxp.count())||(gxj&&gxj.count()))){
-        var xs=gxp.vals(),xj=gxj.vals();
-        if(gmain.ks.mode==='pick'&&gmain.pickCount()<1){toast('Tick at least one plant');return}
-        if(gxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
-        if(xj.some(function(j){return !j.event})){toast('Choose what was done for each extra task, or remove it');return}
-        var targets=gmain.targets().concat(xs),jobs=[{event:d.event,hours:d.hours,details:d.details}].concat(xj),pairs=[],k=0;
-        targets.forEach(function(tg){jobs.forEach(function(j){var r={place:tg.place,no:tg.no,name:tg.name,event:j.event,hours:j.hours,details:j.details,date:dates[0],createdAt:Date.now()+(k++)};if(dates.length>1)r.dates=dates;pairs.push([uid('l'),r])})});
-        if(await putMany('logs',pairs)){toast(pairs.length+' log '+(pairs.length>1?'entries':'entry')+' saved');pop()}return;
-      }
-      var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&!$('#g-planrow').hidden,ptid=addPlan?uid('t'):null,pfin=addPlan&&$('#g-pfin').checked;
-      var lid=id||uid('l'),rec=Object.assign({},d,{date:dates[0],createdAt:(l&&l.createdAt)||Date.now()});
+      var dates=datesVals('g'),link=$('#g-link').value,lb=$('#g-linkbox');if(lb&&lb.style.display==='none')link='';
+      if(!GJ.length){$('#g-jerr').hidden=false;var jb=$('#g-jb');if(jb)jb.classList.add('err');$('#g-jl').scrollIntoView({block:'center',behavior:'smooth'});return}
+      if(!dates.length){toast('Please choose a date');return}
+      if(gmain.ks.mode==='pick'&&gmain.pickCount()<1){toast('Tick at least one plant');return}
+      if(gxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
+      var tg=allTargets();
+      if(!tg.length&&!noPlantOk(GJ[0])){toast('Please choose a place or a plant (only Attention can be saved without one)');return}
+      var crew=CR.filter(function(c){return parseFloat(c.h)>0}).map(function(c){return {n:c.n||'',h:c.h}}),tot=crewTotal(crew);
+      var first=tg[0]||{place:'',no:'',name:''};
+      var rec={event:GJ[0],details:$('#g-details').value.trim(),hours:tot===null?'':String(tot),place:first.place||'',no:first.no||'',name:first.name||'',date:dates[0],createdAt:(l&&l.createdAt)||Date.now()};
+      if(GJ.length>1)rec.events=GJ.slice();
+      if(tg.length>1)rec.plants=tg.map(function(x){return {place:x.place||'',no:x.no||'',name:x.name||''}});
+      if(crew.length&&!(crew.length===1&&!crew[0].n))rec.crew=crew;
       if(dates.length>1)rec.dates=dates;
+      var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&!$('#g-planrow').hidden,ptid=addPlan?uid('t'):null,pfin=addPlan&&$('#g-pfin').checked;
+      var lid=id||uid('l');
       if(link)rec.taskId=link;else if(addPlan)rec.taskId=ptid;
       if(!(await put('logs',lid,rec)))return;
-      if(link&&S.tasks[link]){var yy=ydate(dates[0])||CUR,rc=doneRec(S.tasks[link],yy),fin=$('#g-fin')&&$('#g-fin').checked;
-        if(fin){if(!rc||rc.logId!==lid)await markDone(link,yy,dates[dates.length-1],lid)}else if(rc&&rc.logId===lid)await unmarkLog(link,lid)}
+      if(link&&S.tasks[link]){var yy=ydate(dates[0])||CUR,rc=doneRec(S.tasks[link],yy),fin=$('#g-fin')&&$('#g-fin').checked,last=dates[dates.length-1];
+        if(fin){if(!rc||String(rc.date||'')<last)await markDone(link,yy,last,lid)}else if(rc)await reopenYear(link,yy)}
       if(addPlan){rec.id=lid;await put('tasks',ptid,planFromLog(lid,rec,pfin))}
       if(current&&current!==link)await unmarkLog(current,id);
       toast('Log saved');pop();
     };
-    if(l)$('#g-del').onclick=function(){var b=$('#g-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('logs',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
+    if(l)$('#g-del').onclick=function(){var b=$('#g-del'),tk=l.taskId&&S.tasks[l.taskId],yy=ydate(l.date)||CUR,rc=tk&&doneRec(tk,yy);
+      if(rc){var q=$('#g-delq');q.innerHTML='<div class="delq">This entry is linked to “'+esc(taskTxt(tk.task))+'”, which is ticked done for '+yy+'. Is the task still done?<div class="row"><button type="button" class="btn" id="g-dkeep">Still done, delete entry</button><button type="button" class="btn danger" id="g-dre">Reopen task, delete entry</button><button type="button" class="lnk" id="g-dno">Cancel</button></div></div>';q.scrollIntoView({block:'center'});
+        $('#g-dno').onclick=function(){q.innerHTML=''};
+        $('#g-dkeep').onclick=function(){del('logs',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
+        $('#g-dre').onclick=async function(){if(await del('logs',id)){await reopenYear(l.taskId,yy);toast('Deleted · task reopened');pop()}};return}
+      if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('logs',id).then(function(ok){if(ok){toast('Deleted');pop()}})};
   });
 }
 
@@ -1638,7 +1693,7 @@ function genusSummary(t){
 }
 function taskLogsHtml(id){
   var ids=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id}).sort(function(a,b){return (S.logs[b].date||'').localeCompare(S.logs[a].date||'')});
-  if(!ids.length)return '';var h=ids.reduce(function(a,k){return a+(parseFloat(S.logs[k].hours)||0)},0);
+  if(!ids.length)return '';var h=r1(ids.reduce(function(a,k){return a+(parseFloat(S.logs[k].hours)||0)},0));
   return '<div class="sec"><h3><span>Logs for this task ('+ids.length+(h?' · '+h+' h':'')+')</span></h3><div class="list">'+ids.map(logEntry).join('')+'</div></div>';
 }
 function genusPlantsHtml(t){
@@ -1677,21 +1732,22 @@ function jobRow(kind){
   }else{
     r+='<div class="two keep jd"><div class="field"><label>Job done</label><select class="select b-ev">'+typeOptions('','Select…')+'</select></div><div class="field"><label>Hours</label><input class="input b-hrs" type="number" min="0" step="0.25" inputmode="decimal" placeholder="optional"></div></div>';
   }
-  return r+'<div class="field"><label>Note (optional)</label><input class="input b-det" autocomplete="off"></div></div>';
+  return r+'<div class="field"><label>Note</label><input class="input b-det" autocomplete="off"></div></div>';
 }
 function extraPlants(host,btn,onChange,withScope,noun){
   var ids=[],scopes={};
-  btn.onclick=function(){
+  function addRow(v){
     var id='xp'+(++XSEQ),d=document.createElement('div');d.className='xp2';
-    d.innerHTML='<div class="xph"><span>Plant '+(ids.length+2)+'</span><button type="button" class="lnk xrm">Remove</button></div>'+plantBlock(id,{})+(withScope?'<button type="button" class="lnk" id="'+id+'-grp" aria-expanded="false">＋ Or link by plant group</button>':'')+(withScope?'<div class="field" id="'+id+'-scopebox" hidden></div>':'');
+    d.innerHTML='<div class="xph"><span>Plant '+(ids.length+2)+'</span><button type="button" class="lnk xrm">Remove</button></div>'+plantBlock(id,v||{})+(withScope?'<button type="button" class="lnk" id="'+id+'-grp" aria-expanded="false">＋ Or link by plant group</button>':'')+(withScope?'<div class="field" id="'+id+'-scopebox" hidden></div>':'');
     host.appendChild(d);ids.push(id);
     function rm(){d.remove();delete scopes[id];ids=ids.filter(function(x){return x!==id});$$('.xph>span',host).forEach(function(s,k){s.textContent='Plant '+(k+2)});if(onChange)onChange()}
     if(withScope)scopes[id]=plantScope(id,onChange,false,noun);else wirePicker(id,onChange);
     wireSelp(id,withScope?scopes[id].ks:{mode:'plant'},d,rm);
-    $('.xrm',d).onclick=rm;var nmx=$('#'+id+'-name');if(nmx)nmx.focus();
+    $('.xrm',d).onclick=rm;var nmx=$('#'+id+'-name');if(nmx&&!v)nmx.focus();
     if(onChange)onChange();
-  };
-  return {vals:function(){var o=[];ids.forEach(function(id){if(withScope)o=o.concat(scopes[id].targets());else o.push(pickerVals(id))});return o},
+  }
+  btn.onclick=function(){addRow()};
+  return {add:addRow,vals:function(){var o=[];ids.forEach(function(id){if(withScope)o=o.concat(scopes[id].targets());else o.push(pickerVals(id))});return o},
     count:function(){var n=0;ids.forEach(function(id){n+=withScope?Math.max(scopes[id].size(),0):1});return n},
     blank:function(){return ids.some(function(id){if(withScope){var k=scopes[id].ks;return k.mode==='pick'?scopes[id].pickCount()<1:!scopes[id].targets().length}return !pickerVals(id).name})}};
 }
@@ -1829,8 +1885,8 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';
 function openTaskForm(id,preset){if(!needName())return;
   var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean);
   push(t?'Edit task':'New task',function(el){
-    el.innerHTML=(t?editedLine(t):'')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('k',v)+(t?'':moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
-    '<div class="two keep"><div class="field"><label for="k-task">Task</label><select class="select" id="k-task">'+typeOptions(v.task,'Select…')+'</select></div>'+
+    el.innerHTML=(t?editedLine(t):'')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('k',v)+(t?'':moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
+    '<div class="two keep"><div class="field"><label for="k-task">Task<span class="req" aria-hidden="true">*</span></label><select class="select" id="k-task">'+typeOptions(v.task,'Select…')+'</select></div>'+
     '<div class="field"><label for="k-month">Month</label><select class="select" id="k-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'"'+((v.month|0)===i+1?' selected':'')+'>'+m+'</option>'}).join('')+'</select></div></div>'+
     '<div class="two keep"><div class="field"><label for="k-rep">Repeats</label><select class="select" id="k-rep">'+[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only'],[-1,'Chosen years…']].map(function(r){return '<option value="'+r[0]+'"'+(((v.repeat==null&&!t)?0:repOf(v))===r[0]?' selected':'')+'>'+r[1]+'</option>'}).join('')+'</select></div>'+
     '<div class="field" id="k-yfield"><label for="k-year">First year it applies'+infoBtn('Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history.')+'</label><select class="select" id="k-year"><option value="0"'+(t&&!(t.startYear|0)?' selected':'')+'>Any year</option>'+[-2,-1,0,1,2,3,4,5].map(function(o){var y=CUR+o,sel=t?((t.startYear|0)===y):((S.planAll?CUR:S.planYear)===y);return '<option value="'+y+'"'+(sel?' selected':'')+'>'+y+'</option>'}).join('')+(t&&(t.startYear|0)&&Math.abs((t.startYear|0)-CUR-1.5)>3.5?'<option value="'+(t.startYear|0)+'" selected>'+(t.startYear|0)+'</option>':'')+'<option value="other">Other year…</option></select></div></div>'+
@@ -1905,7 +1961,7 @@ function openDone(id){
     el.innerHTML='<div class="evt">'+taskTag(t.task)+' <span class="ypill">'+y+'</span></div>'+(t.name?'<div class="latin">'+nameHtml(t.name)+'</div>':'')+'<div class="r-sub">'+placeChip(t.place)+(t.no?SEP+esc(t.no):'')+'</div><div style="height:14px"></div>'+
     (multi?'<div class="field"><span class="lbl">Which plants was it done on? ('+ms.length+' match this task)</span><div><button type="button" class="vbtn" id="d-all">Select all</button><button type="button" class="vbtn" id="d-none">Select none</button></div><div class="pick" style="margin-left:0">'+ms.map(function(p){return '<label><input type="checkbox" data-pk="'+p.id+'"> <span><span class="latin">'+nameHtml(p.name)+'</span> <span class="r-sub">'+esc(p.place)+(p.no?SEP+esc(p.no):'')+'</span></span></label>'}).join('')+'</div></div>':'')+
     datesHtml('d')+'<div class="r-sub" id="d-warn" style="display:none;color:var(--warn);background:var(--warn-soft);padding:8px 10px;border-radius:8px;margin:0 0 12px"></div>'+
-    '<div class="field"><label for="d-note">Log details (optional)</label><textarea class="textarea" id="d-note"></textarea></div>'+
+    '<div class="field"><label for="d-note">Log details</label><textarea class="textarea" id="d-note"></textarea></div>'+
     '<label class="rad"><input type="checkbox" id="d-log" checked> Also add log entries</label><div class="r-sub" id="d-count" style="margin:2px 0 0 30px"></div>'+
     '<div class="actions"><button class="btn primary" id="d-ok">Mark as done for '+y+'</button></div>';
     function chosen(){return multi?ms.filter(function(p){var c=$('[data-pk="'+p.id+'"]');return c&&c.checked}):[{place:t.place||'',no:t.no||'',name:t.name||''}]}
@@ -2099,7 +2155,7 @@ function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
   var g=cfg[groupBy];
   if(!g)return '<div class="list">'+items.map(renderItem).join('')+'</div>';
   var map={},keys=[],has=function(o,k){return Object.prototype.hasOwnProperty.call(o,k)};
-  items.forEach(function(it){var k=g.key(it);if(!has(map,k)){map[k]=[];keys.push(k)}map[k].push(it)});
+  items.forEach(function(it){var kk=g.key(it);(Array.isArray(kk)?kk:[kk]).forEach(function(k){if(!has(map,k)){map[k]=[];keys.push(k)}if(map[k].indexOf(it)<0)map[k].push(it)})});
   keys.sort(g.cmp);
   return keys.map(function(k){
     var ck=tab+':'+groupBy+':'+k;S.keys[tab].push(ck);
@@ -2109,7 +2165,7 @@ function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
       if(g.block&&!useSub)inner=g.block(map[k],k);
       else if(useSub){
         var sg=cfg[subBy],sm={},sk=[];
-        map[k].forEach(function(it){var kk=sg.key(it);if(!has(sm,kk)){sm[kk]=[];sk.push(kk)}sm[kk].push(it)});
+        map[k].forEach(function(it){var k2=sg.key(it);(Array.isArray(k2)?k2:[k2]).forEach(function(kk){if(!has(sm,kk)){sm[kk]=[];sk.push(kk)}if(sm[kk].indexOf(it)<0)sm[kk].push(it)})});
         sk.sort(sg.cmp);
         inner=sk.map(function(kk){var sck=ck+':sub:'+kk;S.keys[tab].push(sck);var so=!S.coll[sck];return '<button class="sh gh" data-g="'+esc(sck)+'" aria-expanded="'+so+'"><span class="gl"><span class="chev"></span>'+sg.label(kk)+'</span><span class="cnt">'+sm[kk].length+'</span></button>'+(so?'<div class="list subl">'+sm[kk].map(g.subRender||renderItem).join('')+'</div>':'')}).join('');
       }else inner='<div class="list">'+map[k].map(renderItem).join('')+'</div>';
@@ -2119,12 +2175,13 @@ function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
 }
 function plantGroups(recOf,entry){
   var PK={};
-  function pk(id){var l=recOf(id),k=(l.place||'')+'|'+(l.no||'')+'|'+norm(l.name);if(!PK[k])PK[k]={place:l.place||'',no:l.no||'',name:l.name||''};return k}
+  function pk1(l){var k=(l.place||'')+'|'+(l.no||'')+'|'+norm(l.name);if(!PK[k])PK[k]={place:l.place||'',no:l.no||'',name:l.name||''};return k}
+  function pk(id){var l=recOf(id);if(l.plants&&l.plants.length>1)return l.plants.map(pk1);return pk1(l)}
   function pcmp(a,b){var x=PK[a],y=PK[b];return placeIdx(x.place)-placeIdx(y.place)||noKey(x.no)-noKey(y.no)||norm(x.name).localeCompare(norm(y.name))}
   function head(k){var x=PK[k];return (x.no?'<span class="num">'+esc(x.no)+'</span>':'')+(x.name?nameLink(x.place,x.no,x.name):'<span class="wp">⌂ Whole place</span>')+placeTag(x.place,1)}
   return {
     plant:{cls:'plantg',key:pk,label:head,cmp:pcmp,block:function(items){return '<div class="list">'+items.map(entry).join('')+'</div>'}},
-    genusBlock:function(items){var m={},ks=[];items.forEach(function(id){var k=pk(id);if(!m[k]){m[k]=[];ks.push(k)}m[k].push(id)});ks.sort(pcmp);
+    genusBlock:function(items){var m={},ks=[];items.forEach(function(id){var kk=pk(id);(Array.isArray(kk)?kk:[kk]).forEach(function(k){if(!m[k]){m[k]=[];ks.push(k)}if(m[k].indexOf(id)<0)m[k].push(id)})});ks.sort(pcmp);
       return ks.map(function(k){return '<div class="pb"><div class="pb-h">'+head(k)+'</div><div class="list">'+m[k].map(entry).join('')+'</div></div>'}).join('')}
   };
 }
@@ -2307,12 +2364,12 @@ function wirePlan(){
 function viewLog(){
   var q=norm(S.logQ).split(' ').filter(Boolean),ids=sortLogs(Object.keys(S.logs)).filter(function(id){
     var l=S.logs[id];
-    if(!inSel(S.logEvent,l.event))return false;
+    if(S.logEvent.length&&!levs(l).some(function(v){return S.logEvent.indexOf(v)>=0}))return false;
     if(!placeOk(S.logPlace,l))return false;
     var linked=!!(l.taskId&&S.tasks[l.taskId]);
     if(S.logLink==='planned'&&!linked)return false;
     if(S.logLink==='unplanned'&&linked)return false;
-    if(q.length){var h=norm(l.name+' '+l.details+' '+l.place+' '+l.event);if(!q.every(function(x){return h.indexOf(x)>=0}))return false}
+    if(q.length){var h=norm(lps(l).map(function(x){return x.name+' '+x.place}).join(' ')+' '+l.details+' '+levs(l).join(' '));if(!q.every(function(x){return h.indexOf(x)>=0}))return false}
     return true;
   });
   var grouped=S.logGroup!=='none';
@@ -2320,12 +2377,12 @@ function viewLog(){
   var PG=plantGroups(function(id){return S.logs[id]},logEntry);
   var cfg={
     plant:PG.plant,
-    genus:{key:function(id){return ((S.logs[id].name||'').split(' ')[0]||'(no plant)').toLowerCase()},label:genusLabel,cmp:function(a,b){return a<b?-1:a>b?1:0},block:PG.genusBlock},
+    genus:{key:function(id){return lps(S.logs[id]).map(function(x){return ((x.name||'').split(' ')[0]||'(no plant)').toLowerCase()})},label:genusLabel,cmp:function(a,b){return a<b?-1:a>b?1:0},block:PG.genusBlock},
     month:{key:function(id){return (S.logs[id].date||'').slice(0,7)||'none'},label:function(k){if(k==='none')return 'No date';var p=k.split('-');return MONFULL[parseInt(p[1],10)]+' '+p[0]},cmp:function(a,b){return S.logAsc?(a<b?-1:a>b?1:0):(a<b?1:a>b?-1:0)}},
-    event:{key:function(id){return S.logs[id].event||'(none)'},label:function(k){return taskTag(k)||esc(k)},cmp:function(a,b){return typeIdx(a)-typeIdx(b)}},
-    place:{key:function(id){return S.logs[id].place||'(no place)'},label:placeLabel,cmp:function(a,b){return placeIdx(a)-placeIdx(b)}}
+    event:{key:function(id){var e=levs(S.logs[id]);return e.length?e:'(none)'},label:function(k){return taskTag(k)||esc(k)},cmp:function(a,b){return typeIdx(a)-typeIdx(b)}},
+    place:{key:function(id){return lps(S.logs[id]).map(function(x){return x.place||'(no place)'})},label:placeLabel,cmp:function(a,b){return placeIdx(a)-placeIdx(b)}}
   };
-  var hrs=ids.reduce(function(s,i){return s+(parseFloat(S.logs[i].hours)||0)},0);
+  var hrs=r1(ids.reduce(function(s,i){return s+(parseFloat(S.logs[i].hours)||0)},0));
   var body=S.loaded.logs?(ids.length?groupedHtml('log',S.logGroup,shown,cfg,function(id){return logCard(id,false)},S.logSub):'<div class="empty">No matching log entries</div>'):'<div class="empty">Loading…</div>';
   return '<div class="top static"><h1><span class="ht">'+hIcon('log')+'Log</span><span class="right">'+Object.keys(S.logs).length+' entries</span></h1><div class="bar"><input class="input grow" id="lq" type="search" placeholder="Search plant or task" value="'+esc(S.logQ)+'" autocomplete="off"><div class="seg sm" role="group" aria-label="Planned or extra"><button data-ll="planned" aria-pressed="'+(S.logLink==='planned')+'">Planned</button><button data-ll="unplanned" aria-pressed="'+(S.logLink==='unplanned')+'">Extra</button><button data-ll="all" aria-pressed="'+(S.logLink==='all')+'">All</button></div><span class="brk"></span>'+fbox('logPlace','place',S.logPlace,'All places')+fbox('logEvent','task',S.logEvent,'All tasks')+'</div>'+groupBar('log',S.logGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['event','Group by task'],['place','Group by place'],['none','No grouping']],'<button class="vbtn" id="logOrder">'+(S.logAsc?'Newest first ⇅':'Oldest first ⇅')+'</button>')+'</div>'+
    '<div class="wrap">'+banners()+(S.loaded.logs?statBar((S.logPlace.length?1:0)+(S.logEvent.length?1:0)+(S.logQ.trim()?1:0),ids.length+' shown'+(hrs?' · '+hrs+' hours':''),'Showing all '+ids.length+' entries'+(hrs?' · '+hrs+' hours':'')):'')+body+(!grouped&&ids.length>shown.length?'<button class="btn more" id="moreLogs">Show more</button>':'')+'</div><button class="btn logc fab" id="addLog"><span class="fpl">+</span><span class="flb"> New log</span></button>';
@@ -2347,7 +2404,7 @@ function exportFile(kind){
   var rows,name;
   if(kind==='plants'){rows=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag]}));name='master-plant-plan.csv'}
   else if(kind==='tasks'){rows=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','Starting year','Done in (year: date)']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i];return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(migrated(t).doneBy).sort().map(function(y){return y+': '+(migrated(t).doneBy[y].date||'done')}).join('; ')]}));name='garden-planner.csv'}
-  else{rows=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent']].concat(sortLogs(Object.keys(S.logs)).map(function(i){var l=S.logs[i],ds=ldates(l);return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),l.place,l.no,l.name,l.event,l.details,l.hours]}));name='garden-logger.csv'}
+  else{rows=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent']].concat([].concat.apply([],sortLogs(Object.keys(S.logs)).map(function(i){return logRows(S.logs[i]).map(function(r){var ds=r.ds;return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),r.place,r.no,r.name,r.event,r.details,r.hours]})})));name='garden-logger.csv'}
   if(!downloads){toast('Export is not available in this view');return}
   downloads.save({filename:name,data:csv(rows)}).then(function(){toast('Exported')}).catch(function(e){if(!e||e.code!=='cancelled')toast('Export did not complete')});
 }
@@ -2358,8 +2415,8 @@ function exportXlsx(btn){
   function ckc(p){var c=p.check;if(!c)return ['',''];return [(c.st==='missing'?'Missing':c.st==='unsure'?'Unsure':'Here')+(c.at?' · '+fmtDate(new Date(c.at).toISOString().slice(0,10)):''),c.note||'']}
   var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note','Last edited by','Last edited']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),eb(S.edits[p.id]))}));
   var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Last edited by','Last edited']].concat(Object.keys(S.tasks).map(function(i){var t=S.tasks[i],d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',t.task,t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; ')].concat(eb(t))}));
-  var logger=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat(T.map(function(i){var l=S.logs[i],ds=ldates(l);return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),l.place,l.no,l.name,l.event,l.details,l.hours].concat(eb(l))}));
-  var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i],k=[l.place,l.no,l.name].join('|');if(!by[k]){by[k]=[l.place,l.no,l.name,[]];ord.push(k)}by[k][3].push((ldates(l).length>1?fmtDates(ldates(l)):(l.date||''))+' - '+(l.event||'')+(l.details?'| '+l.details:''))});
+  var logger=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat([].concat.apply([],T.map(function(i){var l=S.logs[i];return logRows(l).map(function(r){var ds=r.ds;return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),r.place,r.no,r.name,r.event,r.details,r.hours].concat(eb(l))})})));
+  var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i];lps(l).forEach(function(pp){var k=[pp.place,pp.no,pp.name].join('|');if(!by[k]){by[k]=[pp.place,pp.no,pp.name,[]];ord.push(k)}by[k][3].push((ldates(l).length>1?fmtDates(ldates(l)):(l.date||''))+' - '+levs(l).join(' + ')+(l.details?'| '+l.details:''))})});
   var hist=[['Place','No.','BOTANICAL NAME','LOG Record']].concat(ord.map(function(k){var b=by[k];return [b[0],b[1],b[2],b[3].join('\n')]}));
   btn.disabled=true;var old=btn.textContent;btn.textContent='Preparing…';
   db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:6},{name:'Log history',rows:hist,split:3}]}).then(function(j){
@@ -2406,8 +2463,10 @@ function viewMore(){
   '<p><b>New task</b>: in “Plants and places”, type a plant or a place. A place shows first with its plants under it (“+ N more: show all” lists them all); picking the place alone makes a whole-place task. Type a place and a plant together, e.g. “east rill iris”, to find that plant in that place. Typing a genus (e.g. Rosa) also offers “ROSA all”. Add more plants or more tasks: every combination is saved, e.g. 2 plants × 2 tasks = 4 tasks, and Save says how many. Plant facts (from the RHS) show at the top of the Task card; tap the heading to fold them. “Season (your decision)” is your own choice: “＋ Show” opens the seasons.</p>'+
   '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. New matching plants join automatically.</p>'+
   '<h4>Log</h4>'+
-  '<p><b>New log</b>: tap the “Date done” box to open the calendar. Tap days to add or remove them, or slide across days to pick a run; all the days stay in one entry (shown like “13, 15–18 Jul 2026”), and the hours are the total for the entry. Tap outside the calendar to close it; ✕ in the box clears the days. Job done first, hours are optional.</p>'+
-  '<p><b>Planned task</b>: pick it under “Related planned task”; the entry then shows “✓ Planned”. Tick “Whole task done?” when this entry finishes the job for the year: the Plan ticks it off. Leave it unticked while the work is still going on; the Plan then shows “In progress · 2 logs”. A task for one plant starts ticked, a group task (ROSA all) or a whole-place task starts unticked. Other work is extra work: tick “Also add it to the Plan?” to add it to the Plan, then “Whole task done?” if it is finished (a single plant starts ticked, a group or whole place unticked); unticked, it shows on the Plan as in progress. A task’s own page lists all its logs and their hours.</p>'+
+  '<p><b>New log</b>: fields marked <span class="req">*</span> must be filled in; the rest can be left empty. Tap the “Date done” box to open the calendar: tap days to add or remove them, or slide across days to pick a run; “Today” jumps to today. All the days stay in one entry (shown like “13, 15–18 Jul 2026”). Plants added with “＋ Add another plant” are saved together as ONE entry, shown in the Log as “ROSA [3 plants]” or “[5 plants]” with the names under it; searching any of its plants, or filtering by any of its places, finds it. Tap “Job done” to choose one job or several done together (shown “Watering +1”).</p>'+
+  '<p><b>Time</b>: one line per group of workers, “2 people × 2 h”; “＋ Add more people” adds a line (e.g. 1 more person for 1 h). An empty people box counts as 1. The total is worked out for you; empty boxes save as “No time given”.</p>'+
+  '<p><b>Edit log entry</b>: “⧉ Duplicate” opens a new entry with the same date, jobs, time, note and planned task; only the plants are left to fill in.</p>'+
+  '<p><b>Planned task</b>: pick it under “Related planned task”; the entry then shows “✓ Planned”. Tick “Whole task done?” when the job is finished for the year: the Plan ticks it off. The tick belongs to the task, so every entry linked to it shows it ticked, and unticking it in any of them reopens the task. The done date is the last day of the latest linked entry. Deleting an entry linked to a done task asks whether the task is still done or should reopen. Leave it unticked while the work is still going on; the Plan then shows “In progress · 2 logs”. A task for one plant starts ticked, a group task (ROSA all) or a whole-place task starts unticked. Other work is extra work: tick “Also add it to the Plan?” to add it to the Plan, then “Whole task done?” if it is finished (a single plant starts ticked, a group or whole place unticked); unticked, it shows on the Plan as in progress. A task’s own page lists all its logs and their hours.</p>'+
   '<p><b>Edit a log</b>: the same calendar, so you can add more days to an entry you made yesterday.</p>'+
   '<p><b>Filters</b>: Planned / Extra / All, place and task boxes, “Newest first ⇅” flips the order.</p>'+
   '<h4>More</h4>'+
