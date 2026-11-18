@@ -329,6 +329,10 @@ nav.tabs button[aria-current="page"]{color:var(--accent)}
 .panel{background:var(--bg);width:min(680px,100%);max-height:calc(100% - 28px);overflow:auto;border-radius:14px 14px 0 0;padding:0 max(16px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px));overscroll-behavior:contain}
 .phead{position:sticky;top:0;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:8px 0;z-index:2;border-bottom:1px solid var(--line);margin-bottom:12px}
 .phead button{background:none;border:0;min-height:44px;padding:0 8px;font-weight:600;color:var(--muted)}
+.phead button.xb{width:30px;height:30px;min-height:30px;padding:0;margin:7px 4px 7px 8px;border-radius:50%;background:color-mix(in srgb,var(--muted) 16%,transparent);color:var(--muted);font-size:15px;line-height:1;display:grid;place-items:center;position:relative;flex:none}.phead button.xb::after{content:"";position:absolute;inset:-7px}
+.nop{color:var(--muted)!important;font-style:normal}.sug .nopb{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sec h3 .ftl:has(.hed){min-width:0;flex:1 1 auto}.ftl>span:last-child:has(.hed){display:flex;align-items:baseline;min-width:0;white-space:nowrap}.hed{display:inline-flex;min-width:0;white-space:nowrap}.hed .hnm{overflow:hidden;text-overflow:ellipsis;min-width:2.2em}.hed .hdt{flex:none}
+.discq{position:fixed;inset:0;background:rgba(20,24,21,.38);display:grid;place-items:center;z-index:120;padding:0 24px}.discq .dq{background:var(--surface);border-radius:14px;padding:18px 16px 14px;max-width:330px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,.25)}.dqh{font-weight:600;font-size:16px;margin-bottom:6px}.dqs{font-size:14px;color:var(--muted);margin-bottom:14px}.dqb{display:flex;justify-content:space-between;gap:8px}.dqb .btn{width:auto;margin:0;flex:0 1 auto}.dqb .btn.primary{background:var(--ink);border-color:var(--ink);color:var(--surface)}.dqb .btn.danger{color:#B3261E;border-color:#B3261E;background:var(--surface)}
 .phead .t{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--muted)}
 .h2{font-size:22px;margin:0 0 4px}
 .ntext{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;line-height:1.5;padding:2px 0;cursor:text;min-height:24px}
@@ -482,7 +486,7 @@ body.hdr-compact .yearbar .ylab,body.hdr-compact .yearbar .yall{display:none}
 .pcf .sw{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--dc);vertical-align:-3px;box-shadow:0 0 0 1px var(--line)}
 .pcf .btn{min-height:32px;padding:0 10px;font-size:13px}.pcf>span{flex-basis:100%}.pal .pb.pcustom{background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)}.pcf .btn.primary{margin-left:auto}
 .sethead{display:flex;align-items:flex-start;gap:8px;margin:0 0 8px}
-.sethead .r-sub{flex:1;margin:0}
+.sethead .r-sub{flex:1;margin:0}.sethead>.info{margin:7px 0 0 0}.sethead .ur{align-self:flex-start}
 /* People */
 .ppl{padding:8px 0;border-bottom:1px solid var(--line)}
 .ppl .l1{display:flex;align-items:center;gap:8px}
@@ -619,31 +623,33 @@ body.flmode .vbar .vend{display:none}
 .tot2{margin-left:auto;font-weight:700;font-size:14.5px;color:var(--ink);padding:2px 8px;border-radius:8px;background:color-mix(in srgb,var(--logc,#2A5F75) 9%,transparent);white-space:nowrap}.tot2.none{font-weight:400;color:var(--muted);background:none;border:1px dashed var(--line)}
 .gall{white-space:nowrap}.evt .tk+.tk{margin-left:8px}.crow .input{text-align:center!important;-moz-appearance:textfield;appearance:textfield}.crow .input::-webkit-inner-spin-button,.crow .input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .r-line.ckn{display:block;margin-top:6px}.cknote{height:34px;min-height:0;padding:4px 10px;font-size:16px;width:100%}
-.gpr .gxc{width:20px;height:20px;margin:0 2px 0 0;flex:none;accent-color:var(--leaf)}.mrow{margin-top:2px}.mmore{display:block;margin-left:7px;font-size:13px;color:var(--muted);margin-top:2px}
+.gpr .gxc{width:20px;height:20px;margin:0 2px 0 0;flex:none;accent-color:var(--leaf)}.mrow{margin-top:2px}.mmore{display:block;margin-left:7px;font-size:13.5px;color:var(--muted);margin-top:4px;cursor:pointer;padding:2px 0}.mmore .cv{display:inline-block;width:14px}.mxr{display:block}.mxr[hidden]{display:none}.gsum3{display:block}.hl1{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;row-gap:2px}.hl1>.idrow{flex:0 1 auto;min-width:0}.hl1>.lrow2{flex:1 1 100%}.hpill{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .pill.nolog{background:none;border:1px solid var(--line);color:var(--muted);font-weight:500}.gsum2{display:block;margin-left:7px;font-size:13.5px;color:var(--muted);margin-top:2px}
 .pbtn.zero,.prow2 .zero{border-color:var(--line)!important;background:var(--surface)!important;color:var(--muted)!important}.prow2 .zero b{color:var(--muted)!important}.prow2 .zero .adot{background:var(--muted)!important}
 .finq,label.finq,.field>label.finq{color:var(--muted)}
 .chips.pc{justify-content:flex-start;margin-left:0}.chips.pc button{text-align:left}
 /* F17 thinner filter rows, one height */
 #pq,#qq,#lq{height:40px;min-height:0;padding-top:0;padding-bottom:0}.top .fbox{min-height:40px;height:40px}.top .fbox .fb,.top .fbox .fx{min-height:0;height:100%}.top .seg.fseg{height:40px}.top .seg.fseg button{min-height:0;height:100%;padding-top:0;padding-bottom:0}
-.xwrap{position:relative;display:block;min-width:0}.xwrap.grow{flex:1 1 auto;display:flex}.xwrap>.input{width:100%;padding-right:34px}.xwrap .xclr{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--muted);font-size:15px;width:28px;height:28px;cursor:pointer;padding:0}
+.xwrap{position:relative;display:block;min-width:0}.xwrap.grow{flex:1 1 auto;display:flex}.xwrap>.input{width:100%;padding-right:34px}.xwrap input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}.xwrap>input.input{padding-right:32px!important;text-overflow:ellipsis}
+.xclr{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--muted);font-size:15px;width:28px;height:28px;cursor:pointer;padding:0}
 input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
 .psug{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.psug button{border:0;background:none;padding:0;cursor:pointer}
 .toast.act{display:flex;align-items:center;gap:10px}.toast .tbtn{border:1px solid rgba(255,255,255,.5);background:none;color:#fff;border-radius:999px;padding:4px 10px;font:inherit;font-weight:600;cursor:pointer}
 #mini .mb{padding:6px 7px;font-size:16px}#mini.flb .mi{flex:1 1 auto}#mini .mi::after{margin-right:6px}
+#mini .mi .cv{flex:none!important;overflow:visible!important;min-width:auto!important;margin-left:2px}#mini .mi>span:first-child{flex:0 1 auto}#mini .mi>span:first-child .ptag,#mini .mi>span:first-child .plb,#mini .mi>span:first-child .pl{display:inline-block!important;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
 #mini .mfs,#mini .mfv{display:inline-flex;flex:none;border:1px solid var(--line);border-radius:8px;overflow:hidden}#mini .mfs button,#mini .mfv button{border:0;background:none;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);padding:4px 6px;cursor:pointer;display:grid;place-items:center}#mini .mfs button[aria-pressed=true],#mini .mfv button[aria-pressed=true]{background:color-mix(in srgb,var(--ink) 20%,transparent);color:var(--ink)}
 #mini.flb{gap:6px;padding-left:10px;padding-right:8px}
 /* update 9 */
 .nowr{white-space:nowrap}.sec .gsum2,.pli .gsum2{margin-left:0}
 .idrow .num:empty{display:none}.idrow>.latin.gname:first-child,.idrow>.gname:first-child{margin-left:7px}
 .le{gap:10px}.le-d{width:auto;white-space:nowrap}.sec h3 .fbt .btn{min-height:0;height:30px;padding:0 10px;font-size:14px}
-.atth .tk,.nstag{font-weight:400!important}
+.atth .tk,.nstag{font-weight:550!important}
 .gh .gl{flex-wrap:nowrap!important;min-width:0}.gh .gl .ptag{min-width:0;flex:0 1 auto}.gh .gl .plb{min-width:0}.gh .gl .pl{white-space:normal;text-align:left}.gh .gl .pinb,.gh .gl .chev{flex:none}
 .list:not(.showmiss)>.flmiss{display:none!important}.flmiss{opacity:.45}.flmt{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:10px 2px;font:inherit;font-size:14px;color:var(--muted);cursor:pointer}
 .sva{margin:10px 2px 4px;font-size:14px}.sva .t{font-weight:600;color:var(--muted);margin-bottom:4px}.sva label{display:flex;align-items:center;gap:8px;padding:5px 0;color:var(--ink);font-size:15px}.sva input{width:20px;height:20px;margin:0;accent-color:var(--leaf,#2E6B3A)}
 .card.selm,.le.selm{position:relative}.card.selm .body,.le.selm{padding-left:34px!important}body.selon .fab{display:none}body.selon #app{padding-bottom:90px}.le.selm .sbx{top:9px}.card.selm .chk{visibility:hidden}.selm .sbx{position:absolute;left:2px;top:14px;width:22px;height:22px;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);display:grid;place-items:center;font-size:14px;color:#fff;z-index:2}.selm .sbx.on{background:var(--leaf,#2E6B3A);border-color:var(--leaf,#2E6B3A)}.le.selm{position:relative}
 .selbar{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 78px);background:#1b1f1c;color:#fff;border-radius:14px;display:flex;align-items:center;gap:8px;padding:10px 12px;z-index:60;font-size:14.5px;box-shadow:0 4px 14px rgba(0,0,0,.25)}.selbar .sp{flex:1}.selbar button{border:1px solid rgba(255,255,255,.45);background:none;color:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}.selbar button:disabled{opacity:.4}.selbar .del{background:#B3261E;border-color:#B3261E}
-.mglist{display:grid;gap:2px}.mgp{padding:6px 0}.mbanner{margin:0 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,#2A5F75 8%,var(--surface));font-size:14px}
+.tlh{display:flex;justify-content:flex-end;margin:-8px 0 0}.tlh .vbtn{padding:2px 0;min-height:0}.mbanner{margin:0 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,#2A5F75 8%,var(--surface));font-size:14px}
 .crow .cx{border:0;background:none;color:var(--muted);font-size:14px;width:24px;cursor:pointer;padding:0}
 .edl2{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin:14px 2px 8px}.edl2 .lnk{font-size:13.5px;padding:0;min-height:0}
 .dch .today{font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;margin-left:8px;color:var(--ink)}
@@ -804,6 +810,9 @@ function placeLabel(k){if(!k||k==='(no place)')return placeChip(k);var m=mapOf(k
 function placeHead(p){var m=mapOf(p);return '<div class="phd">'+'<button type="button" class="plb" data-place="'+esc(p)+'" aria-label="Open the page of '+esc(p)+'">'+placeChip(p)+'<span aria-hidden="true">›</span></button>'+(m?'<a class="pinb" data-stop data-map="'+esc(p)+'" href="'+esc(m)+'" target="_blank" rel="noopener" aria-label="Open the map of '+esc(p)+'" title="Open the map">'+IB.pin+'</a>':'')+'</div>'}
 function plSelStyle(p){var x=p&&placeList().by[p];return x&&/^#[0-9a-fA-F]{6}$/.test(x.color)?' style="box-shadow:inset 7px 0 0 '+x.color+'"':''}
 function isAtt(task){return /attention/i.test(String(task||''))}
+/* J2: a plant typed as "None" means no plant */
+function isNoneName(n){return /^(none|n\/a|-|no plant)$/i.test(String(n||'').trim())}
+function noneFix(x){var y=x;if(isNoneName(x.name)){y=Object.assign({},x,{name:'',no:''})}if(y.plants&&y.plants.some(function(p){return isNoneName(p.name)})){y=Object.assign({},y,{plants:y.plants.map(function(p){return isNoneName(p.name)?Object.assign({},p,{name:'',no:''}):p})})}return y}
 function noPlantOk(task){return /attention|note/i.test(String(task||''))}
 
 /* ---------- state ---------- */
@@ -976,7 +985,7 @@ function afterData(key){if(key==='settings')PCACHE=null;if(key==='edits'){buildP
 function sub(col){
   var key=COLMAP[col],timer=setTimeout(function(){if(!S.loaded[key]){S.slow=true;renderAll()}},HPL_API_URL&&!window.claude?40000:10000);
   db.collection(col).onSnapshot(function(snap){
-    var m={};snap.docs.forEach(function(d){m[d.id]=d.data()});
+    var m={};snap.docs.forEach(function(d){var x=d.data();if((key==='tasks'||key==='logs')&&x)x=noneFix(x);m[d.id]=x});
     S[key]=m;S.loaded[key]=true;S.slow=false;clearTimeout(timer);afterData(key);
   },function(){S.loaded[key]=true;S.err=true;renderAll()});
 }
@@ -1227,12 +1236,25 @@ function drawSheet(restore){
   var top=stack[stack.length-1];
   var old=$('#sBody');if(old&&old.firstChild&&old.firstChild.nodeType===1)old.removeChild(old.firstChild);
   h.innerHTML='<div class="sheet" id="sheetBg"><div class="panel" role="dialog" aria-modal="true" aria-label="'+esc(top.title)+'"><div class="phead"><button id="sBack">'+(stack.length>1?'‹ Back':'')+'</button><span class="t">'+esc(top.title)+'</span><button id="sClose">Close</button></div><div id="sBody"></div></div></div>';
-  $('#sClose').onclick=closeAll;if(stack.length>1){$('#sClose').style.visibility='hidden';$('#sClose').setAttribute('aria-hidden','true')}/* Close/Back A: a page opened from another page shows only ‹ Back */
-  $('#sBack').onclick=function(){if(stack.length>1)pop()};
-  $('#sheetBg').addEventListener('mousedown',function(e){if(e.target.id==='sheetBg')closeAll()});
+  /* P1 A: ‹ Back left, small round ✕ right on every page; leaving a form with unsaved typing asks first */
+  var scx=$('#sClose');scx.textContent='✕';scx.className='xb';scx.setAttribute('aria-label',stack.length>1?'Close all pages':'Close');
+  scx.onclick=function(){leaveGuard(stack.slice(),closeAll)};
+  $('#sBack').onclick=function(){if(stack.length>1)leaveGuard([stack[stack.length-1]],pop)};
+  $('#sheetBg').addEventListener('mousedown',function(e){if(e.target.id==='sheetBg')leaveGuard(stack.slice(),closeAll)});
   if(top.el&&restore){$('#sBody').appendChild(top.el);var q=$('.panel');if(q&&top.sc)q.scrollTop=top.sc;if(top.onShow)try{top.onShow()}catch(e){}return}
   var el=document.createElement('div');el.className='sbody';$('#sBody').appendChild(el);top.el=el;top.render(el);try{addClears(el)}catch(e){}
+  if(FORMRX.test(top.title)&&top.snap==null){var T0=top;setTimeout(function(){if(T0.el)T0.snap=formSig(T0.el)},80)}
 }
+var FORMRX=/^(New |Edit |Merge |Complete task|Rename |Mark as not done)/;
+function formSig(el){if(!el)return '';var o=[];$$('input,select,textarea',el).forEach(function(c){o.push(c.type==='checkbox'||c.type==='radio'?(c.checked?'1':'0'):c.value)});$$('[aria-pressed]',el).forEach(function(b){o.push(b.getAttribute('aria-pressed'))});$$('.selp,.jbox,.dbox,.xp2,.gpl',el).forEach(function(x){o.push(x.textContent)});return o.join('\u0001')}
+function isDirty(e){return !!(e&&FORMRX.test(e.title)&&e.el&&e.snap!=null&&formSig(e.el)!==e.snap)}
+function leaveGuard(entries,go){var d=entries.filter(isDirty)[0];if(!d){go();return}
+  var old=$('#discq');if(old)old.remove();var w=document.createElement('div');w.id='discq';w.className='discq';w.setAttribute('role','alertdialog');w.setAttribute('aria-modal','true');
+  var nm=String(d.title).replace(/^(New|Edit)\s+/,'').toLowerCase();
+  w.innerHTML='<div class="dq"><div class="dqh">Discard changes?</div><div class="dqs">What you typed in this '+esc(nm)+' will be lost.</div><div class="dqb"><button type="button" class="btn danger" id="dqD">Discard</button><button type="button" class="btn primary" id="dqK">Keep editing</button></div></div>';
+  document.body.appendChild(w);$('#dqK').focus();
+  $('#dqK').onclick=function(){w.remove()};$('#dqD').onclick=function(){w.remove();go()};
+  w.addEventListener('mousedown',function(e){if(e.target===w)w.remove()})}
 /* swipe gestures removed in update 6 (unreliable in the iPhone browser); Close and ‹ Back are the way out */
 function refreshSheet(){if(INLINE){REF_PEND=true;return}var top=stack[stack.length-1];if(top&&top.live){var p=$('.panel'),sc=p?p.scrollTop:0;drawSheet();var q=$('.panel');if(q)q.scrollTop=sc}}
 
@@ -1252,10 +1274,13 @@ function wirePicker(p,onChange){
   if(xb)xb.onclick=function(){nm.value='';xs();nm.dispatchEvent(new Event('input'));nm.focus()};
   var compact=!!nm.closest('.nfield');
   nm.addEventListener('input',function(e){
-    if(e&&e.isTrusted){nm.dataset.sel='';box.dataset.all=''}
+    if(e&&e.isTrusted){nm.dataset.sel='';nm.dataset.noplant='';box.dataset.all=''}
     if(compact&&!nm.value.trim()){$('#'+p+'-place').value='';$('#'+p+'-no').value=''}
     ch();
-    var q=norm(nm.value);if(q.length<2){box.innerHTML='';return}
+    var q=norm(nm.value);
+    var NPQ=/^(no|non|none|gen\w*|general job|no p\w*)$/;
+    var npb=compact?'<button type="button" class="nopb" data-noplant="1"><span class="wp nop">No plant</span><small>general job, not for one plant or place</small></button>':'';
+    if(q.length<2){box.innerHTML=(compact&&!q)?'<div class="sug">'+npb+'</div>':'';wireNp();return}
     var toks=q.split(' '),pl=$('#'+p+'-place').value,res=[];
     var pres=compact&&!pl?places().filter(function(n){return wmatch(norm(n),toks)}).slice(0,6):[];
     var combo=null;
@@ -1274,16 +1299,20 @@ function wirePicker(p,onChange){
       res=res.filter(function(x){return x.place!==p0})}
     if(combo){inner+='<button type="button" data-pl="'+esc(combo.place)+'"><span>'+placeChipLight(combo.place)+'</span><small>whole place</small></button><div class="sgh">'+esc(toks.filter(function(t){return !wmatch(norm(combo.place),[t])}).join(' '))+' in '+esc(combo.place)+'</div>'+combo.hits.map(function(x){return prow(x,true)}).join('');res=[]}
     inner+=gh+res.map(function(x){return prow(x,false)}).join('');
-    box.innerHTML=inner?'<div class="sug">'+inner+'</div>':'';
+    if(compact&&NPQ.test(q))inner=npb+inner;
+    box.innerHTML=inner?'<div class="sug">'+inner+'</div>':'';wireNp();
     $$('button[data-allpl]',box).forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){box.dataset.all=b.dataset.allpl;nm.dispatchEvent(new Event('input'))}});
     $$('button[data-gen]',box).forEach(function(b){b.onclick=function(){$('#'+p+'-place').value='';$('#'+p+'-no').value='';nm.value=b.dataset.gen;nm.dataset.sel='1';xs();box.innerHTML='';ch()}});
     $$('button[data-id]',box).forEach(function(b){b.onclick=function(){var x=PLANTS.filter(function(z){return z.id===b.dataset.id})[0];$('#'+p+'-place').value=x.place;$('#'+p+'-no').value=x.no;nm.value=x.name;nm.dataset.sel='1';xs();box.innerHTML='';ch()}});
     $$('button[data-pl]',box).forEach(function(b){b.onclick=function(){$('#'+p+'-place').value=b.dataset.pl;$('#'+p+'-no').value='';nm.value='';nm.dataset.sel='1';xs();box.innerHTML='';ch()}});
   });
+  function wireNp(){$$('button[data-noplant]',box).forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){$('#'+p+'-place').value='';$('#'+p+'-no').value='';nm.value='';nm.dataset.sel='1';nm.dataset.noplant='1';xs();box.innerHTML='';ch();nm.dispatchEvent(new Event('change',{bubbles:true}))}})}
+  if(compact)nm.addEventListener('focus',function(){if(!nm.value&&nm.dataset.noplant!=='1'&&nm.dataset.sel!=='1'){box.innerHTML='<div class="sug"><button type="button" class="nopb" data-noplant="1"><span class="wp nop">No plant</span><small>general job, not for one plant or place</small></button></div>';wireNp()}});
+  if(compact)nm.addEventListener('blur',function(){setTimeout(function(){if(!nm.value&&box.querySelector('[data-noplant]')&&!box.querySelector('[data-id]'))box.innerHTML=''},150)});
   $('#'+p+'-place').addEventListener('change',ch);
   $('#'+p+'-no').addEventListener('input',ch);
 }
-function pickerVals(p){return {place:$('#'+p+'-place').value,no:$('#'+p+'-no').value.trim(),name:$('#'+p+'-name').value.trim()}}
+function pickerVals(p){var nm=$('#'+p+'-name');return {place:$('#'+p+'-place').value,no:$('#'+p+'-no').value.trim(),name:nm.value.trim(),noplant:nm.dataset.noplant==='1'&&!nm.value.trim()&&!$('#'+p+'-place').value}}
 
 /* ---------- plant detail ---------- */
 function plantById(id){for(var i=0;i<PLANTS.length;i++)if(PLANTS[i].id===id)return PLANTS[i]}
@@ -1421,13 +1450,15 @@ function notesSection(p){
   var ed=ROLE!=='view',typing=INLINE&&INLINE.pid===p.id&&INLINE.sec==='gn',b;
   if(typing)b='<textarea class="ita" id="inlTa" rows="2" placeholder="Add a gardening note" aria-label="Gardening notes">'+esc(INLINE.val)+'</textarea>';
   else b=p.notes?'<div class="ntext'+(ed?' tapedit':'')+'"'+(ed?' id="pNoteTap" role="button" tabindex="0"':'')+'>'+esc(p.notes)+'</div>':'<div class="ntext nempty'+(ed?' tapedit':'')+'"'+(ed?' id="pNoteTap" role="button" tabindex="0"':'')+'>'+(ed?'No notes yet · tap to add':'No notes yet')+'</div>';
-  return foldSec('p-notes','Gardening notes',ed?urHtml('gn'):'',b+editedLine(S.edits[p.id]),true);
+  return foldSec('p-notes','Gardening notes'+hedHtml(S.edits[p.id]),ed?urHtml('gn'):'',b,true);
 }
 function mySection(p){if(!hasMy()){if(ROLE!=='view'&&EDITOR&&HPL_API_URL&&!window.claude)return foldSec('p-my','My note','','<div class="ntext nempty tapedit" id="myClaim" role="button" tabindex="0">Set a password for your name to have your own private note here</div>',true);return ''}var typing=INLINE&&INLINE.pid===p.id&&INLINE.sec==='my',m=MYN[p.id],b;
   if(typing)b='<textarea class="ita" id="inlTa" rows="2" placeholder="Your own note about this plant" aria-label="My note">'+esc(INLINE.val)+'</textarea>';
   else b=m&&m.text?'<div class="ntext tapedit" id="myNoteTap" role="button" tabindex="0">'+esc(m.text)+'</div>':'<div class="ntext nempty tapedit" id="myNoteTap" role="button" tabindex="0">Tap to add your own note</div>';
   var d=m&&m.at?new Date(m.at):null;
-  return foldSec('p-my','My note<span class="hsub">Only you can see this'+(d?SEP+'changed '+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear():'')+'</span>',urHtml('my'),b,true)}
+  return foldSec('p-my','My note<span class="hsub hed"><span class="hnm">Private</span>'+(d?'<span class="hdt">'+SEP+'edited '+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear()+'</span>':'')+'</span>',urHtml('my'),b,true)}
+/* Q1 B: who / when on the heading line; only the name shortens with … */
+function hedHtml(r){if(!r||!r.editedBy&&!r.editedAt)return '';var d=r.editedAt?new Date(r.editedAt):null;return '<span class="hsub hed">'+(r.editedBy?'<span class="hnm">'+esc(r.editedBy)+'</span>':'')+(d?'<span class="hdt">'+(r.editedBy?SEP:'')+'edited '+d.getDate()+' '+MON[d.getMonth()+1]+' '+d.getFullYear()+'</span>':'')+'</span>'}
 function startInline(id,sec,merge){var p=plantById(id);if(!p)return;
   INL_TOK++;INLINE={pid:id,sec:sec,merge:!!merge,val:sec==='my'?((MYN[id]&&MYN[id].text)||''):sec==='ck'?((p.check&&p.check.note)||''):(p.notes||''),before:snapSec(id,sec),tok:INL_TOK};
   var sc=$('.panel')?$('.panel').scrollTop:0;drawSheet();var q=$('.panel');if(q)q.scrollTop=sc;
@@ -1538,7 +1569,10 @@ function multiTag(ps){var gs={};ps.forEach(function(x){gs[norm((x.name||'').spli
   return '<span class="mtag">'+(one?'<span class="latin gname">'+esc(String(ps[0].name.split(' ')[0]).toUpperCase())+'<span class="gall">'+ps.length+' plants</span></span>':'<span class="gname"><span class="gall">'+ps.length+' plants</span></span>')+'</span>'}
 function multiPlace(ps){var pl=[];ps.forEach(function(x){if(x.place&&pl.indexOf(x.place)<0)pl.push(x.place)});if(!pl.length)return '';if(pl.length===1)return placeTag(pl[0],1);
   return '<span class="ptag"><span class="plb" role="button" tabindex="0" data-place="'+esc(pl[0])+'" aria-label="Open the page of '+esc(pl[0])+'"><span class="pl plight" title="'+esc(pl.join(', '))+'" style="--pc:'+placeCol(pl[0])+'">'+esc(pl[0])+'<span class="p1">+'+(pl.length-1)+'</span></span><span class="pcv" aria-hidden="true">›</span></span></span>'}
-function multiRows(ps,noTag){var K=ps.length>5?4:ps.length;return ps.slice(0,K).map(function(x){return '<span class="lrow2 mrow">'+idLine(x.place,x.no,x.name,false)+(noTag?'':'<span class="lchip">'+placeTag(x.place,1)+'</span>')+'</span>'}).join('')+(ps.length>K?'<span class="mmore">and '+(ps.length-K)+' more (open the entry to see all)</span>':'')}
+/* Q7 / Q12: plants row by row; more than 5 → first 4 + "▸ N more plants", opened in place */
+function multiRows(ps,noTag){var K=ps.length>5?4:ps.length;function row(x){return '<span class="lrow2 mrow">'+idLine(x.place,x.no,x.name,false)+(noTag?'':'<span class="lchip">'+placeTag(x.place,1)+'</span>')+'</span>'}
+  return ps.slice(0,K).map(row).join('')+(ps.length>K?'<span class="mxr" hidden>'+ps.slice(K).map(row).join('')+'</span><span class="mmore" role="button" tabindex="0" data-mx="'+(ps.length-K)+'"><span class="cv">▸</span>'+(ps.length-K)+' more plants</span>':'')}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-mx]');if(!b)return;e.preventDefault();e.stopPropagation();var r=b.previousElementSibling;if(!r||!r.classList.contains('mxr'))return;var open=r.hidden;r.hidden=!open;b.innerHTML=open?'<span class="cv">▾</span>Show fewer':'<span class="cv">▸</span>'+b.dataset.mx+' more plants'},true);
 function multiNames(ps){return '<span class="pnames latin">'+ps.map(function(x){return (x.no?esc(x.no)+' ':'')+nameHtml(x.name||'')}).join(', ')+'</span>'}
 function logCard(id,inSheet){
   var l=S.logs[id];if(!l)return '';
@@ -1638,6 +1672,12 @@ function planCandidates(v){
 function taskLabel(id,yy){var t=S.tasks[id];if(!t)return id;var who=t.name?(t.name+(t.place?' ('+t.place+(t.no?' '+t.no:'')+')':'')):(t.place||'');return t.task+' · '+(t.month?MON[t.month]:'No month')+' · '+who+(isGroup(t.name)?' (whole group)':'')+(doneRec(t,yy)?' · already ticked':'')}
 function planFromLog(lid,d,done){var y=ydate(d.date)||CUR,db={},ds=ldates(d);if(done!==false)db[y]={date:ds[ds.length-1]||d.date||'',logId:lid};return {place:d.place||'',no:d.no||'',name:d.name||'',month:parseInt((d.date||'').slice(5,7),10)||0,task:d.event,season:'',details:d.details||'',repeat:1,startYear:y,doneBy:db,createdAt:Date.now()}}
 /* K1: "Save as" once a 2nd plant is added (tasks start on Separate, logs on One entry) */
+/* E6: an entry with several plants (Edit / Merge) shows them as one ticked list; Q5 Select all / Deselect all */
+function tickListHtml(P,ps){return '<div class="tlh"><button type="button" class="vbtn tlall" id="'+P+'-tlall">Deselect all</button></div><div class="gpl tlist">'+ps.map(function(p,i){var id=plantIdFor(p.place,p.no,p.name);return '<div class="gpr"><input type="checkbox" class="gxc" data-mp="'+i+'" checked aria-label="Include '+esc(p.name||p.place)+'"><span class="num">'+esc(p.no||'')+'</span>'+(p.name?(id?'<button type="button" class="gpn" data-open="'+id+'">'+nameHtml(p.name)+'</button>':'<span class="gpn">'+nameHtml(p.name)+'</span>'):'<span class="gpn wp">'+(p.place?'⌂ Whole place':'No plant')+'</span>')+(p.place?placeChipLight(p.place):'')+'</div>'}).join('')+'</div>'}
+function wireTickList(P,el,onCh){var b=$('#'+P+'-tlall');function lab(){var cs=$$('[data-mp]',el);b.textContent=cs.length&&cs.every(function(c){return c.checked})?'Deselect all':'Select all'}
+  $$('[data-mp]',el).forEach(function(c){c.onchange=function(){lab();if(onCh)onCh()}});
+  b.onclick=function(){var cs=$$('[data-mp]',el),all=cs.every(function(c){return c.checked});cs.forEach(function(c){c.checked=!all});lab();if(onCh)onCh()};
+  $$('.tlist [data-open]',el).forEach(function(x){x.onclick=function(){openPlant(x.dataset.open)}});lab()}
 function svaDraw(P,n,noun,val,onCh){var h=$('#'+P+'-sva');if(!h){var a=$('#'+P+'-addplant');if(!a)return;h=document.createElement('div');h.id=P+'-sva';h.className='sva';a.after(h)}
   if(n<2){h.hidden=true;return}h.hidden=false;var many=noun==='task'?'Separate tasks ('+n+')':'Separate log entries ('+n+')',al=n===2?'both plants':'all '+n+' plants',one=noun==='task'?'One task for '+al:'One log entry for '+al;
   var o=[['one',one],['sep',many]];if(noun==='task')o.reverse();
@@ -1647,9 +1687,9 @@ function jboxHtml(arr,P){P=P||'g';var on=arr.length,segs=arr.map(function(t){var
   return '<div class="fbox jbox'+(on?' on':'')+'" id="'+P+'-jb">'+(on?'<span class="fs">'+segs+'</span>':'')+'<button type="button" class="fb" id="'+P+'-jopen" aria-label="Job done: '+esc(on?arr.map(taskTxt).join(', '):'choose')+'"><span class="ft fsplit"><span class="fn">'+esc(on?taskTxt(arr[0]):'Choose a job')+'</span>'+(on>1?'<span class="fc">+'+(on-1)+'</span>':'')+'</span>'+(on?'':'<span class="fcv">⌄</span>')+'</button>'+(on?'<button type="button" class="fx" id="'+P+'-jx" aria-label="Clear">✕</button>':'')+'</div>'}
 function crewTotal(cr){var t=0,any=false;cr.forEach(function(c){var h=parseFloat(c.h);if(h>0){any=true;t+=(parseFloat(c.n)>0?parseFloat(c.n):1)*h}});return any?r1(t):null}
 function openLogForm(id,preset){if(!needName())return;
-  var l=id?S.logs[id]:null,v=l||preset||{},P0=lps(v),MG=!l&&v.__merge?v.__merge:null;
+  var l=id?S.logs[id]:null,v=l||preset||{},P0=lps(v),MG=!l&&v.__merge?v.__merge:null,LIST=!!MG||!!(l&&P0.length>1);
   push(l?'Edit log entry':(MG?'Merge '+MG.length+' entries':'New log'),function(el){
-    el.innerHTML=datesHtml('g')+(MG?'<div class="fsec fs-plant"><div class="mbanner">Save replaces the '+MG.length+' entries with this one.</div><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span></div><div class="mglist">'+P0.map(function(p,i){return '<label class="finq mgp"><span>'+esc([p.place,p.no,p.name].filter(Boolean).join(' '))+'</span><input type="checkbox" data-mp="'+i+'" checked></label>'}).join('')+'</div></div>':'<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it. Plants added here are saved together as one log entry.')+'</div>'+plantBlock('g',P0[0])+moreBox('g')+'</div>')+'<div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
+    el.innerHTML=datesHtml('g')+(LIST?'<div class="fsec fs-plant">'+(MG?'<div class="mbanner">Save replaces the '+MG.length+' entries with this one.</div>':'')+'<div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span></div>'+tickListHtml('g',P0)+'<div id="g-xp"></div><button type="button" class="lnk" id="g-addplant">＋ Add another plant</button></div>':'<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it. Plants added here are saved together as one log entry.')+'</div>'+plantBlock('g',P0[0])+moreBox('g')+'</div>')+'<div class="fsec fs-job fs-log"><div class="fs-h">Log</div>'+
     '<div class="field"><label id="g-jl">Job done<span class="req" aria-hidden="true">*</span></label><div id="g-jhost"></div><div class="errm" id="g-jerr" hidden>Choose a job to save</div><input type="hidden" id="g-event"></div>'+
     '<div class="field" id="g-crew"><label>Time</label><div id="g-crows"></div><button type="button" class="lnk sm2" id="g-addcrew">＋ Add more people</button></div>'+
     '<div class="field" id="g-linkbox"><label for="g-link">Related planned task<button type="button" class="info" aria-label="More information" aria-expanded="false" data-tip="tipg" data-tipel="g-linkhint">i</button></label><select class="select" id="g-link"></select><div class="r-sub" id="g-linkhint" hidden></div><button type="button" class="lnk sm" id="g-openlink" style="display:none">Open the planned task ›</button><label class="finq" id="g-finrow" hidden><span>Whole task done?</span><input type="checkbox" id="g-fin"></label>'+
@@ -1667,11 +1707,11 @@ function openLogForm(id,preset){if(!needName())return;
       $$('#g-crows [data-ci]').forEach(function(x){x.oninput=function(){CR[+x.dataset.ci][x.dataset.cf]=x.value;var t=$('#g-tot');if(t)t.outerHTML=totHtml()}});
       $$('#g-crows [data-cr]').forEach(function(x){x.onclick=function(){CR.splice(+x.dataset.cr,1);drawC()}})}
     $('#g-addcrew').onclick=function(){CR.push({n:'',h:''});drawC();var ins=$$('#g-crows [data-cf="n"]');if(ins.length)ins[ins.length-1].focus()};
-    function allTargets(){if(MG)return P0.filter(function(p,i){var c=el.querySelector('[data-mp="'+i+'"]');return c&&c.checked});var t=gmain?gmain.targets():[pickerVals('g')];if(gxp)t=t.concat(gxp.vals());return t.filter(function(x){return x.name||x.place})}
+    function allTargets(){var t;if(LIST)t=P0.filter(function(p,i){var c=el.querySelector('[data-mp="'+i+'"]');return c&&c.checked});else t=gmain?gmain.targets():[pickerVals('g')];if(gxp)t=t.concat(gxp.vals());return t.filter(function(x){return x.name||x.place})}
     function linkVals(){var t=allTargets();if(t.length<=1)return {ok:true,pv:t[0]||pickerVals('g')};var gs={};t.forEach(function(x){gs[norm((x.name||'').split(' ')[0])]=1});var k=Object.keys(gs);return k.length===1&&k[0]?{ok:true,pv:{place:'',no:'',name:k[0]},all:t}:{ok:true,pv:t[0],all:t,mixed:true}}
     function candAll(lv,o){var c=planCandidates(Object.assign({},lv.pv,o));if(lv.all)lv.all.forEach(function(x){var d=planCandidates(Object.assign({place:x.place,no:x.no,name:x.name},o));d.same.forEach(function(k){if(c.same.indexOf(k)<0)c.same.push(k)});d.other.forEach(function(k){if(c.other.indexOf(k)<0&&c.same.indexOf(k)<0)c.other.push(k)})});return c}
     var GSV='one';
-    function gUpd(){if(!l&&!MG){var n0=allTargets().length;svaDraw('g',gmain&&gmain.ks.mode==='group'&&!gmain.ks.list.some(function(p){return gmain.ks.gx[p.id]})?1:n0,'log entry',GSV,function(v){GSV=v;refreshLinks()})}refreshLinks()}
+    function gUpd(){if(!MG){var n0=allTargets().length;svaDraw('g',gmain&&gmain.ks.mode==='group'&&!gmain.ks.list.some(function(p){return gmain.ks.gx[p.id]})?1:n0,'log entry',GSV,function(v){GSV=v;refreshLinks()})}refreshLinks()}
     function refreshLinks(){
       var lv=linkVals(),pv=lv.pv||{},ev=GJ[0]||'',sel=$('#g-link'),d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR,keep=sel.value||(current?current+'@'+((l&&lyear(l))||yy):'')||(plink?plink+'@'+yy:'');
       var c=lv.ok?candAll(lv,{event:ev,date:d0}):{same:[],other:[]};
@@ -1690,8 +1730,9 @@ function openLogForm(id,preset){if(!needName())return;
       var fr=$('#g-finrow'),fb=$('#g-fin');if(fr){fr.hidden=!sel.value;if(sel.value&&sel.value!==FINFOR){FINFOR=sel.value;var sq=sel.value.split('@'),tk=S.tasks[sq[0]],rc=tk&&doneRec(tk,+sq[1]||yy);fb.checked=rc?true:!!(tk&&tk.name&&!isGroup(tk.name)&&!multi)}}
     }
     wireDates('g',l?(ldates(l).length?ldates(l):[new Date(l.editedAt||l.createdAt||Date.now()).toISOString().slice(0,10)]):(v.dates&&v.dates.length?v.dates:(v.date||todayStr())),true,function(){if($('#g-link'))refreshLinks()});
-    if(MG){$$('[data-mp]',el).forEach(function(c){c.onchange=refreshLinks})}else{
-    gmain=plantScope('g',gUpd,!!l,'log entry');wireSelp('g',gmain.ks,el.querySelector('.fs-plant'));
+    if(LIST){wireTickList('g',el,gUpd);gxp=extraPlants($('#g-xp'),$('#g-addplant'),gUpd,true,'log entry');gUpd()}else{
+    gmain=plantScope('g',gUpd,!!l,'log entry');var gup=wireSelp('g',gmain.ks,el.querySelector('.fs-plant'));
+    if(l&&!v.name&&!v.place){var gnm=$('#g-name');gnm.dataset.noplant='1';gnm.dataset.sel='1';gup()}
     gxp=extraPlants($('#g-xp'),$('#g-addplant'),gUpd,true,'log entry');
     P0.slice(1).forEach(function(x){gxp.add(x)})}
     drawJ();drawC();
@@ -1704,7 +1745,7 @@ function openLogForm(id,preset){if(!needName())return;
       var dates=datesVals('g'),lsel=$('#g-link').value,lb=$('#g-linkbox');if(lb&&lb.style.display==='none')lsel='';var link=lsel.split('@')[0],lyr=+(lsel.split('@')[1]||0);
       if(!GJ.length){$('#g-jerr').hidden=false;var jb=$('#g-jb');if(jb)jb.classList.add('err');$('#g-jl').scrollIntoView({block:'center',behavior:'smooth'});return}
       if(!dates.length){toast('Please choose a date');return}
-      if(MG&&!allTargets().length){toast('Tick at least one plant');return}
+      if(LIST&&!allTargets().length){toast('Tick at least one plant');return}
       if(gmain&&gmain.ks.mode==='pick'&&gmain.pickCount()<1){toast('Tick at least one plant');return}
       if(gxp&&gxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
       var tg=allTargets();
@@ -1713,7 +1754,7 @@ function openLogForm(id,preset){if(!needName())return;
       else{var dupl=Object.keys(S.logs).some(function(k){if(k===id)return false;var x=S.logs[k];return ldates(x).some(function(d){return dates.indexOf(d)>=0})&&levs(x).some(function(e){return GJ.indexOf(e)>=0})&&lps(x).some(function(a){return tg.some(function(b){return a.place===b.place&&String(a.no)===String(b.no)&&norm(a.name)===norm(b.name)})})});if(dupl)warn='Already logged that day.'}
       if(MG)warn='';
       if(warn&&sv.dataset.ok!=='1'){sv.dataset.ok='1';sv.textContent='Save anyway';toast(warn+' Tap “Save anyway” to keep it.');return}
-      if(!tg.length&&!noPlantOk(GJ[0])){toast('Please choose a place or a plant (only Attention can be saved without one)');return}
+      if(!tg.length&&!noPlantOk(GJ[0])&&!(gmain&&pickerVals('g').noplant)){toast('Please choose a plant or a place, or “No plant”');return}
       var crew=CR.filter(function(c){return parseFloat(c.h)>0}).map(function(c){return {n:c.n||'',h:c.h}}),tot=crewTotal(crew);
       var first=tg[0]||{place:'',no:'',name:''};
       var rec={event:GJ[0],details:$('#g-details').value.trim(),hours:tot===null?'':String(tot),place:first.place||'',no:first.no||'',name:first.name||'',date:dates[0],createdAt:(l&&l.createdAt)||Date.now()};
@@ -1722,7 +1763,7 @@ function openLogForm(id,preset){if(!needName())return;
       if(crew.length&&!(crew.length===1&&!crew[0].n))rec.crew=crew;
       if(dates.length>1)rec.dates=dates;
       var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&!$('#g-planrow').hidden,ptid=addPlan?uid('t'):null,pfin=addPlan&&$('#g-pfin').checked;
-      if(!l&&GSV==='sep'&&tg.length>1){var prs=tg.map(function(x,i){var r=Object.assign({},rec,{place:x.place||'',no:x.no||'',name:x.name||'',createdAt:Date.now()+i});delete r.plants;return [uid('l'),r]});
+      if(!MG&&GSV==='sep'&&tg.length>1){var prs=tg.map(function(x,i){var r=Object.assign({},rec,{place:x.place||'',no:x.no||'',name:x.name||'',createdAt:(i===0&&l&&l.createdAt)||Date.now()+i});delete r.plants;if(link){r.taskId=link;if(lyr&&lyr!==(ydate(dates[0])||CUR))r.taskYear=lyr}return [i===0&&id?id:uid('l'),r]});
         if(await putMany('logs',prs)){if(link&&S.tasks[link]){var yy0=lyr||ydate(dates[0])||CUR;if($('#g-fin')&&$('#g-fin').checked&&!doneRec(S.tasks[link],yy0))await markDone(link,yy0,dates[dates.length-1],prs[0][0])}toast('Saved '+prs.length+' log entries');pop()}return}
       var lid=id||uid('l');
       if(link){rec.taskId=link;if(lyr&&lyr!==(ydate(dates[0])||CUR))rec.taskYear=lyr}else if(addPlan)rec.taskId=ptid;
@@ -1752,7 +1793,7 @@ function plantIdFor(place,no,name){return name?PKEYS[(place||'')+'|'+(no||'')+'|
 function nameLink(place,no,name){var id=plantIdFor(place,no,name),h=latinHtml(name);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+h+'</span>':h}
 function openBtn(place,no,name){var id=plantIdFor(place,no,name);return id?'<span class="olink" role="button" tabindex="0" data-popen="'+id+'">Open ›</span>':''}
 function idNum(no,name){return numHtml(no,name)||'<span class="num"></span>'}
-function idLine(place,no,name,showPlace){if(!no&&!name)return '<span class="idrow"><span class="num"></span><span class="wp">⌂ Whole place</span>'+(showPlace?placeTag(place):'')+'</span>';return '<span class="idrow">'+idNum(no,name)+(name?nameLink(place,no,name):'')+'</span>'}
+function idLine(place,no,name,showPlace){if(!no&&!name&&!place)return '<span class="idrow"><span class="num"></span><span class="wp nop">No plant</span></span>';if(!no&&!name)return '<span class="idrow"><span class="num"></span><span class="wp">⌂ Whole place</span>'+(showPlace?placeTag(place):'')+'</span>';return '<span class="idrow">'+idNum(no,name)+(name?nameLink(place,no,name):'')+'</span>'}
 function numHtml(no,name){if(!no&&name&&isGroup(name))return '';return '<span class="num">'+esc(no||'–')+'</span>'}
 function latinHtml(name){return isGroup(name)?'<span class="latin gname" title="Group: covers every matching plant">'+nameHtml(name)+'<span class="gall">all</span></span>':'<span class="latin">'+nameHtml(name)+'</span>'}
 function genusSummary(t){
@@ -1761,11 +1802,8 @@ function genusSummary(t){
   if(!ms.length)return '';
   var by={},order=[];ms.forEach(function(p){if(!by[p.place]){by[p.place]=[];order.push(p.place)}by[p.place].push(p)});
   order.sort(function(a,b){return placeIdx(a)-placeIdx(b)});
-  if(order.length>3)return '<span class="gsum2">'+ms.length+' plants in '+order.length+' places ›</span>';
-  var few=ms.length<=15;
-  return '<span class="gsum"><span class="r-sub"><b>'+ms.length+' plant'+(ms.length>1?'s':'')+'</b></span>'+order.map(function(pl){
-    var l=by[pl].sort(function(a,b){return noKey(a.no)-noKey(b.no)});
-    return '<span class="gp">'+placeChipLight(pl)+'<span class="r-sub">'+(few?l.map(function(p){return esc(p.no||'–')}).join(', '):'×'+l.length)+'</span></span>'}).join('')+'</span>';
+  var rows=[];order.forEach(function(pl){by[pl].sort(function(a,b){return noKey(a.no)-noKey(b.no)}).forEach(function(p){rows.push({place:p.place,no:p.no,name:p.name})})});
+  return '<span class="gsum3">'+multiRows(rows,false)+'</span>';
 }
 function taskLogsHtml(id){
   var ids=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id}).sort(function(a,b){return (S.logs[b].date||'').localeCompare(S.logs[a].date||'')});
@@ -1791,12 +1829,12 @@ function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
   /* J5: logged hours sit next to the status pill */
   var hrsT=(lk.length&&(hsum||noh))?'<span class="r-sub hrs">'+(hsum?hsum+' h':'')+(noh?(hsum?' · ':'')+noh+' log'+(noh>1?'s':'')+' no hrs':'')+'</span>':'';
   if(hrsT)pill=(pill?pill+' ':'')+hrsT;
-  if(!inSheet&&!cm&&tchip&&idrow){var b0=(S.planAll&&!inSheet)||!H.month||t.season||repOf(t)!==1||(rec&&rec.date)||lk.length;if(!b0)idrow='<span class="lrow2">'+idrow+'<span class="lchip">'+tchip+'</span></span>'}
-  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?idrow:'<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+idrow);
+  if(!inSheet&&!cm&&tchip&&idrow){var b0=(S.planAll&&!inSheet)||!H.month||t.season||repOf(t)!==1||(rec&&rec.date)||(lk.length&&!(H.task&&tjobs(t).length<2));if(!b0)idrow='<span class="lrow2">'+idrow+'<span class="lchip">'+tchip+'</span></span>'}
+  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?(pill?'<span class="hl1">'+idrow+'<span class="hpill">'+pill+'</span></span>':idrow):'<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+idrow);
   var bits=[];if(S.planAll&&!inSheet)bits.push('<b>'+y+'</b>');if(!H.month)bits.push(t.month?MON[t.month]:'No month');if(t.season)bits.push(esc(t.season));if(repOf(t)!==1)bits.push(esc(repLabel(t)));if(rec&&rec.date)bits.push('<span class="nowr">Done '+esc(fmtDate(rec.date))+'</span>');
   return '<div class="card'+(rec?' done':'')+'"><button class="chk" data-done="'+id+'" aria-pressed="'+(!!rec)+'" aria-label="'+(rec?'Mark as not done for '+y:'Mark as done for '+y)+'"><span>'+CHECK+'</span></button>'+
-   '<button class="body" data-task="'+id+'">'+head+(many?multiRows(ps,inSheet||cm||H.place):'')+genusSummary(t)+
-   ((!bits.length&&!(H.task&&pill)&&idrow&&head.indexOf(idrow)>=0)?'':'<span class="lrow"><span class="r-sub">'+((H.task&&pill)?pill+' ':'')+bits.join(SEP)+'</span>'+(tchip?'<span class="lchip">'+tchip+'</span>':'')+'</span>')+
+   '<button class="body" data-task="'+id+'">'+head+(many?multiRows(ps,cm||H.place):'')+genusSummary(t)+
+   ((!bits.length&&idrow&&head.indexOf(idrow)>=0)?'':'<span class="lrow"><span class="r-sub">'+bits.join(SEP)+'</span>'+(tchip?'<span class="lchip">'+tchip+'</span>':'')+'</span>')+
    (t.details?'<span class="det">'+esc(t.details)+'</span>':'')+'</button></div>';
 }
 
@@ -1852,16 +1890,16 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 function plantBlock(P,v){return '<div class="pblk" id="'+P+'-blk"><div class="selp" id="'+P+'-selp" hidden></div>'+pickerHtml(P,v,true)+'</div>'}
 function wireSelp(P,ks,root,onRemove){var blk=$('#'+P+'-blk'),sp=$('#'+P+'-selp'),pl=$('#'+P+'-place'),no=$('#'+P+'-no'),nm=$('#'+P+'-name');
   if(nm.value||pl.value)nm.dataset.sel='1';
-  function upd(){if(!sp||!sp.isConnected)return;var picked=(nm.dataset.sel==='1'||ks.mode!=='plant')&&(nm.value.trim()||pl.value);
+  function upd(){if(!sp||!sp.isConnected)return;var npl=nm.dataset.noplant==='1'&&!nm.value.trim()&&!pl.value;var picked=(nm.dataset.sel==='1'||ks.mode!=='plant')&&(nm.value.trim()||pl.value||npl);
     blk.classList.toggle('sel',!!picked);
     if(!picked){sp.hidden=true;return}
     sp.hidden=false;var one=null;if(ks.mode==='pick'&&ks.sel){var sk=Object.keys(ks.sel).filter(function(k){return ks.sel[k]});if(sk.length===1)one=PLANTS.filter(function(x){return x.id===sk[0]})[0]||null}
     var dpl=one?one.place:pl.value,dno=one?one.no:no.value,dnm=one?one.name:nm.value.trim();
-    sp.innerHTML=(dpl?placeChip(dpl):'')+(dno?'<span class="num">'+esc(dno)+'</span>':'')+(dnm?(function(){var nv=dnm,id=plantIdFor(dpl,dno,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():'<span class="wp">⌂ Whole place</span>')+'<button type="button" aria-label="'+(onRemove?'Remove this plant':'Clear plant')+'" class="selx">✕</button>';
+    sp.innerHTML=(dpl?placeChip(dpl):'')+(dno?'<span class="num">'+esc(dno)+'</span>':'')+(dnm?(function(){var nv=dnm,id=plantIdFor(dpl,dno,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():(npl?'<span class="wp nop">No plant</span>':'<span class="wp">⌂ Whole place</span>'))+'<button type="button" aria-label="'+(onRemove?'Remove this plant':'Clear plant')+'" class="selx">✕</button>';
     var lk=sp.querySelector('[data-popen]');if(lk)lk.onclick=function(e){e.stopPropagation();openPlant(lk.dataset.popen)};
     sp.onclick=function(e){if(e.target.closest('.selx')||e.target.closest('[data-popen]'))return;var keep=nm.value;if(ks.mode!=='plant'){ks.mode='plant';ks.init=false;ks.sel={};ks.src=null;ks.onlyPlace=false;try{[pl,no,nm].forEach(function(x){x.disabled=false})}catch(_){}}
-      nm.value=keep;nm.dataset.sel='';upd();nm.focus();try{nm.setSelectionRange(nm.value.length,nm.value.length)}catch(_){}nm.dispatchEvent(new Event('input',{bubbles:true}))};
-    sp.querySelector('.selx').onclick=function(){if(onRemove){onRemove();return}nm.dataset.sel='';ks.mode='plant';ks.init=false;ks.sel={};ks.src=null;ks.onlyPlace=false;pl.value='';no.value='';nm.value='';[pl,no,nm].forEach(function(x){x.dispatchEvent(new Event('input',{bubbles:true}));x.dispatchEvent(new Event('change',{bubbles:true}))});upd();nm.focus()}}
+      nm.value=keep;nm.dataset.sel='';nm.dataset.noplant='';upd();nm.focus();try{nm.setSelectionRange(nm.value.length,nm.value.length)}catch(_){}nm.dispatchEvent(new Event('input',{bubbles:true}))};
+    sp.querySelector('.selx').onclick=function(){if(onRemove){onRemove();return}nm.dataset.sel='';nm.dataset.noplant='';ks.mode='plant';ks.init=false;ks.sel={};ks.src=null;ks.onlyPlace=false;pl.value='';no.value='';nm.value='';[pl,no,nm].forEach(function(x){x.dispatchEvent(new Event('input',{bubbles:true}));x.dispatchEvent(new Event('change',{bubbles:true}))});upd();nm.focus()}}
   ['input','change','click'].forEach(function(ev){root.addEventListener(ev,function(){setTimeout(upd,0)})});upd();
   var gb=$('#'+P+'-grp');if(gb)gb.onclick=function(){var sb=$('#'+P+'-scopebox');sb.hidden=!sb.hidden;gb.setAttribute('aria-expanded',String(!sb.hidden));gb.textContent=(sb.hidden?'＋':'▾')+' Or link by plant group'};
   return upd}
@@ -1940,8 +1978,10 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
       var h=groups.map(function(g,gi){var on=ks.mode==='group'&&ks.gi===gi,n=on?ks.list.length:g.list.length;
         var s='<label class="tick"><input type="checkbox" data-sc="g'+gi+'"'+(on?' checked':'')+'><span>All '+esc(g.name)+' ('+n+') as one '+noun+'</span></label>';
         var nx=ks.list.filter(function(p){return ks.gx[p.id]}).length;
-        if(on)s+=onlyHtml()+'<div class="gdesc">'+(LOGM&&nx?'One '+noun+' for the '+(ks.list.length-nx)+' ticked plants. Untick any not done:':'One '+noun+' named '+esc(gr.name)+((ks.onlyPlace&&pv.place)?' in '+esc(pv.place):', with no place')+'. It covers'+(LOGM?' (untick any not done)':'')+':')+'</div>'+
-          '<div class="gpl">'+ks.list.slice().sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).map(function(p){return '<div class="gpr">'+(LOGM?'<input type="checkbox" class="gxc" data-gx="'+p.id+'"'+(ks.gx[p.id]?'':' checked')+' aria-label="Include '+esc(p.name)+'">':'')+'<span class="num">'+esc(p.no||'–')+'</span><button type="button" class="gpn" data-open="'+p.id+'">'+nameHtml(p.name)+'</button>'+placeChipLight(p.place)+'</div>'}).join('')+'</div>';
+        var unt=LOGM?'not done':'not included';
+        if(on)s+=onlyHtml()+'<div class="gdesc">'+(nx?'One '+noun+' for the '+(ks.list.length-nx)+' ticked plants. Untick any '+unt+':':'One '+noun+' named '+esc(gr.name)+((ks.onlyPlace&&pv.place)?' in '+esc(pv.place):', with no place')+'. It covers (untick any '+unt+'):')+'</div>'+
+          '<div class="tlh"><button type="button" class="vbtn tlall" id="'+P+'-gxall">'+(nx?'Select all':'Deselect all')+'</button></div>'+
+          '<div class="gpl">'+ks.list.slice().sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).map(function(p){return '<div class="gpr">'+'<input type="checkbox" class="gxc" data-gx="'+p.id+'"'+(ks.gx[p.id]?'':' checked')+' aria-label="Include '+esc(p.name)+'">'+'<span class="num">'+esc(p.no||'–')+'</span><button type="button" class="gpn" data-open="'+p.id+'">'+nameHtml(p.name)+'</button>'+placeChipLight(p.place)+'</div>'}).join('')+'</div>';
         return s}).join('')+
         (LOGM?'':'<label class="tick"><input type="checkbox" data-sc="pick"'+(ks.mode==='pick'?' checked':'')+'><span>One '+noun+' for each plant</span></label>');
       if(ks.mode==='pick')h+=onlyHtml()+'<div class="sa2"><button type="button" class="vbtn" id="'+P+'-all" style="padding-left:0">Select all</button><span class="r-sub" id="'+P+'-pickcount"></span></div><div class="pick" id="'+P+'-picklist"></div>';
@@ -1950,6 +1990,7 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
       if(ks.mode!=='plant')box.hidden=false;
       var op=$('#'+P+'-onlyp');if(op)op.onchange=function(){ks.onlyPlace=op.checked;ks.init=false;applyFields();drawScope();if(onChange)onChange()};
       $$('[data-open]',box).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
+      var gxa=$('#'+P+'-gxall');if(gxa)gxa.onclick=function(){var any=ks.list.some(function(p){return ks.gx[p.id]});ks.gx={};if(!any)ks.list.forEach(function(p){ks.gx[p.id]=true});drawScope();if(onChange)onChange()};
       $$('[data-gx]',box).forEach(function(c){c.onchange=function(){if(c.checked)delete ks.gx[c.dataset.gx];else ks.gx[c.dataset.gx]=true;var keep=box.scrollTop;drawScope();if(onChange)onChange()}});
       var sa=$('#'+P+'-all');
       if(sa)sa.onclick=function(){var vv=pickVisible(),all=vv.length&&vv.every(function(p){return ks.sel[p.id]});vv.forEach(function(p){if(all)delete ks.sel[p.id];else ks.sel[p.id]=true});drawPickList();if(onChange)onChange()};
@@ -1972,9 +2013,9 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
   return {ks:ks,pickCount:pickCount,targets:targets,size:size};
 }
 function openTaskForm(id,preset){if(!needName())return;
-  var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean);
+  var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean),P0=lps(v),LISTK=!!(t&&P0.length>1);
   push(t?'Edit task':'New task',function(el){
-    el.innerHTML=(t?editedLine(t):'')+'<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+plantBlock('k',v)+(t?'':moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
+    el.innerHTML='<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+(LISTK?tickListHtml('k',P0)+'<div id="k-xp"></div><button type="button" class="lnk" id="k-addplant">＋ Add another plant</button>':plantBlock('k',P0[0])+moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
     '<div class="two keep"><div class="field"><label for="k-task">Task<span class="req" aria-hidden="true">*</span></label><div id="k-jhost"></div><div class="errm" id="k-jerr" hidden>Choose a task to save</div><input type="hidden" id="k-task" value="'+esc(v.task||'')+'"></div>'+
     '<div class="field"><label for="k-month">Month</label><select class="select" id="k-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'"'+((v.month|0)===i+1?' selected':'')+'>'+m+'</option>'}).join('')+'</select></div></div>'+
     '<div class="two keep"><div class="field"><label for="k-rep">Repeats</label><select class="select" id="k-rep">'+[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only'],[-1,'Chosen years…']].map(function(r){return '<option value="'+r[0]+'"'+(((v.repeat==null&&!t)?0:repOf(v))===r[0]?' selected':'')+'>'+r[1]+'</option>'}).join('')+'</select></div>'+
@@ -1984,10 +2025,11 @@ function openTaskForm(id,preset){if(!needName())return;
     '<div class="field sfold"><div class="lbl sfh"><span>Season (your decision)</span><button type="button" class="lnk sm" id="k-seasbtn" aria-expanded="'+(seas.length>0)+'">'+(seas.length?'− Hide':'＋ Show')+'</button></div><div class="chips" id="k-seas"'+(seas.length?'':' hidden')+'>'+SEASONS.map(function(s){return '<button type="button" aria-pressed="'+(seas.indexOf(s)>=0)+'" data-s="'+s+'">'+s+'</button>'}).join('')+'</div></div>'+
     '<div class="field"><label for="k-details">Note</label><textarea class="textarea" id="k-details">'+esc(v.details||'')+'</textarea></div>'+
     "<div id='k-xj'></div><button type='button' class='lnk' id='k-addjob'>＋ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t)+taskLogsHtml(id):'')+
+    (t?'<div class="edl2"><span>'+(t.editedBy||t.editedAt?'Last edited'+(t.editedBy?' by '+esc(t.editedBy):'')+(t.editedAt?SEP+fmtDate(new Date(t.editedAt).toISOString().slice(0,10)):''):'')+'</span><button type="button" class="lnk" id="k-dup">⧉ Duplicate</button></div>':'')+
     '<div class="acts">'+(t?'<button class="btn danger" id="k-del">Delete</button>':'')+'<button class="btn primary" id="k-save">Save</button></div>';
-    function kFacts(){var box=$('#k-facts');if(!box)return;var pv=pickerVals('k'),b=pv.name?factsBox(pv.name):null;
+    function kFacts(){var box=$('#k-facts');if(!box)return;var pv=LISTK?P0[0]:pickerVals('k'),b=pv.name?factsBox(pv.name):null;
       box.innerHTML=b?'<details class="fold2 kfacts" data-fk="k-facts"'+(FOLD['k-facts']===false?'':' open')+'><summary><h3><span class="ftl"><span class="chev" aria-hidden="true"></span><span>Plant facts<span class="hsub">'+b.sub+'</span></span></span></h3></summary>'+b.box+'</details>':'';wireFolds(box)}
-    var main=plantScope('k',function(){if(window.updSave)window.updSave();kFacts()},!!t),ks=main.ks,pickCount=main.pickCount;
+    var main=LISTK?null:plantScope('k',function(){if(window.updSave)window.updSave();kFacts()},!!t),ks=main?main.ks:{mode:'plant',gx:{}},pickCount=main?main.pickCount:function(){return 0};
     kFacts();
     $('#k-seasbtn').onclick=function(){var c=$('#k-seas'),o=c.hidden;c.hidden=!o;this.textContent=o?'− Hide':'＋ Show';this.setAttribute('aria-expanded',String(o))};
     $$('[data-open]',el).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
@@ -1995,57 +2037,52 @@ function openTaskForm(id,preset){if(!needName())return;
     function repToggle(){var sp=$('#k-rep').value==='-1';$('#k-yrs-wrap').style.display=sp?'':'none';$('#k-yfield').style.display=sp?'none':''}
     $('#k-rep').addEventListener('change',repToggle);repToggle();
     $$('#k-seas button').forEach(function(b){b.onclick=function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true')}});
-    wireSelp('k',ks,el.querySelector('.fs-plant'));
+    if(LISTK)wireTickList('k',el,function(){if(window.updSave)window.updSave()});
+    else{var kup=wireSelp('k',ks,el.querySelector('.fs-plant'));if(t&&!v.name&&!v.place){var knm=$('#k-name');knm.dataset.noplant='1';knm.dataset.sel='1';kup()}}
     var KJ=tjobs(v).slice();
     function drawKJ(){$('#k-jhost').innerHTML=jboxHtml(KJ,'k');var ti=$('#k-task');ti.value=KJ[0]||'';ti.dispatchEvent(new Event('change'));
       $('#k-jopen').onclick=function(){S.__fj=KJ.slice();stack[stack.length-1].onShow=function(){KJ=S.__fj.slice();drawKJ()};openPicker('task','__fj',{onChange:function(){}})};
       var jx=$('#k-jx');if(jx)jx.onclick=function(){KJ=[];drawKJ()};if(KJ.length)$('#k-jerr').hidden=true}
     drawKJ();
     var kxp=null,kxj=null;
-    function kTotal(){var pl=Math.max(main.size(),0);return (pl+(kxp?kxp.count():0))*(1+(kxj?kxj.count():0))}
-    var KSV='sep';
-    window.updSave=function(){var b=$('#k-save');if(!b)return;if(!t){var np=(main.ks.mode==='pick'?main.pickCount():1)+((kxp&&kxp.count())||0);svaDraw('k',main.ks.mode==='group'?1:np,'task',KSV,function(v){KSV=v;window.updSave()});if(KSV==='one'&&np>1){var e1=kxj?kxj.count():0;b.textContent=e1?'Save '+(e1+1)+' tasks':'Save';return}}if(t){var e=kxj?kxj.count():0;b.textContent=e?'Save and add '+e+' task'+(e>1?'s':''):'Save';return}var n=kTotal(),x=(kxp&&kxp.count())||(kxj&&kxj.count())||main.ks.mode==='pick';b.textContent=x?'Save '+n+' task'+(n!==1?'s':''):'Save'};
-    if(!t)kxp=extraPlants($('#k-xp'),$('#k-addplant'),window.updSave,true,'task');
+    var KSV=P0.length>1?'one':'sep';
+    function isGrpT(x){return x&&x.name&&!x.no&&isGroup(x.name)}
+    /* Q4 / E1–E7: New and Edit work the same way: plants (or a group) + extra plants → tasks, by "Save as" */
+    function kTargets(){var T;
+      if(LISTK)T=P0.filter(function(p,i){var c=el.querySelector('[data-mp="'+i+'"]');return c&&c.checked});
+      else if(ks.mode==='group'&&ks.groups&&ks.groups[ks.gi]&&ks.list.length&&!ks.list.some(function(p){return ks.gx[p.id]})){var pv0=pickerVals('k');T=[{place:(ks.onlyPlace&&pv0.place)?pv0.place:'',no:'',name:ks.groups[ks.gi].name}]}
+      else T=main.targets();
+      if(kxp)T=T.concat(kxp.vals());
+      return T.filter(function(x){return x&&(x.name||x.place)})}
+    function kUnits(){var T=kTargets(),grp=T.filter(isGrpT),pl=T.filter(function(x){return !isGrpT(x)}),u=grp.map(function(x){return {place:x.place||'',no:'',name:x.name}});
+      if(pl.length>1&&KSV==='one'){var all=pl.map(function(x){return {place:x.place||'',no:x.no||'',name:x.name||''}});u.push(Object.assign({},all[0],{plants:all}))}
+      else pl.forEach(function(x){u.push({place:x.place||'',no:x.no||'',name:x.name||''})});
+      return {units:u,plain:pl.length}}
+    window.updSave=function(){var b=$('#k-save');if(!b)return;var ku=kUnits();svaDraw('k',ku.plain,'task',KSV,function(v2){KSV=v2;window.updSave()});
+      var n=Math.max(ku.units.length,1)*(1+(kxj?kxj.count():0));b.textContent=n>1?'Save '+n+' tasks':'Save'};
+    kxp=extraPlants($('#k-xp'),$('#k-addplant'),window.updSave,true,'task');
+    if(!t&&!LISTK)P0.slice(1).forEach(function(x){kxp.add(x)});
     kxj=extraJobs($('#k-xj'),$('#k-addjob'),'task',window.updSave);
+    window.updSave();
+    if(t)$('#k-dup').onclick=function(){var src={place:t.place,no:t.no,name:t.name,plants:t.plants,task:t.task,tasks:t.tasks,month:t.month,repeat:t.repeat,season:t.season,details:t.details,startYear:t.startYear,years:t.years};pop();setTimeout(function(){openTaskForm(null,src)},50)};
     $('#k-save').onclick=async function(){
-      var pv=pickerVals('k'),ss=$$('#k-seas button').filter(function(b){return b.getAttribute('aria-pressed')==='true'}).map(function(b){return b.dataset.s});
-      var d={place:pv.place,no:pv.no,name:pv.name,task:$('#k-task').value,month:parseInt($('#k-month').value,10)||0,season:ss.join(', '),details:$('#k-details').value.trim(),repeat:parseInt($('#k-rep').value,10)||0,startYear:parseInt($('#k-year').value,10)||0,createdAt:(t&&t.createdAt)||Date.now()};
+      var ss=$$('#k-seas button').filter(function(b){return b.getAttribute('aria-pressed')==='true'}).map(function(b){return b.dataset.s});
+      var d={task:$('#k-task').value,month:parseInt($('#k-month').value,10)||0,season:ss.join(', '),details:$('#k-details').value.trim(),repeat:parseInt($('#k-rep').value,10)||0,startYear:parseInt($('#k-year').value,10)||0,createdAt:(t&&t.createdAt)||Date.now()};
       if(d.repeat===-1){var yl=($('#k-yrs').value.match(/\d{4}/g)||[]).map(Number).filter(function(y){return y>=1900&&y<=2200});yl=yl.filter(function(y,i){return yl.indexOf(y)===i}).sort();if(!yl.length){toast('Type at least one year, such as 2026');return}d.years=yl;d.startYear=yl[0]}
-      if(t){var mg=migrated(t);if(Object.keys(mg.doneBy).length)d.doneBy=mg.doneBy}
       if(KJ.length>1)d.tasks=KJ.slice();
       if(!d.task){$('#k-jerr').hidden=false;var kb=$('#k-jb');if(kb){kb.classList.add('err');kb.scrollIntoView({block:'center',behavior:'smooth'})}return}
-      if(!d.name&&!d.place&&!(!t&&ks.mode==='pick')&&!noPlantOk(d.task)){toast('Please choose a place or a plant (only Attention can be saved without one)');return}
-      if(!t&&((kxp&&kxp.count())||(kxj&&kxj.count()))){
-        var xs=kxp.vals(),xj=kxj.vals();
-        if(kxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
-        if(xj.some(function(j){return !j.task})){toast('Choose a task for each extra task, or remove it');return}
-        var targets;
-        if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){var g2=ks.groups[ks.gi];targets=[{place:(ks.onlyPlace&&pv.place)?pv.place:'',no:'',name:g2.name}]}
-        else if(ks.mode==='pick'){targets=PLANTS.filter(function(p){return ks.sel[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name}});if(!targets.length){toast('Tick at least one plant');return}}
-        else targets=[{place:pv.place,no:pv.no,name:pv.name}];
-        targets=targets.concat(xs);
-        var jobs=[d].concat(xj.map(function(j){return {task:j.task,month:j.month,repeat:j.repeat,season:j.season,details:j.details,startYear:j.startYear,createdAt:d.createdAt}}));
-        var pairs=[],k=0;
-        if(KSV==='one'&&targets.length>1&&ks.mode!=='group'){var all=targets.map(function(x){return {place:x.place||'',no:x.no||'',name:x.name||''}});targets=[Object.assign({},all[0],{plants:all})]}
-        targets.forEach(function(tg){jobs.forEach(function(j){var o=Object.assign({},j,{place:tg.place,no:tg.no,name:tg.name,createdAt:Date.now()+(k++)});if(tg.plants)o.plants=tg.plants;pairs.push([uid('t'),o])})});
-        if(await putMany('tasks',pairs)){toast(yearJump(d)||('Added '+pairs.length+' task'+(pairs.length>1?'s':'')));pop()}return;
-      }
-      if(!t&&ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){
-        var gg=ks.groups[ks.gi];d.name=gg.name;d.no='';if(!(ks.onlyPlace&&pv.place))d.place='';
-        if(await put('tasks',uid('t'),d)){toast(yearJump(d)||('Saved for all '+gg.name));pop()}return;
-      }
-      if(!t&&ks.mode==='pick'){
-        var chosen=PLANTS.filter(function(p){return ks.sel[p.id]});
-        if(!chosen.length){toast('Tick at least one plant');return}
-        var n=0;for(var i=0;i<chosen.length;i++){if(await put('tasks',uid('t'),Object.assign({},d,{place:chosen[i].place,no:chosen[i].no,name:chosen[i].name})))n++}
-        toast(yearJump(d)||('Added '+n+' tasks'));pop();return;
-      }
-      var ej=(t&&kxj)?kxj.vals():[];
-      if(ej.some(function(j){return !j.task})){toast('Choose a task for each extra task, or remove it');return}
-      if(!(await put('tasks',id||uid('t'),d)))return;
-      if(ej.length){var ep=ej.map(function(j,i){return [uid('t'),{place:d.place,no:d.no,name:d.name,task:j.task,month:j.month,repeat:j.repeat,season:j.season,details:j.details,startYear:j.startYear,createdAt:Date.now()+i}]});
-        if(!(await putMany('tasks',ep)))return;toast('Saved, and added '+ep.length+' task'+(ep.length>1?'s':''));pop();return}
-      toast(yearJump(d)||'Saved');pop();
+      if(kxp&&kxp.blank()){toast('Choose a plant for each extra plant, or remove it');return}
+      var xj=kxj?kxj.vals():[];if(xj.some(function(j){return !j.task})){toast('Choose a task for each extra task, or remove it');return}
+      if(!LISTK&&ks.mode==='pick'&&pickCount()<1){toast('Tick at least one plant');return}
+      var ku=kUnits(),units=ku.units;
+      if(!units.length){if(LISTK||(ks.mode!=='plant')){toast('Tick at least one plant');return}var pvn=pickerVals('k');if(!noPlantOk(d.task)&&!pvn.noplant){toast('Please choose a plant or a place, or “No plant”');return}units=[{place:'',no:'',name:''}]}
+      var jobs=[d].concat(xj.map(function(j){return {task:j.task,month:j.month,repeat:j.repeat,season:j.season,details:j.details,startYear:j.startYear}}));
+      var pairs=[],k=0;
+      units.forEach(function(u){jobs.forEach(function(j){var o=Object.assign({},j,{place:u.place,no:u.no,name:u.name,createdAt:Date.now()+(k++)});if(u.plants)o.plants=u.plants;pairs.push([uid('t'),o])})});
+      if(t){pairs[0][0]=id;var o0=pairs[0][1];o0.createdAt=t.createdAt||o0.createdAt;var mg=migrated(t);if(Object.keys(mg.doneBy).length)o0.doneBy=mg.doneBy;if(t.tasks&&KJ.length<2)delete o0.tasks}
+      var ok=pairs.length===1?await put('tasks',pairs[0][0],pairs[0][1]):await putMany('tasks',pairs);
+      if(!ok)return;
+      toast(yearJump(d)||(pairs.length>1?(t?'Saved, and added '+(pairs.length-1)+' task'+(pairs.length>2?'s':''):'Added '+pairs.length+' tasks'):'Saved'));pop();
     };
     if(t)$('#k-del').onclick=function(){var b=$('#k-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('tasks',id).then(async function(ok){if(ok){/* O9: its logs stay, as extra work */var lk=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id});for(var i=0;i<lk.length;i++){var r=Object.assign({},S.logs[lk[i]]);delete r.taskId;delete r.taskYear;await put('logs',lk[i],r)}toast(lk.length?'Deleted · its '+lk.length+' log'+(lk.length>1?'s stay':' stays')+' as extra work':'Deleted');pop()}})};
   });
@@ -2385,6 +2422,7 @@ function applySel(tab){var on=S.selm===tab;var old=$('.selbar');if(old)old.remov
   var attr=tab==='log'?'data-log':'data-task';
   $$('#app ['+attr+']').forEach(function(b){var id=b.getAttribute(attr),c=b.classList.contains('body')&&b.closest('.card')||b;c.classList.add('selm');if(!c.querySelector('.sbx'))c.insertAdjacentHTML('afterbegin','<span class="sbx'+(S.sel[id]?' on':'')+'" aria-hidden="true">'+(S.sel[id]?'✓':'')+'</span>');c.dataset.sid=id});
   var n=selIds().length,bar=document.createElement('div');bar.className='selbar';
+  var sids=$$('#app .selm').map(function(c){return c.dataset.sid}).filter(Boolean),allOn=sids.length&&sids.every(function(k){return S.sel[k]});$$('[data-selall]').forEach(function(b){b.textContent=allOn?'Deselect all':'Select all'});
   var mOk=false;if(tab==='log'&&n>1){var ls=selIds().map(function(k){return S.logs[k]}).filter(Boolean),j0=levs(ls[0]).join('|');mOk=ls.every(function(x){return levs(x).join('|')===j0})}
   bar.innerHTML='<span class="sp">'+n+' selected</span>'+(tab==='log'?'<button type="button" id="selMerge"'+(mOk?'':' disabled')+'>Merge</button>':'')+'<button type="button" class="del" id="selDel"'+(n?'':' disabled')+'>Delete</button><button type="button" id="selX">Cancel</button>';
   document.body.appendChild(bar);
@@ -2394,7 +2432,7 @@ function applySel(tab){var on=S.selm===tab;var old=$('.selbar');if(old)old.remov
     var ids=selIds();for(var i=0;i<ids.length;i++){var id=ids[i];if(tab==='log'){await del('logs',id)}else{if(await del('tasks',id)){var lk=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id});for(var j=0;j<lk.length;j++){var r=Object.assign({},S.logs[lk[j]]);delete r.taskId;delete r.taskYear;await put('logs',lk[j],r)}}}}
     S.selm='';S.sel={};toast('Deleted '+ids.length);renderAll()}}
 document.addEventListener('click',function(e){var st=S.selm;if(!st)return;var c=e.target.closest&&e.target.closest('#app .selm');if(!c||!c.dataset.sid)return;e.preventDefault();e.stopPropagation();var sid=c.dataset.sid,on=S.sel[sid]=!S.sel[sid];$$('#app .selm').forEach(function(x){if(x.dataset.sid!==sid)return;var sb=x.querySelector('.sbx');if(sb){sb.classList.toggle('on',on);sb.textContent=on?'✓':''}});applySel(st)},true);
-document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-selm],[data-selall]');if(!b)return;if(b.dataset.selm){S.selm=b.dataset.selm;S.sel={};renderAll()}else{$$('#app .selm').forEach(function(c){if(c.dataset.sid)S.sel[c.dataset.sid]=true});renderAll()}});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-selm],[data-selall]');if(!b)return;if(b.dataset.selm){S.selm=b.dataset.selm;S.sel={};renderAll()}else{var ss=$$('#app .selm').map(function(c){return c.dataset.sid}).filter(Boolean),all=ss.length&&ss.every(function(k){return S.sel[k]});if(all)S.sel={};else ss.forEach(function(k){S.sel[k]=true});renderAll()}});
 function mergeLogs(ids){var ls=ids.map(function(k){return S.logs[k]}).filter(Boolean);if(ls.length<2)return;
   var ds=[],ps=[],seen={},hrs=0,notes=[],tids={};ls.forEach(function(l){ldates(l).forEach(function(d){if(ds.indexOf(d)<0)ds.push(d)});lps(l).forEach(function(p){var k=p.place+'|'+p.no+'|'+norm(p.name);if(!seen[k]){seen[k]=1;ps.push(p)}});hrs+=parseFloat(l.hours)||0;if(l.details&&notes.indexOf(l.details)<0)notes.push(l.details);tids[l.taskId||'']=1});
   ds.sort();var tk=Object.keys(tids);S.selm='';S.sel={};var ob=$('.selbar');if(ob)ob.remove();openLogForm(null,{__merge:ids,dates:ds,date:ds[0],events:levs(ls[0]),hours:hrs?String(r1(hrs)):'',details:notes.join('; '),taskId:tk.length===1&&tk[0]?tk[0]:'',place:ps[0].place,no:ps[0].no,name:ps[0].name,plants:ps})}
@@ -2535,16 +2573,25 @@ function exportXlsx(btn){
   var T=sortLogs(Object.keys(S.logs));
   function eb(r){return [r&&r.editedBy||'',r&&r.editedAt?new Date(r.editedAt).toISOString().slice(0,10):'']}
   function ckc(p){var c=p.check;if(!c)return ['',''];return [(c.st==='missing'?'Missing':c.st==='unsure'?'Unsure':'Here')+(c.at?' · '+fmtDate(new Date(c.at).toISOString().slice(0,10)):''),c.note||'']}
-  var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note','Last edited by','Last edited']].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),eb(S.edits[p.id]))}));
-  var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Last edited by','Last edited']].concat([].concat.apply([],Object.keys(S.tasks).map(function(i){var t0=S.tasks[i];return lps(t0).map(function(pp){var t=Object.assign({},t0,{place:pp.place,no:pp.no,name:pp.name}),d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',tjobs(t).join(' + '),t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; ')].concat(eb(t))})})));
-  var logger=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','Last edited by','Last edited']].concat([].concat.apply([],T.map(function(i){var l=S.logs[i];return logRows(l).map(function(r){var ds=r.ds;return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),r.place,r.no,r.name,r.event,r.details,r.hours].concat(eb(l))})})));
+  /* X1: the person downloading gets only THEIR OWN My note column; nobody else's notes ever leave the Sheet */
+  var myc=hasMy()&&MYN&&Object.keys(MYN).some(function(k){return MYN[k]&&MYN[k].text});
+  var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note'].concat(myc?['My note ('+EDITOR+', private)']:[],['Last edited by','Last edited'])].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),myc?[(MYN[p.id]&&MYN[p.id].text)||'']:[],eb(S.edits[p.id]))}));
+  /* X2: a short Task ID in both tabs, so a log's planned task can be found in Garden Planner */
+  var TID={},tn=0;Object.keys(S.tasks).forEach(function(i){TID[i]='T'+(++tn)});
+  var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Task ID','Last edited by','Last edited']].concat([].concat.apply([],Object.keys(S.tasks).map(function(i){var t0=S.tasks[i];return lps(t0).map(function(pp){var t=Object.assign({},t0,{place:pp.place,no:pp.no,name:pp.name}),d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',tjobs(t).join(' + '),t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; '),TID[i]].concat(eb(t))})})));
+  function ptask(l){var t=l.taskId&&S.tasks[l.taskId];if(!t)return '';var y=l.taskYear||lyear(l);return TID[l.taskId]+' · '+tjobs(t).map(taskTxt).join(' + ')+' · '+(t.month?MON[t.month]+' ':'')+y}
+  function crewTxt(l){var c=l.crew||[];if(!c.length)return '';return c.map(function(x){return (x.n||1)+' × '+x.h+' h'}).join(' + ')}
+  var logger=[['Garden LOG date','Last date','Date done','Place','Plan No.','BOTANICAL NAME','Garden LOG event','Garden LOG event details','Man hrs spent','People × hours','Planned task','Last edited by','Last edited']].concat([].concat.apply([],T.map(function(i){var l=S.logs[i];return logRows(l).map(function(r,k){var ds=r.ds;return [ds[0]||'',ds[ds.length-1]||'',fmtDates(ds),r.place,r.no,r.name,r.event,r.details,r.hours,k?'':crewTxt(l),ptask(l)].concat(eb(l))})})));
+  /* X3: Places tab (no map links: maps stay private) */
+  var cnt={};PLANTS.forEach(function(p){cnt[p.place]=(cnt[p.place]||0)+1});
+  var plc=[['Place','Part of area','Place note','Plants']].concat(placeList().map(function(x){return [x.name,x.area||'',x.note||'',cnt[x.name]||0]}));
   var by={},ord=[];T.slice().sort(function(a,b){return (S.logs[a].date||'')<(S.logs[b].date||'')?-1:1}).forEach(function(i){var l=S.logs[i];lps(l).forEach(function(pp){var k=[pp.place,pp.no,pp.name].join('|');if(!by[k]){by[k]=[pp.place,pp.no,pp.name,[]];ord.push(k)}by[k][3].push((ldates(l).length>1?fmtDates(ldates(l)):(l.date||''))+' - '+levs(l).join(' + ')+(l.details?'| '+l.details:''))})});
   var hist=[['Place','No.','BOTANICAL NAME','LOG Record']].concat(ord.map(function(k){var b=by[k];return [b[0],b[1],b[2],b[3].join('\n')]}));
   btn.disabled=true;var old=btn.textContent;btn.textContent='Preparing…';
-  db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:6},{name:'Log history',rows:hist,split:3}]}).then(function(j){
+  db.call({action:'xlsx',tabs:[{name:'Master Plant plan',rows:plants,split:3},{name:'Garden Planner',rows:plan,split:3},{name:'Garden logger',rows:logger,split:6},{name:'Log history',rows:hist,split:3},{name:'Places',rows:plc,split:1}]}).then(function(j){
     if(!j||!j.b64)throw new Error(j&&j.error||'no file');
     return downloads.save({filename:'Hestercombe-garden-plants.xlsx',b64:j.b64});
-  }).then(function(){toast('Excel file downloaded')}).catch(function(e){toast('Excel export failed: '+(e&&e.message||'try again'))}).then(function(){btn.disabled=false;btn.textContent=old});
+  }).then(function(){toast('Excel file downloaded')}).catch(function(e){var m=String(e&&e.message||'');toast(/busy/i.test(m)?'The Sheet is busy saving. Try again in a minute.':/load failed|failed to fetch|network|did not match|json/i.test(m)?'Could not reach the Sheet. If changes are still sending, wait a minute and try again.':'Excel export failed: '+(m||'try again'))}).then(function(){btn.disabled=false;btn.textContent=old});
 }
 function viewMore(){
   var op=Object.keys(S.tasks).filter(function(i){return isOpen(S.tasks[i],CUR)}).length;
@@ -2565,7 +2612,7 @@ function viewMore(){
   '<p><b>Log</b>: the work that was done, with date, job and hours. “+ New log” adds an entry.</p>'+
   '<p><b>More</b>: your name and password, People (managers), Edit places, Edit task list and Download Excel.</p>'+
   '<p><b>Tapping</b>: a coloured place tag with › opens that place’s page. The pin next to it opens the map. An underlined plant name opens the plant. ⓘ shows a short explanation.</p>'+
-  '<p><b>Pop-up pages</b>: Close at the top closes the page; ‹ Back goes back one page.</p>'+
+  '<p><b>Pop-up pages</b>: ‹ Back (top left) goes back one page; the round ✕ (top right) closes all the pages at once. If a form has unsaved typing, the app asks “Discard changes?” first.</p>'+
   '<details><summary>More details</summary>'+
   '<h4>Plants</h4>'+
   '<p><b>Search</b>: type the start of any word in the botanical, common or Jekyll name, or a place. Tap × to clear.</p>'+
@@ -2573,7 +2620,7 @@ function viewMore(){
   '<p><b>Groups</b>: group by place or genus, then by a second level. “in N more” means the same plant also grows in N other places; “Also in” on the plant page lists them.</p>'+
   '<p><b>Still there?</b>: tap “✓ Still there?” to start a check, then tap ✓ (here), ✗ (missing) or ? (unsure) next to each plant. One tap saves it with today’s date. Tap the same mark again to clear it. The list shows the result as a small mark left of the number.</p>'+
   '<p><b>Missing plants</b>: in the In flower list, plants marked ✗ missing are pale grey and folded at the end (“✗ N missing plants ›” opens them).</p>'+
-  '<p><b>Plant page</b>: “✎ Edit” changes the plant. Tap a heading with an arrow to fold it. Notes: tap the text to type, tap anywhere else to finish; it saves by itself. The small arrows next to the heading undo or redo a change while the page is open.</p>'+
+  '<p><b>Plant page</b>: “✎ Edit” changes the plant. Tap a heading with an arrow to fold it. Notes: tap the text to type, tap anywhere else to finish; it saves by itself. The small arrows next to the heading undo or redo a change while the page is open. Who changed a note last, and when, shows on its heading line (“Wing · edited 18 Nov 2026”); My note shows “Private”.</p>'+
   '<p><b>Place page</b>: plant count, open tasks, the latest logs (“See all” opens the Plan or Log for that place), a place note, and + Task, + Log and View plants.</p>'+
   '<p><b>Maps</b>: the pin (and “Open map of …” on the plant page) opens the map file in Google Drive, in its own page, so you can switch between map and app. “View here” on the plant page shows the app’s own copy instead: pinch to zoom, Close takes you back, and a map you have opened there also works without signal.</p>'+
   '<p><b>In flower</b>: tap one or more seasons. List shows each plant with a dot in its flower colour, the colour and when it flowers; Calendar shows the months it flowers as a bar in the flower colour (white flowers as outlined squares). Group by place or genus as usual. The facts come from the RHS website and are marked “not checked yet” until they have been checked.</p>'+
@@ -2584,27 +2631,28 @@ function viewMore(){
   '<p><b>Top buttons</b>: Overdue, the month with ‹ › (only that month’s tasks), Attention and Not sched. (open or close those two boxes at the top). Tap a button again to go back.</p>'+
   '<p><b>Filters</b>: Open / Done / All next to the search, place and task boxes, then grouping. “Jan → Dec ⇅” flips the month order. Collapse all folds every group.</p>'+
   '<p><b>New task</b>: in “Plants and places”, type a plant or a place. A place shows first with its plants under it (“+ N more: show all” lists them all); picking the place alone makes a whole-place task. Type a place and a plant together, e.g. “east rill iris”, to find that plant in that place. Typing a genus (e.g. Rosa) also offers “ROSA all”. Add more plants or more tasks: every combination is saved, e.g. 2 plants × 2 tasks = 4 tasks, and Save says how many. Plant facts (from the RHS) show at the top of the Task card; tap the heading to fold them. “Season (your decision)” is your own choice: “＋ Show” opens the seasons.</p>'+
-  '<p><b>Save as</b>: with several plants in one form, choose “One task for all plants” or “Separate tasks”, and for logs “One log entry for all plants” or “Separate log entries”. A plant group is always one task.</p>'+
+  '<p><b>Save as</b>: with several plants in one form, choose “One task for all plants” or “Separate tasks”, and for logs “One log entry for all plants” or “Separate log entries”. A plant group is always one task. Edit forms work exactly like New ones (add plants, link by plant group, Save as), plus Duplicate and Delete. An entry with several plants shows them as one ticked list: untick a plant to take it out; “Deselect all / Select all” sits above the list.</p>'+
+  '<p><b>No plant</b>: for a general job, tap the plant box and choose “No plant” at the top of the list.</p>'+
   '<p><b>First year</b>: a task counts from the year it was first planned; years before that never show it as open.</p>'+
-  '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. New matching plants join automatically.</p>'+
+  '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. Untick plants the task is not for. New matching plants join automatically.</p>'+
   '<h4>Log</h4>'+
   '<p><b>New log</b>: fields marked <span class="req">*</span> must be filled in; the rest can be left empty. Tap the “Date done” box to open the calendar: tap days to add or remove them, or slide across days to pick a run; “Today” jumps to today. All the days stay in one entry (shown like “13, 15–18 Jul 2026”). Plants added with “＋ Add another plant” are saved together as ONE entry, shown in the Log as “ROSA [3 plants]” or “[5 plants]” with the names under it; searching any of its plants, or filtering by any of its places, finds it. Tap “Job done” to choose one job or several done together (shown “Watering +1”).</p>'+
   '<p><b>Time</b>: one line per group of workers, “2 people × 2 h”; “＋ Add more people” adds a line (e.g. 1 more person for 1 h). An empty people box counts as 1. The total is worked out for you; empty boxes save as “No time given”.</p>'+
   '<p><b>Edit log entry</b>: “⧉ Duplicate” opens a new entry with the same date, jobs, time, note and planned task; only the plants are left to fill in.</p>'+
-  '<p><b>Plan cards</b>: a task done on the Plan without any log shows “Done · no log”. Logged hours for the year show on the card, e.g. “3.5 h · 1 log no hrs”. “Every year” is not shown (it is the usual case); other repeats are. A group task (ROSA all) spread over many places shows “45 plants in 14 places ›”; open it to see them. A task can hold several jobs done together (“Watering +1”). Deleting a task keeps its logs, as extra work.</p>'+
+  '<p><b>Plan cards</b>: a task done on the Plan without any log shows “Done · no log”. Logged hours for the year show on the card, e.g. “3.5 h · 1 log no hrs”. “Every year” is not shown (it is the usual case); other repeats are. A task with several plants, or a group task (ROSA all), lists its plants row by row; with more than 5, “▸ 41 more plants” opens the rest in place. Grouped by task, the status (“In progress · 2 logs · 3 h”) sits on the name line. A task can hold several jobs done together (“Watering +1”). Deleting a task keeps its logs, as extra work.</p>'+
   '<p><b>Last year’s work</b>: logging in January a job that was still open last year (e.g. pruning planned for last November) offers last year’s task, marked “overdue”, so the right year gets ticked.</p>'+
   '<p><b>Gentle checks</b>: a log dated in the future, or the same plant and job already logged that day, asks you to tap “Save anyway”. Marking a plant missing (✗) with open tasks offers to close them; ignore the message to keep them.</p>'+
   '<p><b>Planned task</b>: pick it under “Related planned task”; the entry then shows “✓ Planned”. Tick “Whole task done?” when the job is finished for the year: the Plan ticks it off. The tick belongs to the task, so every entry linked to it shows it ticked, and unticking it in any of them reopens the task. The done date is the last day of the latest linked entry. Deleting an entry linked to a done task asks whether the task is still done or should reopen. Leave it unticked while the work is still going on; the Plan then shows “In progress · 2 logs”. A task for one plant starts ticked, a group task (ROSA all) or a whole-place task starts unticked. Other work is extra work: tick “Also add it to the Plan?” to add it to the Plan, then “Whole task done?” if it is finished (a single plant starts ticked, a group or whole place unticked); unticked, it shows on the Plan as in progress. A task’s own page lists all its logs and their hours.</p>'+
   '<p><b>Edit a log</b>: the same calendar, so you can add more days to an entry you made yesterday.</p>'+
   '<p><b>Filters</b>: Planned / Extra / All, place and task boxes, “Newest first ⇅” flips the order.</p>'+
-  '<p><b>Select</b> (Plan and Log): tap “☐ Select”, tick entries, then use the dark bar: Delete (tap twice), or in the Log, Merge. Merge works only for entries with the same job: it opens one entry with all the days, plants (untick any to leave out), hours added up and notes joined. “Save merged entry” replaces the ticked entries. Cancel leaves select mode. Deleting a plan task keeps its logs as extra work.</p>'+
+  '<p><b>Select</b> (Plan and Log): tap “☐ Select”, tick entries, then use the dark bar: Delete (tap twice), or in the Log, Merge. Merge works only for entries with the same job: it opens one entry with all the days, plants (untick any to leave out), hours added up and notes joined. “Save merged entry” replaces the ticked entries. Cancel leaves select mode. “Select all” turns into “Deselect all” when everything is ticked. Deleting a plan task keeps its logs as extra work.</p>'+
   '<h4>More</h4>'+
   '<p><b>Codes and names</b>: the view code lets you search and read. The edit code plus your name lets you make changes; your name goes on each one (“Last edited by …”). Set a password for your name (More > Set a password) to keep the name for yourself and get a private My note on each plant. Sign out forgets your name on this phone.</p>'+
   '<p><b>Forgot your password?</b> A manager or the admin resets it in More > People and gives you a temporary one; you choose your own at the next sign-in. Your My notes are kept. After 5 wrong tries the name is locked for 5 minutes.</p>'+
   '<p><b>My note</b>: a private note on each plant, only for you. Nobody else sees it in the app, managers included.</p>'+
   '<p><b>Edit places</b>: tap a place to change its colour (it asks first, and “Reset colour” goes back to the original). ↑ ↓ reorder, the pencil renames (every plant, task and log follows), the bin deletes a place only when no plants are in it. Map link and “Part of area” are under each place: places in the same area fold together in the lists. Place colours come from the original garden plan, so a change asks first and can be reset. The arrows at the top undo or redo.</p>'+
   '<p><b>Edit task list</b>: tap a task to change its dot colour (the rainbow circle picks any colour). ↑ ↓ reorder, pencil renames, bin deletes. The arrows at the top undo or redo.</p>'+
-  '<p><b>Download Excel</b>: one file with four tabs like the original Excel: Master Plant plan (with Still there?), Garden Planner, Garden logger and Log history. Private notes and passwords are never included.</p>'+
+  '<p><b>Download Excel</b>: one file like the original Excel: Master Plant plan (with Still there? and your own My note), Garden Planner (with a Task ID), Garden logger (with People × hours and the planned task’s ID), Log history and Places. Other people’s My notes, passwords and map links are never included. If the Sheet is busy saving, wait a minute and try again.</p>'+
   '<h4>General</h4>'+
   '<p><b>Scrolling</b>: the filters fold away as you scroll down and a slim bar shows the group you are in. Tap it to jump to another group; ↓ and ↑ jump to the end or start. In flower, the bar also keeps the seasons and List / Calendar.</p>'+
   '<p><b>Offline</b>: the app works without signal. Changes wait on the phone (the dark line at the top says how many) and are sent when you are back online. If they cannot be sent, the line says why; tap it to try again.</p>'+
@@ -2707,7 +2755,7 @@ window.addEventListener('orientationchange',function(){setTimeout(fixBars,300)})
 var STARTED=false;function lsGet(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
 function startData(){if(STARTED)return;STARTED=true;sub('plantEdits');sub('tasks');sub('logs');sub('settings');myFetch();setInterval(myFlush,20000)}
 if(MAPMODE)document.body.classList.add('mapmode');
-window.__hpl={OP:openPlant,T:openTaskForm,L:openLogForm,FO:factsOf,P:function(){return PLANTS},S:function(){return S},fmtDates:function(a){return fmtDates(a)}};/* for automated tests */
+window.__hpl={MR:function(a,b){return multiRows(a,b)},EM:function(t,p){return entryMatches(t,p)},OP:openPlant,T:openTaskForm,L:openLogForm,FO:factsOf,P:function(){return PLANTS},S:function(){return S},fmtDates:function(a){return fmtDates(a)}};/* for automated tests */
 buildPlants();renderAll();
 (async function(){
   try{
