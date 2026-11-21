@@ -654,6 +654,31 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 .edl2{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin:14px 2px 8px}.edl2 .lnk{font-size:13.5px;padding:0;min-height:0}
 .dch .today{font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;margin-left:8px;color:var(--ink)}
 .delq{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px}.delq .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+/* update 11 */
+.hrs{white-space:nowrap}
+.gh .cnt,.sh .cnt{font-size:12px;color:color-mix(in srgb,var(--muted) 85%,transparent);font-weight:400;background:color-mix(in srgb,var(--muted) 7%,transparent);border-radius:999px;padding:0 7px;min-width:20px;text-align:center;line-height:1.6}
+.cbadge{font-size:12px;color:color-mix(in srgb,var(--muted) 85%,transparent);font-weight:400;background:color-mix(in srgb,var(--muted) 9%,transparent);border-radius:999px;padding:1px 8px;white-space:nowrap;font-family:var(--sans,inherit);font-style:normal;letter-spacing:0;line-height:1.5;display:inline-block}
+.l1 .cbadge,.evt .cbadge,.le-b .cbadge{margin-left:8px}
+.card .idrow{gap:8px}.card .idrow .num{min-width:30px;text-align:left}
+.card .idrow~.det,.card .idrow~.lrow,.card .idrow~.gsum,.card .lrow2~.det,.card .ebody~.det,.card .ebody~.lrow{margin-left:38px}
+.card .idrow>.latin.gname:first-child,.card .idrow>.gname:first-child,.card .mtag,.card .mmore{margin-left:0}
+.ebody{display:block}.ecnt{display:block;margin:3px 0 2px}
+.subg{display:block;margin:2px 0;padding-left:10px;border-left:2px solid var(--line)}.subg[hidden]{display:none}
+.gf{font-size:13.5px;color:var(--muted);margin-left:8px;white-space:nowrap;cursor:pointer;padding:2px 0;flex:none;font-style:normal;font-family:var(--sans,inherit)}
+.finq,label.finq,.field>label.finq{font-weight:400}
+.prow2{align-items:center}.prow2 .mo{border-color:var(--line)!important;background:var(--surface)!important;color:var(--ink)!important}.prow2 .mo b{color:var(--ink)!important}
+.prow2 .cat{border-color:transparent!important;background:color-mix(in srgb,var(--line) 55%,transparent)!important;color:var(--ink)!important}.prow2 .cat b{color:var(--ink)!important}.prow2 .cat.zero,.prow2 .cat.zero b{color:var(--muted)!important}
+.prow2 .vdiv{width:1px;align-self:stretch;background:var(--line);margin:4px 1px;flex:none}.prow2 .tkdot{font-size:0;gap:0;margin-right:6px;line-height:1}.prow2 .tkdot::before{width:8px;height:8px}
+[id$="-scopebox"] .tick{display:flex;align-items:center;gap:10px}[id$="-scopebox"] .tick .hs{margin-left:auto;white-space:nowrap;flex:none;font-weight:400!important}.tick .cnt2{color:var(--muted);font-weight:400;margin-left:4px;white-space:nowrap}
+.binb{width:30px;height:30px;border:0;background:none;color:var(--muted);display:inline-grid;place-items:center;padding:0;flex:none;cursor:pointer;border-radius:8px}.binb svg{width:18px;height:18px;fill:none;stroke:currentColor}
+.xph .binb,.xp-h .binb{margin-right:-6px}
+.plantg .gh .latin,.pb-h .latin{font-size:15.5px;line-height:1.3}
+.gh .pl,.pb-h .pl{white-space:normal;overflow-wrap:normal;word-break:normal}.gh .ptag,.pb-h .ptag,.gh .plb,.pb-h .plb{min-width:min-content}
+.idrow .gname{display:inline}.idrow .gname .gall{margin-left:6px;display:inline-block}
+.fcw{display:flex;align-items:center;gap:8px}.fdotb{width:26px;height:26px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);background:#C9CEC9;flex:none;padding:0;cursor:pointer}
+.fch{font-size:13px;margin-top:4px}.fmon{display:flex;gap:3px}.fmon button{flex:1;min-width:0;height:30px;border-radius:7px;border:1px solid var(--line);font:inherit;font-size:13px;font-weight:600;background:var(--surface);color:var(--muted);padding:0}
+.fmon button[aria-pressed="true"]{background:var(--fmc,#9DBB7A);border-color:var(--fmc,#9DBB7A);color:#fff}.fapp{font-size:13px;margin-top:2px}.fpal{padding-top:10px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -692,6 +717,7 @@ function customOf(raw){var h=colMap()[stripCol(raw)];return /^#[0-9a-fA-F]{6}$/.
 function setCustom(base,hex){var m=Object.assign({},colMap());if(hex)m[base]=hex;else delete m[base];return put('settings','taskColors',{map:m})}
 function nextColour(list){var used={};list.forEach(function(t){var c='';Object.keys(TAGC).forEach(function(k){if(!c&&String(t).indexOf(k)>=0)c=k});if(c)used[c]=1;if(customOf(t))used.custom=(used.custom||0)+1});
   var order=['🟢','🔵','🟠','🟡','🟤','🔴','🟣','⚫'];for(var i=0;i<order.length;i++)if(!used[order[i]])return order[i];return order[list.length%order.length]}
+function attDot(){var a=types().filter(function(x){return isAtt(x)})[0]||'Attention';return taskTag(a).replace(/>[^<]*<\/span>$/,'></span>').replace('class="tk ','class="tk tkdot ')}
 function taskTag(raw){
   raw=String(raw||'');var c='';Object.keys(TAGC).forEach(function(k){if(!c&&raw.indexOf(k)>=0)c=TAGC[k]});
   var txt=raw.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim();
@@ -847,17 +873,24 @@ function gotFacts(rows,missing){var out={};(rows||[]).forEach(function(r){var nm
   out[norm(nm)]={months:ms,flower:fv(r['Flowering (RHS words)']),colour:fv(r['Flower colour']),hex:fcolor(r['Flower colour']),prune:fv(r['Pruning time']),group:fv(r['RHS pruning group']),on:fv(r['Flowers on']),prop:fv(r['Propagation method']),propt:fv(r['Propagation time']),url:fv(r['RHS link']),checked:!!ck&&!/^(false|no|0)$/i.test(ck)}});
   FACTS=out;FACTS_STATE=missing?'missing':'ok';try{localStorage.setItem('hpl_facts',JSON.stringify(out))}catch(e){}renderAll();if(typeof refreshSheet==='function')refreshSheet()}
 try{FACTS=JSON.parse(localStorage.getItem('hpl_facts')||'{}');if(Object.keys(FACTS).length)FACTS_STATE='ok'}catch(e){FACTS={}}
-function factsOf(name){return FACTS[norm(name)]||null}
+function myFF(name){var k='ff_'+hash(norm(name)),v=S.settings&&S.settings[k];return v&&(v.c||v.hex||(v.m&&v.m.length))?v:null}
+function monthsTxt(ms){ms=(ms||[]).slice().sort(function(a,b){return a-b});var out=[],i=0;while(i<ms.length){var j=i;while(j+1<ms.length&&ms[j+1]===ms[j]+1)j++;out.push(j>i?MON[ms[i]]+'–'+MON[ms[j]]:MON[ms[i]]);i=j+1}return out.join(', ')}
+function factsOf(name){var b=FACTS[norm(name)]||null,m=myFF(name);if(!m)return b;
+  var o=Object.assign({months:[],flower:'',colour:'',hex:'',prune:'',group:'',on:'',prop:'',propt:'',url:'',checked:false},b||{});o.rhs=b;o.mine=m;
+  if(m.m&&m.m.length){o.months=m.m.slice().sort(function(x,y){return x-y});o.flower=monthsTxt(o.months)}
+  if(m.c)o.colour=m.c;o.hex=m.hex||fcolor(m.c)||o.hex;return o}
 function cap1(x){x=String(x||'');return x.charAt(0).toUpperCase()+x.slice(1)}
 function monthBar(ms,hex,lettered){var h='';for(var i=1;i<=12;i++){var on=ms.indexOf(i)>=0,lt=on&&hex&&['#F4F4EE','#F3EBCF'].indexOf(hex)>=0;h+='<i class="'+(on?(lt?'lt':'on'):'')+'"'+(on&&hex&&!lt?' style="background:'+hex+'"':'')+'></i>'}return '<span class="mbar">'+h+'</span>'}
 function monthLetters(){return '<span class="mbar mlet">'+'JFMAMJJASOND'.split('').map(function(x){return '<span>'+x+'</span>'}).join('')+'</span>'}
 function factsBox(name){var f=factsOf(name);if(!f)return null;
   var lines=[];
-  if(f.flower||f.colour)lines.push('Flower: '+esc([f.flower,f.colour].filter(Boolean).join(', ')));
+  if(f.mine){lines.push('Flower: '+esc([f.mine.c||'',f.mine.m&&f.mine.m.length?monthsTxt(f.mine.m):''].filter(Boolean).join(', '))+' <span class="r-sub">· your decision</span>');if(f.rhs&&(f.rhs.flower||f.rhs.colour))lines.push('<span class="r-sub">RHS: '+esc([f.rhs.flower,f.rhs.colour].filter(Boolean).join(', '))+'</span>')}
+  else if(f.flower||f.colour)lines.push('Flower: '+esc([f.flower,f.colour].filter(Boolean).join(', ')));
   if(f.prune)lines.push('Prune: '+esc(f.prune)+(f.group&&!/group/i.test(f.prune)?' (RHS group '+esc(f.group)+')':''));else if(f.group)lines.push('Prune: RHS pruning group '+esc(f.group));
   if(f.prop)lines.push('Propagate: by '+esc(f.prop)+(f.propt?', in '+esc(f.propt):''));
   if(!lines.length&&!f.months.length)return null;
-  return {sub:f.checked?'From RHS':'From RHS · not checked yet',box:'<div class="pfbox">'+(f.months.length?'<div class="pfbar">'+monthLetters()+monthBar(f.months,'')+'</div>':'')+lines.map(function(x){return '<div>'+x+'</div>'}).join('')+'</div>'}}
+  var rh=f.mine?f.rhs:f;
+  return {sub:!rh?'Your decision':(rh.checked?'From RHS':'From RHS · not checked yet'),box:'<div class="pfbox">'+(f.months.length?'<div class="pfbar">'+monthLetters()+monthBar(f.months,f.mine?f.hex:'')+'</div>':'')+lines.map(function(x){return '<div>'+x+'</div>'}).join('')+'</div>'}}
 function factsSection(p){var b=factsBox(p.name);if(!b)return '';
   return foldSec('p-facts','Plant facts<span class="hsub">'+b.sub+'</span>','',b.box,true)}
 function gotBase(rows,missing){if(missing&&!rows.length){BASE_STATE='missing';renderAll();return}var j=JSON.stringify(rows);try{if(localStorage.getItem('hpl_base')===j){BASE_STATE='ok';return}localStorage.setItem('hpl_base',j)}catch(e){}setBase(rows);BASE_STATE='ok';buildPlants();renderAll()}
@@ -1172,14 +1205,14 @@ function openPeople(after){
         '<div class="fsec fs-plant"><div class="fs-h">Add person</div><div class="two keep"><div class="field"><label for="pp-name">Name</label><input class="input" id="pp-name" autocomplete="off" autocapitalize="words"></div><div class="field"><label for="pp-role">Role</label><select class="select" id="pp-role"><option value="edit">Edit</option>'+(me.role==='admin'?'<option value="manager">Manager</option>':'')+'</select></div></div><div class="actions" style="margin-bottom:10px"><button class="btn primary" id="pp-add">Add</button></div><div id="pp-out"></div></div>'+
         '<div class="sec"><h3>On the list ('+list.length+')</h3>'+list.map(function(p){var ed=canEdit(p);return '<div class="ppl"><div class="l1"><span class="ppn">'+esc(p.name)+(p.mustChange?' <span class="st">· no own password yet</span>':'')+(p.locked?' <span class="st">· locked for a few minutes</span>':'')+'</span>'+
           (ed?'<select class="select" data-prole="'+esc(p.name)+'" aria-label="Role of '+esc(p.name)+'">'+['edit'].concat(me.role==='admin'?['manager']:[]).map(function(r){return '<option value="'+r+'"'+(p.role===r?' selected':'')+'>'+roleName(r)+'</option>'}).join('')+'</select>':'<span class="r-sub">'+roleName(p.role)+'</span>')+'</div>'+
-          (ed?'<div class="l2"><button class="btn xs" data-preset="'+esc(p.name)+'">Reset password</button><button class="btn xs danger" data-prm="'+esc(p.name)+'">Remove</button></div>':'')+'</div>'}).join('')+'</div>';
+          (ed?'<div class="l2"><button class="btn xs" data-preset="'+esc(p.name)+'">Reset password</button><button class="ib2 red" data-prm="'+esc(p.name)+'" aria-label="Remove '+esc(p.name)+'" title="Remove">'+ISVG.bin+'</button></div>':'')+'</div>'}).join('')+'</div>';
       function showPw(j2,what){$('#pp-out').innerHTML='<div class="r-sub">'+what+' Give '+esc(j2.name)+' this temporary password. They choose their own the first time they sign in.</div><div class="tpw"><span id="pp-pw">'+esc(j2.tempPassword)+'</span><button class="btn xs" id="pp-copy">Copy</button></div>';
         $('#pp-copy').onclick=function(){try{navigator.clipboard.writeText(j2.tempPassword).then(function(){toast('Copied',1500)},function(){})}catch(e){}};$('#pp-out').scrollIntoView({block:'center'})}
       $('#pp-add').onclick=function(){var n=$('#pp-name').value.trim();if(!n){toast('Type a name');return}
         db.call({action:'addperson',name:n,role:$('#pp-role').value},true).then(function(j2){var keep=j2;refreshPeople(function(){showPw(keep,'Added.')})}).catch(function(e){toast(String(e.message||e))})};
       $$('[data-preset]',el).forEach(function(b){b.onclick=function(){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to reset';return}
         db.call({action:'resetpw',name:b.dataset.preset},true).then(function(j2){showPw(j2,'Password reset.')}).catch(function(e){toast(String(e.message||e))})}});
-      $$('[data-prm]',el).forEach(function(b){b.onclick=function(){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to remove';return}
+      $$('[data-prm]',el).forEach(function(b){b.onclick=function(){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.className='btn xs danger';b.textContent='Tap again to remove';return}
         db.call({action:'removeperson',name:b.dataset.prm},true).then(function(){toast('Removed');refreshPeople()}).catch(function(e){toast(String(e.message||e))})}});
       $$('[data-prole]',el).forEach(function(s){s.onchange=function(){db.call({action:'setrole',name:s.dataset.prole,role:s.value},true).then(function(){toast('Role changed',1500)}).catch(function(e){toast(String(e.message||e))})}});
       if(after){var a0=after;after=null;a0()}
@@ -1523,6 +1556,27 @@ function foldSec(key,title,btn,body,defOpen,cls){var op=FOLD[key]==null?defOpen:
 function wireFolds(el){$$('details[data-fk]',el).forEach(function(d){d.addEventListener('toggle',function(){FOLD[d.dataset.fk]=d.open;try{localStorage.setItem('hpl_fold',JSON.stringify(FOLD))}catch(e){}})})}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('summary button');if(b)e.preventDefault()},true);
 function needName(){return ROLE==='view'||askName()}
+var FPAL=[['crimson','#B0203F'],['red','#C8343A'],['magenta','#C2338A'],['pink','#E8A0B6'],['orange','#F0A030'],['apricot','#F2B27A'],['cream','#F3EBCF'],['white','#F4F4EE'],['yellow','#E9C93A'],['lime','#BFD45A'],['green','#9DBB7A'],['lilac','#C3A3DD'],['purple','#8E78D6'],['blue','#5F86D0'],['brown','#9A6A3E']];
+function ffHtml(v){var m=myFF(v.name||'')||{c:'',hex:'',m:[]};
+  return '<div class="fsec fs-plant"><div class="fs-h">Flowering fact (your decision)</div><div class="field"><label for="f-fcol">Flower colour'+infoBtn('Type the colour in words, e.g. deep pink. The dot takes its colour from the first colour word it knows. Tap the dot to pick a colour yourself. Applies to every plant with this botanical name, and comes before the RHS facts in Plant facts and In flower.')+'</label>'+
+   '<div class="fcw"><button type="button" class="fdotb" id="f-fdot" aria-label="Pick a colour" aria-expanded="false"></button><input class="input" id="f-fcol" value="'+esc(m.c||'')+'" placeholder="e.g. deep pink" autocomplete="off"></div>'+
+   '<div class="r-sub fch" id="f-fch" hidden>Colour not recognised. Tap the dot to pick one.</div>'+
+   '<div class="pal fpal" id="f-fpal" hidden>'+FPAL.map(function(c){return '<button type="button" class="pb" data-fh="'+c[1]+'" style="--dc:'+c[1]+'" aria-label="'+c[0]+'" title="'+c[0]+'"></button>'}).join('')+'<label class="pb pcustom" title="Any colour" aria-label="Any colour"><input type="color" id="f-fcc" value="#E8A0B6"></label><div style="flex-basis:100%"><button type="button" class="lnk sm" id="f-fauto" style="font-weight:400">Use the colour from the words</button></div></div></div>'+
+   '<div class="field"><label>Months in flower</label><div class="fmon" id="f-fm">'+'JFMAMJJASOND'.split('').map(function(x,i){return '<button type="button" data-fm="'+(i+1)+'" aria-label="'+MONFULL[i+1]+'" aria-pressed="'+((m.m||[]).indexOf(i+1)>=0)+'">'+x+'</button>'}).join('')+'</div></div>'+
+   '<div class="r-sub fapp" id="f-fapp"></div></div>'}
+function ffWire(v){var m=myFF(v.name||'')||{},st={c:m.c||'',hex:m.hex||'',m:(m.m||[]).slice()};
+  function draw(){var h=st.hex||fcolor(st.c),d=$('#f-fdot');if(!d)return;d.style.background=h||'#C9CEC9';$('#f-fch').hidden=!(st.c.trim()&&!h);$('#f-fm').style.setProperty('--fmc',h&&['#F4F4EE','#F3EBCF'].indexOf(h)<0?h:'#9DBB7A');
+    $$('#f-fpal [data-fh]').forEach(function(b){b.style.boxShadow=b.dataset.fh===st.hex?'0 0 0 2px var(--surface),0 0 0 4px var(--ink)':''});$('#f-fauto').hidden=!st.hex;
+    var nm=$('#f-name').value.trim(),same=PLANTS.filter(function(x){return norm(x.name)===norm(nm)}),pl=[];same.forEach(function(x){if(pl.indexOf(x.place)<0)pl.push(x.place)});var f=FACTS[norm(nm)];
+    $('#f-fapp').innerHTML=nm?(same.length>1?'Applies to all '+same.length+' plants named <i>'+esc(nm)+'</i> ('+esc(pl.join(', '))+').':'Applies to every plant named <i>'+esc(nm)+'</i>'+(same.length?' (now only this one)':'')+'.')+(f&&(f.flower||f.colour)?' RHS: '+esc([f.flower,f.colour].filter(Boolean).join(', '))+'.':''):''}
+  $('#f-fcol').addEventListener('input',function(){st.c=this.value;draw()});
+  $('#f-name').addEventListener('input',draw);
+  $('#f-fdot').onclick=function(){var p=$('#f-fpal');p.hidden=!p.hidden;this.setAttribute('aria-expanded',String(!p.hidden))};
+  $$('#f-fpal [data-fh]').forEach(function(b){b.onclick=function(){st.hex=b.dataset.fh;draw()}});
+  $('#f-fcc').addEventListener('input',function(){st.hex=this.value.toUpperCase();draw()});
+  $('#f-fauto').onclick=function(){st.hex='';draw()};
+  $$('#f-fm [data-fm]').forEach(function(b){b.onclick=function(){var n=+b.dataset.fm,i=st.m.indexOf(n);if(i>=0)st.m.splice(i,1);else st.m.push(n);b.setAttribute('aria-pressed',String(i<0))}});
+  draw();return st}
 function openPlantForm(id,preset){if(!needName())return;
   var p=id?plantById(id):null,v=p||preset||{};
   var FN=FOCUSNOTES;FOCUSNOTES=false;
@@ -1532,10 +1586,12 @@ function openPlantForm(id,preset){if(!needName())return;
 
     '<div class="field"><label for="f-name">Botanical name</label><input class="input" id="f-name" value="'+esc(v.name||'')+'" autocomplete="off"></div>'+
     '<div class="field"><label for="f-common">Common name</label><input class="input" id="f-common" value="'+esc(v.common||'')+'" autocomplete="off"></div></div>'+
+    ffHtml(v)+
     '<details class="fsec fs-job fold"><summary class="fs-h"><span class="ftl"><span class="chev" aria-hidden="true"></span>Original note and Jekyll</span></summary><div class="field"><label for="f-tag">Original note</label><input class="input" id="f-tag" value="'+esc(v.tag||'')+'" placeholder="e.g. Modern name" autocomplete="off"></div>'+
     '<div class="field"><label for="f-jekyll">Plants specified by Jekyll</label><input class="input" id="f-jekyll" value="'+esc(v.jekyll||'')+'" autocomplete="off"></div></details>'+
     '<div class="fsec fs-plant"><div class="fs-h">Gardening note</div><div class="field"><textarea class="textarea" id="f-notes" aria-label="Gardening notes">'+esc(v.notes||'')+'</textarea></div></div>'+
     '<div class="acts">'+(p?'<button class="btn danger" id="f-del">Delete</button>':'')+'<button class="btn primary" id="f-save">Save</button></div>';
+    var FFS=ffWire(v);
     if(FN){FN=false;var fn=$('#f-notes');if(fn){fn.scrollIntoView({block:'center'});fn.focus()}}
     function suggest(){if(p)return;var pl=$('#f-place').value,mx=0;PLANTS.forEach(function(x){if(x.place===pl&&/^n/i.test(x.no)){var n=parseInt(x.no.replace(/\D/g,''),10);if(n>mx)mx=n}});if(!$('#f-no').value)$('#f-no').placeholder='N'+(mx?mx+1:1)}
     (function(){var fi=$('#f-place'),box=$('#f-psug');function show(){var q=norm(fi.value),m=places().filter(function(x){return !q||norm(x).indexOf(q)>=0}).slice(0,8);
@@ -1550,7 +1606,9 @@ function openPlantForm(id,preset){if(!needName())return;
       if(!d.name){toast('Please enter a plant name');return}
       var eid=p?p.id:uid('u'),cur=S.edits[eid]||{};
       var rec=Object.assign({},cur,d);if(!p)rec.added=true;
-      if(await put('plantEdits',eid,rec)){toast('Saved');pop();if(!p){openPlant(eid)}}
+      if(await put('plantEdits',eid,rec)){var nk='ff_'+hash(norm(d.name)),oc=S.settings[nk]||{},nv={name:d.name,c:FFS.c.trim(),hex:FFS.hex||'',m:FFS.m.slice().sort(function(a,b){return a-b})};
+        if((oc.c||'')!==nv.c||(oc.hex||'')!==nv.hex||JSON.stringify(oc.m||[])!==JSON.stringify(nv.m))await put('settings',nk,nv);
+        toast('Saved');pop();if(!p){openPlant(eid)}}
     };
     if(p)$('#f-del').onclick=function(){
       var b=$('#f-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}
@@ -1573,19 +1631,45 @@ function multiPlace(ps){var pl=[];ps.forEach(function(x){if(x.place&&pl.indexOf(
 function multiRows(ps,noTag){var K=ps.length>5?4:ps.length;function row(x){return '<span class="lrow2 mrow">'+idLine(x.place,x.no,x.name,false)+(noTag?'':'<span class="lchip">'+placeTag(x.place,1)+'</span>')+'</span>'}
   return ps.slice(0,K).map(row).join('')+(ps.length>K?'<span class="mxr" hidden>'+ps.slice(K).map(row).join('')+'</span><span class="mmore" role="button" tabindex="0" data-mx="'+(ps.length-K)+'"><span class="cv">▸</span>'+(ps.length-K)+' more plants</span>':'')}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-mx]');if(!b)return;e.preventDefault();e.stopPropagation();var r=b.previousElementSibling;if(!r||!r.classList.contains('mxr'))return;var open=r.hidden;r.hidden=!open;b.innerHTML=open?'<span class="cv">▾</span>Show fewer':'<span class="cv">▸</span>'+b.dataset.mx+' more plants'},true);
+function pcp(x){var o={place:x.place||'',no:x.no||'',name:x.name||''};if(x.grp)o.grp=x.grp;return o}
+function isAllItem(x){return !x.no&&!!x.name&&isGroup(x.name)}
+function coveredBy(x){return PLANTS.filter(function(p){return entryMatches({place:x.place||'',no:'',name:x.name},p)}).sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).map(function(p){return {place:p.place,no:p.no,name:p.name}})}
+/* b90 v4 / M5: single plants first, then groups (ROSA [2 plants], CANNA [all]), then places */
+function entryItems(ps){var named=ps.filter(function(x){return x.name&&!isAllItem(x)}),gen={};named.forEach(function(x){gen[norm(String(x.name).split(' ')[0])]=1});
+  var auto=!ps.some(function(x){return x.grp})&&named.length===ps.length&&named.length>1&&Object.keys(gen).length===1,gi={},items=[];
+  ps.forEach(function(x){if(!x.name)items.push({k:'w',x:x});else if(isAllItem(x))items.push({k:'a',x:x});else{var g=x.grp||(auto?String(x.name.split(' ')[0]).toUpperCase():'');if(g){if(!gi[g]){gi[g]={k:'g',name:g,ps:[]};items.push(gi[g])}gi[g].ps.push(x)}else items.push({k:'p',x:x})}});
+  items=items.map(function(it){return it.k==='g'&&it.ps.length<2&&!auto?{k:'p',x:it.ps[0]}:it});
+  var o={p:0,g:1,a:1,w:2};return items.map(function(it,i){return [it,i]}).sort(function(a,b){return o[a[0].k]-o[b[0].k]||a[1]-b[1]}).map(function(z){return z[0]})}
+function countText(ps,force){var it=entryItems(ps);if(it.length===1&&it[0].k==='g')return force?it[0].ps.length+' plants':'';
+  return it.length+' '+(it.every(function(i){return i.k==='w'})?'places':it.every(function(i){return i.k==='p'})?'plants':'items')}
+function ebody(ps,shown,noTag){var c=countText(ps),it=entryItems(shown||ps),h=c?'<span class="ecnt"><span class="cbadge">'+esc(c)+'</span></span>':'';
+  var P=it.filter(function(i){return i.k==='p'}).map(function(i){return i.x}),W=it.filter(function(i){return i.k==='w'}).map(function(i){return i.x});
+  if(P.length)h+=multiRows(P,noTag);
+  it.forEach(function(i){
+    if(i.k==='g')h+='<span class="lrow2 mrow grow"><span class="idrow"><span class="latin gname"><i>'+esc(i.name)+'</i><span class="gall">'+i.ps.length+' plants</span></span><span class="gf" role="button" tabindex="0" data-gf="g" aria-label="Show or hide these plants">▾</span></span></span><span class="subg">'+multiRows(i.ps,noTag)+'</span>';
+    else if(i.k==='a'){var cv=coveredBy(i.x);h+='<span class="lrow2 mrow">'+idLine(i.x.place,'',i.x.name,false).replace(/<\/span>$/,(cv.length?'<span class="gf" role="button" tabindex="0" data-gf="a" data-n="'+cv.length+'">▸ '+cv.length+' plant'+(cv.length>1?'s':'')+'</span>':'')+'</span>')+(noTag||!i.x.place?'':'<span class="lchip">'+placeTag(i.x.place,1)+'</span>')+'</span>'+(cv.length?'<span class="subg" hidden>'+multiRows(cv,noTag)+'</span>':'')}});
+  if(W.length)h+=multiRows(W,noTag);
+  return '<span class="ebody">'+h+'</span>'}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-gf]');if(!b)return;e.preventDefault();e.stopPropagation();var row=b.closest('.mrow,.gpr'),sub=row&&row.nextElementSibling;if(!sub||!sub.classList.contains('subg'))return;var open=sub.hidden;sub.hidden=!open;
+  b.textContent=b.dataset.gf==='g'?(open?'▾':'▸'):(open?'▾ ':'▸ ')+b.dataset.n+' plant'+(b.dataset.n>1?'s':'')},true);
+/* V5: an entry with several jobs, grouped by task: name the other job(s) */
+function alsoBadge(list,cur){var o=list.filter(function(e){return e!==cur}).sort(function(a,b){return typeIdx(a)-typeIdx(b)});if(!o.length)return '';return '<span class="cbadge">also '+esc(taskTxt(o[0]))+(o.length>1?' +'+(o.length-1):'')+'</span>'}
+var GC={};
 function multiNames(ps){return '<span class="pnames latin">'+ps.map(function(x){return (x.no?esc(x.no)+' ':'')+nameHtml(x.name||'')}).join(', ')+'</span>'}
 function logCard(id,inSheet){
   var l=S.logs[id];if(!l)return '';
   var linked=l.taskId&&S.tasks[l.taskId],H=inSheet?{}:hides('log'),ps=lps(l),many=ps.length>1;
-  var idrow=many?'<span class="idrow">'+multiTag(ps)+'</span>':(inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):idLine(l.place,l.no,l.name,false));
+  var idrow=many?'':(inSheet?(l.name?'<span class="latin">'+nameHtml(l.name)+'</span>':''):idLine(l.place,l.no,l.name,false));
   var lchip=(inSheet||H.place)?'':(many?'':placeTag(l.place,1));
-  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+'</span>'+(H.task?'':'<span class="evt">'+jobTags(l)+'</span>')+hrsSpan(l)+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
-    (inSheet&&!many?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>')+(many?multiRows(ps,inSheet||H.place):'')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
+  var shown=ps;if(many&&!inSheet&&GC.place){shown=ps.filter(function(x){return x.place===GC.place||(isAllItem(x)&&!x.place)});if(!shown.length)shown=ps}
+  var also=(!inSheet&&H.task&&GC.event)?alsoBadge(levs(l),GC.event):'';
+  return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+'</span>'+(H.task?'':'<span class="evt">'+jobTags(l)+'</span>')+also+hrsSpan(l)+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
+    (many?'':(inSheet?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>'))+(many?ebody(ps,shown,inSheet||H.place):'')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
 }
 function logEntry(id){
   var l=S.logs[id];if(!l)return '';
   var linked=l.taskId&&S.tasks[l.taskId],n=lps(l).length;
-  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDates(ldates(l)))+'</span><span class="le-b"><span class="evt">'+(hides('log').task&&levs(l).length<2?'':jobTags(l))+(n>1?' <span class="gall jt">'+n+' plants</span>':'')+hrsSpan(l)+(linked?' <span class="pill l">✓ Planned</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
+  return '<button class="le" data-log="'+id+'"><span class="le-d">'+esc(fmtDates(ldates(l)))+'</span><span class="le-b"><span class="evt">'+(hides('log').task&&levs(l).length<2?'':jobTags(l))+(n>1?' <span class="cbadge">'+esc(countText(lps(l),true))+'</span>':'')+hrsSpan(l)+(linked?' <span class="pill l">✓ Planned</span>':'')+'</span>'+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</span></button>';
 }
 /* Dates: one log entry can hold several days. The calendar is built here (no phone date picker), so it works the same on every phone.
    Tap a day to add or remove it; slide across days to pick a run; tap outside to close. */
@@ -1673,7 +1757,7 @@ function taskLabel(id,yy){var t=S.tasks[id];if(!t)return id;var who=t.name?(t.na
 function planFromLog(lid,d,done){var y=ydate(d.date)||CUR,db={},ds=ldates(d);if(done!==false)db[y]={date:ds[ds.length-1]||d.date||'',logId:lid};return {place:d.place||'',no:d.no||'',name:d.name||'',month:parseInt((d.date||'').slice(5,7),10)||0,task:d.event,season:'',details:d.details||'',repeat:1,startYear:y,doneBy:db,createdAt:Date.now()}}
 /* K1: "Save as" once a 2nd plant is added (tasks start on Separate, logs on One entry) */
 /* E6: an entry with several plants (Edit / Merge) shows them as one ticked list; Q5 Select all / Deselect all */
-function tickListHtml(P,ps){return '<div class="tlh"><button type="button" class="vbtn tlall" id="'+P+'-tlall">Deselect all</button></div><div class="gpl tlist">'+ps.map(function(p,i){var id=plantIdFor(p.place,p.no,p.name);return '<div class="gpr"><input type="checkbox" class="gxc" data-mp="'+i+'" checked aria-label="Include '+esc(p.name||p.place)+'"><span class="num">'+esc(p.no||'')+'</span>'+(p.name?(id?'<button type="button" class="gpn" data-open="'+id+'">'+nameHtml(p.name)+'</button>':'<span class="gpn">'+nameHtml(p.name)+'</span>'):'<span class="gpn wp">'+(p.place?'⌂ Whole place':'No plant')+'</span>')+(p.place?placeChipLight(p.place):'')+'</div>'}).join('')+'</div>'}
+function tickListHtml(P,ps){return '<div class="tlh"><button type="button" class="vbtn tlall" id="'+P+'-tlall">Deselect all</button></div><div class="gpl tlist">'+ps.map(function(p,i){var id=plantIdFor(p.place,p.no,p.name);if(isAllItem(p)){var cv=coveredBy(p);return '<div class="gpr"><input type="checkbox" class="gxc" data-mp="'+i+'" checked aria-label="Include '+esc(p.name)+'"><span class="num"></span><span class="gpn"><span class="latin gname"><i>'+esc(p.name)+'</i><span class="gall">all</span></span>'+(cv.length?'<span class="gf" role="button" tabindex="0" data-gf="a" data-n="'+cv.length+'">▸ '+cv.length+' plant'+(cv.length>1?'s':'')+'</span>':'')+'</span>'+(p.place?placeChipLight(p.place):'')+'</div>'+(cv.length?'<div class="subg" hidden>'+cv.map(function(c){var cid=plantIdFor(c.place,c.no,c.name);return '<div class="gpr"><span class="num">'+esc(c.no||'')+'</span>'+(cid?'<button type="button" class="gpn" data-open="'+cid+'">'+nameHtml(c.name)+'</button>':'<span class="gpn">'+nameHtml(c.name)+'</span>')+placeChipLight(c.place)+'</div>'}).join('')+'</div>':'')}return '<div class="gpr"><input type="checkbox" class="gxc" data-mp="'+i+'" checked aria-label="Include '+esc(p.name||p.place)+'"><span class="num">'+esc(p.no||'')+'</span>'+(p.name?(id?'<button type="button" class="gpn" data-open="'+id+'">'+nameHtml(p.name)+'</button>':'<span class="gpn">'+nameHtml(p.name)+'</span>'):'<span class="gpn wp">'+(p.place?'⌂ Whole place':'No plant')+'</span>')+(p.place?placeChipLight(p.place):'')+'</div>'}).join('')+'</div>'}
 function wireTickList(P,el,onCh){var b=$('#'+P+'-tlall');function lab(){var cs=$$('[data-mp]',el);b.textContent=cs.length&&cs.every(function(c){return c.checked})?'Deselect all':'Select all'}
   $$('[data-mp]',el).forEach(function(c){c.onchange=function(){lab();if(onCh)onCh()}});
   b.onclick=function(){var cs=$$('[data-mp]',el),all=cs.every(function(c){return c.checked});cs.forEach(function(c){c.checked=!all});lab();if(onCh)onCh()};
@@ -1703,7 +1787,7 @@ function openLogForm(id,preset){if(!needName())return;
       $('#g-jopen').onclick=function(){S.__fj=GJ.slice();stack[stack.length-1].onShow=function(){GJ=S.__fj.slice();drawJ();refreshLinks()};openPicker('task','__fj',{onChange:function(){}})};
       var jx=$('#g-jx');if(jx)jx.onclick=function(){GJ=[];drawJ();refreshLinks()};if(GJ.length){$('#g-jerr').hidden=true}}
     function totHtml(){var t=crewTotal(CR);return t===null?'<span class="tot2 none" id="g-tot">No time given</span>':'<span class="tot2" id="g-tot">Total = '+t+' h</span>'}
-    function drawC(){$('#g-crows').innerHTML=CR.map(function(c,i){return '<div class="crow"><input class="input" type="number" min="0" step="1" inputmode="numeric" data-ci="'+i+'" data-cf="n" aria-label="People" value="'+esc(c.n)+'"><span class="w">people</span><span class="x">×</span><input class="input" type="number" min="0" step="0.25" inputmode="decimal" data-ci="'+i+'" data-cf="h" aria-label="Hours" value="'+esc(c.h)+'"><span class="w">h</span>'+(i>0?'<button type="button" class="cx" data-cr="'+i+'" aria-label="Remove this line">✕</button>':'')+(i===CR.length-1?totHtml():'')+'</div>'}).join('');
+    function drawC(){$('#g-crows').innerHTML=CR.map(function(c,i){return '<div class="crow"><input class="input" type="number" min="0" step="1" inputmode="numeric" data-ci="'+i+'" data-cf="n" aria-label="People" value="'+esc(c.n)+'"><span class="w">people</span><span class="x">×</span><input class="input" type="number" min="0" step="0.25" inputmode="decimal" data-ci="'+i+'" data-cf="h" aria-label="Hours" value="'+esc(c.h)+'"><span class="w">h</span>'+(i>0?'<button type="button" class="cx binb" data-cr="'+i+'" aria-label="Remove this line" title="Remove this line">'+ISVG.bin+'</button>':'')+(i===CR.length-1?totHtml():'')+'</div>'}).join('');
       $$('#g-crows [data-ci]').forEach(function(x){x.oninput=function(){CR[+x.dataset.ci][x.dataset.cf]=x.value;var t=$('#g-tot');if(t)t.outerHTML=totHtml()}});
       $$('#g-crows [data-cr]').forEach(function(x){x.onclick=function(){CR.splice(+x.dataset.cr,1);drawC()}})}
     $('#g-addcrew').onclick=function(){CR.push({n:'',h:''});drawC();var ins=$$('#g-crows [data-cf="n"]');if(ins.length)ins[ins.length-1].focus()};
@@ -1711,7 +1795,8 @@ function openLogForm(id,preset){if(!needName())return;
     function linkVals(){var t=allTargets();if(t.length<=1)return {ok:true,pv:t[0]||pickerVals('g')};var gs={};t.forEach(function(x){gs[norm((x.name||'').split(' ')[0])]=1});var k=Object.keys(gs);return k.length===1&&k[0]?{ok:true,pv:{place:'',no:'',name:k[0]},all:t}:{ok:true,pv:t[0],all:t,mixed:true}}
     function candAll(lv,o){var c=planCandidates(Object.assign({},lv.pv,o));if(lv.all)lv.all.forEach(function(x){var d=planCandidates(Object.assign({place:x.place,no:x.no,name:x.name},o));d.same.forEach(function(k){if(c.same.indexOf(k)<0)c.same.push(k)});d.other.forEach(function(k){if(c.other.indexOf(k)<0&&c.same.indexOf(k)<0)c.other.push(k)})});return c}
     var GSV='one';
-    function gUpd(){if(!MG){var n0=allTargets().length;svaDraw('g',gmain&&gmain.ks.mode==='group'&&!gmain.ks.list.some(function(p){return gmain.ks.gx[p.id]})?1:n0,'log entry',GSV,function(v){GSV=v;refreshLinks()})}refreshLinks()}
+    function gUpd(){if(!MG){var n0=allTargets().length;svaDraw('g',gmain&&gmain.ks.mode==='group'&&!gmain.ks.list.some(function(p){return gmain.ks.gx[p.id]})?1:n0,'log entry',GSV,function(v){GSV=v;refreshLinks();gSave()})}refreshLinks();gSave()}
+    function gSave(){var b=$('#g-save');if(!b||MG)return;var n=allTargets().length;b.textContent=(GSV==='sep'&&n>1)?'Save '+n+' log entries':'Save'}
     function refreshLinks(){
       var lv=linkVals(),pv=lv.pv||{},ev=GJ[0]||'',sel=$('#g-link'),d0=datesVals('g')[0]||todayStr(),yy=ydate(d0)||CUR,keep=sel.value||(current?current+'@'+((l&&lyear(l))||yy):'')||(plink?plink+'@'+yy:'');
       var c=lv.ok?candAll(lv,{event:ev,date:d0}):{same:[],other:[]};
@@ -1759,7 +1844,7 @@ function openLogForm(id,preset){if(!needName())return;
       var first=tg[0]||{place:'',no:'',name:''};
       var rec={event:GJ[0],details:$('#g-details').value.trim(),hours:tot===null?'':String(tot),place:first.place||'',no:first.no||'',name:first.name||'',date:dates[0],createdAt:(l&&l.createdAt)||Date.now()};
       if(GJ.length>1)rec.events=GJ.slice();
-      if(tg.length>1)rec.plants=tg.map(function(x){return {place:x.place||'',no:x.no||'',name:x.name||''}});
+      if(tg.length>1)rec.plants=tg.map(pcp);
       if(crew.length&&!(crew.length===1&&!crew[0].n))rec.crew=crew;
       if(dates.length>1)rec.dates=dates;
       var addPlan=!link&&!current&&$('#g-addplan')&&$('#g-addplan').checked&&!$('#g-planrow').hidden,ptid=addPlan?uid('t'):null,pfin=addPlan&&$('#g-pfin').checked;
@@ -1824,16 +1909,18 @@ function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
   var pill=logged||(rec&&lk.length)?'<span class="pill l">Logged</span>':(rec?'<span class="pill nolog">Done · no log</span>':(nlog?'<span class="pill ip">In progress · '+nlog+' log'+(nlog>1?'s':'')+'</span>':''));
   var wp=!t.no&&!t.name;
   var ps=lps(t),many=ps.length>1;
-  var idrow=many?'<span class="idrow">'+multiTag(ps)+'</span>':((inSheet||cm)?'':idLine(t.place,t.no,t.name,false));
+  var idrow=many?'':((inSheet||cm)?'':idLine(t.place,t.no,t.name,false));
+  var tshown=ps;if(many&&!inSheet&&!cm&&GC.place){tshown=ps.filter(function(x){return x.place===GC.place||(isAllItem(x)&&!x.place)});if(!tshown.length)tshown=ps}
+  var talso=(!inSheet&&!cm&&H.task&&GC.task&&tjobs(t).length>1)?alsoBadge(tjobs(t),GC.task):'';
   var tchip=(inSheet||cm||H.place||many)?'':placeTag(t.place,1);
   /* J5: logged hours sit next to the status pill */
   var hrsT=(lk.length&&(hsum||noh))?'<span class="r-sub hrs">'+(hsum?hsum+' h':'')+(noh?(hsum?' · ':'')+noh+' log'+(noh>1?'s':'')+' no hrs':'')+'</span>':'';
   if(hrsT)pill=(pill?pill+' ':'')+hrsT;
   if(!inSheet&&!cm&&tchip&&idrow){var b0=(S.planAll&&!inSheet)||!H.month||t.season||repOf(t)!==1||(rec&&rec.date)||(lk.length&&!(H.task&&tjobs(t).length<2));if(!b0)idrow='<span class="lrow2">'+idrow+'<span class="lchip">'+tchip+'</span></span>'}
-  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?(pill?'<span class="hl1">'+idrow+'<span class="hpill">'+pill+'</span></span>':idrow):'<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+idrow);
+  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?(pill?'<span class="hl1">'+idrow+'<span class="hpill">'+pill+'</span></span>':idrow):'<span class="evt">'+(talso||tTags(t))+(pill?' '+pill:'')+'</span>'+idrow);
   var bits=[];if(S.planAll&&!inSheet)bits.push('<b>'+y+'</b>');if(!H.month)bits.push(t.month?MON[t.month]:'No month');if(t.season)bits.push(esc(t.season));if(repOf(t)!==1)bits.push(esc(repLabel(t)));if(rec&&rec.date)bits.push('<span class="nowr">Done '+esc(fmtDate(rec.date))+'</span>');
   return '<div class="card'+(rec?' done':'')+'"><button class="chk" data-done="'+id+'" aria-pressed="'+(!!rec)+'" aria-label="'+(rec?'Mark as not done for '+y:'Mark as done for '+y)+'"><span>'+CHECK+'</span></button>'+
-   '<button class="body" data-task="'+id+'">'+head+(many?multiRows(ps,cm||H.place):'')+genusSummary(t)+
+   '<button class="body" data-task="'+id+'">'+head+(many?ebody(ps,tshown,cm||H.place):'')+genusSummary(t)+
    ((!bits.length&&idrow&&head.indexOf(idrow)>=0)?'':'<span class="lrow"><span class="r-sub">'+bits.join(SEP)+'</span>'+(tchip?'<span class="lchip">'+tchip+'</span>':'')+'</span>')+
    (t.details?'<span class="det">'+esc(t.details)+'</span>':'')+'</button></div>';
 }
@@ -1842,7 +1929,7 @@ function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
 var XSEQ=0;
 function jobRow(kind){
   var rep=[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only']];
-  var r='<div class="jrow"><div class="xp-h"><span class="lbl">Another '+(kind==='task'?'task':'job')+'</span><button type="button" class="btn sm ghost b-del">Remove</button></div>';
+  var r='<div class="jrow"><div class="xp-h"><span class="lbl">Another '+(kind==='task'?'task':'job')+'</span><button type="button" class="binb b-del" aria-label="Remove this '+(kind==='task'?'task':'job')+'" title="Remove">'+ISVG.bin+'</button></div>';
   if(kind==='task'){
     r+='<div class="two"><div class="field"><label>Task</label><select class="select b-ev">'+typeOptions('','Select…')+'</select></div>'+
     '<div class="field"><label>Month</label><select class="select b-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'">'+m+'</option>'}).join('')+'</select></div></div>'+
@@ -1858,7 +1945,7 @@ function extraPlants(host,btn,onChange,withScope,noun){
   var ids=[],scopes={};
   function addRow(v){
     var id='xp'+(++XSEQ),d=document.createElement('div');d.className='xp2';
-    d.innerHTML='<div class="xph"><span>Plant '+(ids.length+2)+'</span><button type="button" class="lnk xrm">Remove</button></div>'+plantBlock(id,v||{})+(withScope?'<button type="button" class="lnk" id="'+id+'-grp" aria-expanded="false">＋ Or link by plant group</button>':'')+(withScope?'<div class="field" id="'+id+'-scopebox" hidden></div>':'');
+    d.innerHTML='<div class="xph"><span>Plant '+(ids.length+2)+'</span><button type="button" class="binb xrm" aria-label="Remove this plant" title="Remove">'+ISVG.bin+'</button></div>'+plantBlock(id,v||{})+(withScope?'<button type="button" class="lnk" id="'+id+'-grp" aria-expanded="false">＋ Or link by plant group</button>':'')+(withScope?'<div class="field" id="'+id+'-scopebox" hidden></div>':'');
     host.appendChild(d);ids.push(id);
     function rm(){d.remove();delete scopes[id];ids=ids.filter(function(x){return x!==id});$$('.xph>span',host).forEach(function(s,k){s.textContent='Plant '+(k+2)});if(onChange)onChange()}
     if(withScope)scopes[id]=plantScope(id,onChange,false,noun);else wirePicker(id,onChange);
@@ -1895,7 +1982,7 @@ function wireSelp(P,ks,root,onRemove){var blk=$('#'+P+'-blk'),sp=$('#'+P+'-selp'
     if(!picked){sp.hidden=true;return}
     sp.hidden=false;var one=null;if(ks.mode==='pick'&&ks.sel){var sk=Object.keys(ks.sel).filter(function(k){return ks.sel[k]});if(sk.length===1)one=PLANTS.filter(function(x){return x.id===sk[0]})[0]||null}
     var dpl=one?one.place:pl.value,dno=one?one.no:no.value,dnm=one?one.name:nm.value.trim();
-    sp.innerHTML=(dpl?placeChip(dpl):'')+(dno?'<span class="num">'+esc(dno)+'</span>':'')+(dnm?(function(){var nv=dnm,id=plantIdFor(dpl,dno,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():(npl?'<span class="wp nop">No plant</span>':'<span class="wp">⌂ Whole place</span>'))+'<button type="button" aria-label="'+(onRemove?'Remove this plant':'Clear plant')+'" class="selx">✕</button>';
+    sp.innerHTML=(dpl?placeChip(dpl):'')+(dno?'<span class="num">'+esc(dno)+'</span>':'')+(dnm?(function(){var nv=dnm,id=plantIdFor(dpl,dno,nv),lh=latinHtml(nv);return id?'<span class="nlink" role="button" tabindex="0" data-popen="'+id+'">'+lh+'</span>':lh})():(npl?'<span class="wp nop">No plant</span>':'<span class="wp">⌂ Whole place</span>'))+(onRemove?'<button type="button" aria-label="Remove this plant" title="Remove" class="selx binb">'+ISVG.bin+'</button>':'<button type="button" aria-label="Clear plant" class="selx">✕</button>');
     var lk=sp.querySelector('[data-popen]');if(lk)lk.onclick=function(e){e.stopPropagation();openPlant(lk.dataset.popen)};
     sp.onclick=function(e){if(e.target.closest('.selx')||e.target.closest('[data-popen]'))return;var keep=nm.value;if(ks.mode!=='plant'){ks.mode='plant';ks.init=false;ks.sel={};ks.src=null;ks.onlyPlace=false;try{[pl,no,nm].forEach(function(x){x.disabled=false})}catch(_){}}
       nm.value=keep;nm.dataset.sel='';nm.dataset.noplant='';upd();nm.focus();try{nm.setSelectionRange(nm.value.length,nm.value.length)}catch(_){}nm.dispatchEvent(new Event('input',{bubbles:true}))};
@@ -1947,7 +2034,7 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
     }
     function setMode(m,gi){
       if(ks.mode==='plant'&&m!=='plant'){ks.src=pickerVals(P);ks.groups=computeGroups(ks.src)}
-      ks.gi=gi||0;ks.mode=m;ks.gx={};applyFields();drawScope();if(onChange)onChange();
+      ks.gi=gi||0;ks.mode=m;ks.gx={};ks.fold=false;applyFields();drawScope();if(onChange)onChange();
     }
     function pickVisible(){
       var seen={},out=ks.list.slice();out.forEach(function(p){seen[p.id]=1});
@@ -1976,18 +2063,18 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
       if(ks.mode==='pick'&&!ks.init){ks.init=true;ks.sel={};ks.list.forEach(function(p){ks.sel[p.id]=true})}
       function onlyHtml(){var n=full.filter(inPl).length;if(!pv.place||!n||n===full.length)return '';return '<label class="onlyp"><input type="checkbox" id="'+P+'-onlyp"'+(ks.onlyPlace?' checked':'')+'>Only in '+esc(pv.place)+' <span class="r-sub">· '+n+' of '+full.length+'</span></label>'}
       var h=groups.map(function(g,gi){var on=ks.mode==='group'&&ks.gi===gi,n=on?ks.list.length:g.list.length;
-        var s='<label class="tick"><input type="checkbox" data-sc="g'+gi+'"'+(on?' checked':'')+'><span>All '+esc(g.name)+' ('+n+') as one '+noun+'</span></label>';
-        var nx=ks.list.filter(function(p){return ks.gx[p.id]}).length;
-        var unt=LOGM?'not done':'not included';
-        if(on)s+=onlyHtml()+'<div class="gdesc">'+(nx?'One '+noun+' for the '+(ks.list.length-nx)+' ticked plants. Untick any '+unt+':':'One '+noun+' named '+esc(gr.name)+((ks.onlyPlace&&pv.place)?' in '+esc(pv.place):', with no place')+'. It covers (untick any '+unt+'):')+'</div>'+
+        var nx=on?ks.list.filter(function(p){return ks.gx[p.id]}).length:0;
+        var s='<label class="tick"><input type="checkbox" data-sc="g'+gi+'"'+(on?' checked':'')+'><span>All '+esc(g.name)+' ('+n+')'+(on&&ks.fold?'<span class="cnt2">· '+(ks.list.length-nx)+' ticked</span>':'')+'</span>'+(on?'<button type="button" class="lnk sm hs" data-hs="1" aria-expanded="'+!ks.fold+'">'+(ks.fold?'＋ Show':'− Hide')+'</button>':'')+'</label>';
+        if(on&&!ks.fold)s+=onlyHtml()+
           '<div class="tlh"><button type="button" class="vbtn tlall" id="'+P+'-gxall">'+(nx?'Select all':'Deselect all')+'</button></div>'+
           '<div class="gpl">'+ks.list.slice().sort(function(a,b){return placeIdx(a.place)-placeIdx(b.place)||noKey(a.no)-noKey(b.no)}).map(function(p){return '<div class="gpr">'+'<input type="checkbox" class="gxc" data-gx="'+p.id+'"'+(ks.gx[p.id]?'':' checked')+' aria-label="Include '+esc(p.name)+'">'+'<span class="num">'+esc(p.no||'–')+'</span><button type="button" class="gpn" data-open="'+p.id+'">'+nameHtml(p.name)+'</button>'+placeChipLight(p.place)+'</div>'}).join('')+'</div>';
         return s}).join('')+
-        (LOGM?'':'<label class="tick"><input type="checkbox" data-sc="pick"'+(ks.mode==='pick'?' checked':'')+'><span>One '+noun+' for each plant</span></label>');
+        '';
       if(ks.mode==='pick')h+=onlyHtml()+'<div class="sa2"><button type="button" class="vbtn" id="'+P+'-all" style="padding-left:0">Select all</button><span class="r-sub" id="'+P+'-pickcount"></span></div><div class="pick" id="'+P+'-picklist"></div>';
       box.innerHTML=h;
       $$('input[data-sc]',box).forEach(function(r){r.onchange=function(){if(!r.checked)setMode('plant');else if(r.dataset.sc==='pick')setMode('pick');else setMode('group',parseInt(r.dataset.sc.slice(1),10))}});
       if(ks.mode!=='plant')box.hidden=false;
+      $$('[data-hs]',box).forEach(function(b){b.onclick=function(e){e.preventDefault();e.stopPropagation();ks.fold=!ks.fold;drawScope()}});
       var op=$('#'+P+'-onlyp');if(op)op.onchange=function(){ks.onlyPlace=op.checked;ks.init=false;applyFields();drawScope();if(onChange)onChange()};
       $$('[data-open]',box).forEach(function(b){b.onclick=function(){openPlant(b.dataset.open)}});
       var gxa=$('#'+P+'-gxall');if(gxa)gxa.onclick=function(){var any=ks.list.some(function(p){return ks.gx[p.id]});ks.gx={};if(!any)ks.list.forEach(function(p){ks.gx[p.id]=true});drawScope();if(onChange)onChange()};
@@ -1999,7 +2086,7 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
   function pickN(){return pickCount()}
   function targets(){
     var pv=pickerVals(P);
-    if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length&&ks.list.some(function(p){return ks.gx[p.id]}))return ks.list.filter(function(p){return !ks.gx[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name}});
+    if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length&&ks.list.some(function(p){return ks.gx[p.id]}))return ks.list.filter(function(p){return !ks.gx[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name,grp:ks.groups[ks.gi].name}});
     if(ks.mode==='group'&&ks.groups[ks.gi]&&ks.list.length){var g=ks.groups[ks.gi];return [{place:(ks.onlyPlace&&pv.place)?pv.place:'',no:'',name:g.name}]}
     if(ks.mode==='pick')return PLANTS.filter(function(p){return ks.sel[p.id]}).map(function(p){return {place:p.place,no:p.no,name:p.name}});
     return (pv.name||pv.place)?[{place:pv.place,no:pv.no,name:pv.name}]:[];
@@ -2055,7 +2142,7 @@ function openTaskForm(id,preset){if(!needName())return;
       if(kxp)T=T.concat(kxp.vals());
       return T.filter(function(x){return x&&(x.name||x.place)})}
     function kUnits(){var T=kTargets(),grp=T.filter(isGrpT),pl=T.filter(function(x){return !isGrpT(x)}),u=grp.map(function(x){return {place:x.place||'',no:'',name:x.name}});
-      if(pl.length>1&&KSV==='one'){var all=pl.map(function(x){return {place:x.place||'',no:x.no||'',name:x.name||''}});u.push(Object.assign({},all[0],{plants:all}))}
+      if(pl.length>1&&KSV==='one'){var all=pl.map(pcp);u.push(Object.assign({},all[0],{plants:all}))}
       else pl.forEach(function(x){u.push({place:x.place||'',no:x.no||'',name:x.name||''})});
       return {units:u,plain:pl.length}}
     window.updSave=function(){var b=$('#k-save');if(!b)return;var ku=kUnits();svaDraw('k',ku.plain,'task',KSV,function(v2){KSV=v2;window.updSave()});
@@ -2293,7 +2380,7 @@ function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
   keys.sort(g.cmp);
   return keys.map(function(k){
     var ck=tab+':'+groupBy+':'+k;S.keys[tab].push(ck);
-    var open=!S.coll[ck],inner='';
+    var open=!S.coll[ck],inner='';GC={};GC[groupBy]=k;
     if(open){
       var useSub=subBy&&subBy!=='none'&&subBy!==groupBy&&cfg[subBy]&&!(groupBy==='plant'&&(subBy==='place'||subBy==='genus'));
       if(g.block&&!useSub)inner=g.block(map[k],k);
@@ -2301,9 +2388,10 @@ function groupedHtml(tab,groupBy,items,cfg,renderItem,subBy){
         var sg=cfg[subBy],sm={},sk=[];
         map[k].forEach(function(it){var k2=sg.key(it);(Array.isArray(k2)?k2:[k2]).forEach(function(kk){if(!has(sm,kk)){sm[kk]=[];sk.push(kk)}if(sm[kk].indexOf(it)<0)sm[kk].push(it)})});
         sk.sort(sg.cmp);
-        inner=sk.map(function(kk){var sck=ck+':sub:'+kk;S.keys[tab].push(sck);var so=!S.coll[sck];return '<button class="sh gh" data-g="'+esc(sck)+'" aria-expanded="'+so+'"><span class="gl"><span class="chev"></span>'+sg.label(kk)+'</span><span class="cnt">'+sm[kk].length+'</span></button>'+(so?'<div class="list subl">'+sm[kk].map(g.subRender||renderItem).join('')+'</div>':'')}).join('');
+        inner=sk.map(function(kk){GC={};GC[groupBy]=k;GC[subBy]=kk;var sck=ck+':sub:'+kk;S.keys[tab].push(sck);var so=!S.coll[sck];return '<button class="sh gh" data-g="'+esc(sck)+'" aria-expanded="'+so+'"><span class="gl"><span class="chev"></span>'+sg.label(kk)+'</span><span class="cnt">'+sm[kk].length+'</span></button>'+(so?'<div class="list subl">'+sm[kk].map(g.subRender||renderItem).join('')+'</div>':'')}).join('');
       }else inner='<div class="list">'+map[k].map(renderItem).join('')+'</div>';
     }
+    GC={};
     return '<div class="grp g-'+groupBy+(g.cls?' '+g.cls:'')+'"><div class="hdr gh" role="button" tabindex="0" data-g="'+esc(ck)+'" aria-expanded="'+open+'"><span class="gl"><span class="chev"></span>'+g.label(k)+'</span>'+(g.badge?g.badge(k):'')+'<span class="cnt">'+map[k].length+'</span></div>'+inner+'</div>';
   }).join('');
 }
@@ -2315,7 +2403,7 @@ function plantGroups(recOf,entry){
   function head(k){var x=PK[k];return (x.no?'<span class="num">'+esc(x.no)+'</span>':'')+(x.name?nameLink(x.place,x.no,x.name):'<span class="wp">⌂ Whole place</span>')+placeTag(x.place,1)}
   return {
     plant:{cls:'plantg',key:pk,label:head,cmp:pcmp,block:function(items){return '<div class="list">'+items.map(entry).join('')+'</div>'}},
-    genusBlock:function(items){var m={},ks=[];items.forEach(function(id){var kk=pk(id);(Array.isArray(kk)?kk:[kk]).forEach(function(k){if(!m[k]){m[k]=[];ks.push(k)}if(m[k].indexOf(id)<0)m[k].push(id)})});ks.sort(pcmp);
+    genusBlock:function(items,gk){var m={},ks=[];items.forEach(function(id){var kk=pk(id);if(gk&&Array.isArray(kk)){var f0=kk.filter(function(x){return String(PK[x].name||'').split(' ')[0].toLowerCase()===String(gk).toLowerCase()});if(f0.length)kk=f0}(Array.isArray(kk)?kk:[kk]).forEach(function(k){if(!m[k]){m[k]=[];ks.push(k)}if(m[k].indexOf(id)<0)m[k].push(id)})});ks.sort(pcmp);
       return ks.map(function(k){return '<div class="pb"><div class="pb-h">'+head(k)+'</div><div class="list">'+m[k].map(entry).join('')+'</div></div>'}).join('')}
   };
 }
@@ -2489,7 +2577,7 @@ function viewPlan(){
   var attHtml='';HIDE_TASK=true;if(att.length)attHtml+='<details class="attsec" data-fk="plan-att"'+(FOLD['plan-att']===false?'':' open')+'><summary class="atth"><span class="ftl"><span class="chev" aria-hidden="true"></span>'+taskTag(S.tasks[att[0]].task)+'</span><span class="cnt">'+att.length+'</span></summary><div class="list">'+att.map(function(id){return taskCard(id,false)}).join('')+'</div></details>';
   HIDE_TASK=false;if(nsl.length)attHtml+='<details class="attsec ns" data-fk="plan-ns"'+(FOLD['plan-ns']===false?'':' open')+'><summary class="atth"><span class="ftl"><span class="chev" aria-hidden="true"></span><span class="nstag">Not scheduled</span> <span class="r-sub">needs a month</span></span><span class="cnt">'+nsl.length+'</span></summary><div class="list">'+nsl.map(function(id){return taskCard(id,false)}).join('')+'</div></details>';
   var body=S.loaded.tasks?(ids.length?attHtml+(rest.length?groupedHtml('plan',S.planGroup,rest,cfg,function(id){return taskCard(id,false)},S.planSub):''):'<div class="empty">No matching tasks</div>'):'<div class="empty">Loading…</div>';
-  return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right"><button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="prow2"><button type="button" class="pb date'+(overdue?'':' zero')+'" data-pq="over" aria-pressed="'+(S.planQuick==='over')+'">Overdue <b>'+overdue+'</b></button><span class="pb date mo'+(monN?'':' zero')+'" role="group" aria-label="Month"><button type="button" data-mo="-1" aria-label="Previous month">‹</button><button type="button" class="mid" data-pq="month" aria-pressed="'+(S.planQuick==='month')+'">'+MON[S.planMo]+' <b>'+monN+'</b></button><button type="button" data-mo="1" aria-label="Next month">›</button></span><button type="button" class="pb cat'+(attN?'':' zero')+'" data-fold="plan-att"><i class="adot"></i>Attention <b>'+attN+'</b></button><button type="button" class="pb cat'+(un?'':' zero')+'" data-fold="plan-ns">Not sched. <b>'+un+'</b></button></div><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><span class="ymid">'+(!S.planAll&&Y===CUR&&!S.yType?'<span class="ylab">This year</span>':'')+'<button class="yv" id="yAll" aria-label="Year. Hold to type a year">'+(S.yType?'<input class="yin" id="yIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" value="" placeholder="'+Y+'" aria-label="Type a year">':(S.planAll?'<b class="yva">All years</b>':'<b>'+Y+'</b>'))+'</button>'+(S.yType?'':'<button class="yall" id="yAllB" aria-pressed="'+S.planAll+'">'+(S.planAll?'This year':'All years')+'</button>')+'</span><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span>'+fbox('planPlace','place',S.planPlace,'All places')+fbox('planTask','task',S.planTask,'All tasks')+'</div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']],(S.planGroup==='month'||S.planSub==='month')?'<button class="vbtn" id="planOrder">'+(S.planDesc?'Dec → Jan ⇅':'Jan → Dec ⇅')+'</button>':'',PNF?'':'<span class="vcount">'+(S.loaded.tasks?'Showing all '+ids.length+' tasks':'')+'</span>')+'</div>'+
+  return '<div class="top static"><h1><span class="ht">'+hIcon('plan')+'Plan</span><span class="right"><button class="ib" id="editTypes" aria-label="Task list" title="Task list">'+IB.list+'</button></span></h1><div class="prow2"><button type="button" class="pb date'+(overdue?'':' zero')+'" data-pq="over" aria-pressed="'+(S.planQuick==='over')+'">Overdue <b>'+overdue+'</b></button><span class="pb date mo'+(monN?'':' zero')+'" role="group" aria-label="Month"><button type="button" data-mo="-1" aria-label="Previous month">‹</button><button type="button" class="mid" data-pq="month" aria-pressed="'+(S.planQuick==='month')+'">'+MON[S.planMo]+' <b>'+monN+'</b></button><button type="button" data-mo="1" aria-label="Next month">›</button></span><span class="vdiv" aria-hidden="true"></span><button type="button" class="pb cat'+(attN?'':' zero')+'" data-fold="plan-att">'+attDot()+'Attention <b>'+attN+'</b></button><button type="button" class="pb cat'+(un?'':' zero')+'" data-fold="plan-ns">Not sched. <b>'+un+'</b></button></div><div class="yearbar"><button id="yPrev" aria-label="Previous year">‹</button><span class="ymid">'+(!S.planAll&&Y===CUR&&!S.yType?'<span class="ylab">This year</span>':'')+'<button class="yv" id="yAll" aria-label="Year. Hold to type a year">'+(S.yType?'<input class="yin" id="yIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" value="" placeholder="'+Y+'" aria-label="Type a year">':(S.planAll?'<b class="yva">All years</b>':'<b>'+Y+'</b>'))+'</button>'+(S.yType?'':'<button class="yall" id="yAllB" aria-pressed="'+S.planAll+'">'+(S.planAll?'This year':'All years')+'</button>')+'</span><button id="yNext" aria-label="Next year">›</button></div><div class="bar"><input class="input grow" id="qq" type="search" placeholder="Search plant or task" value="'+esc(S.planQ)+'" autocomplete="off">'+segHtml+'<span class="brk"></span>'+fbox('planPlace','place',S.planPlace,'All places')+fbox('planTask','task',S.planTask,'All tasks')+'</div>'+groupBar('plan',S.planGroup,[['genus','Group by genus'],['plant','Group by plant'],['month','Group by month'],['task','Group by task'],['place','Group by place'],['none','No grouping']],(S.planGroup==='month'||S.planSub==='month')?'<button class="vbtn" id="planOrder">'+(S.planDesc?'Dec → Jan ⇅':'Jan → Dec ⇅')+'</button>':'',PNF?'':'<span class="vcount">'+(S.loaded.tasks?'Showing all '+ids.length+' tasks':'')+'</span>')+'</div>'+
    '<div class="wrap">'+banners()+(S.loaded.tasks&&PNF?statBar(PNF,ids.length+' shown',''):'')+body+'</div><button class="btn task fab" id="addTask"><span class="fpl">+</span><span class="flb"> New task</span></button>';
 }
 function wirePlan(){
@@ -2575,7 +2663,7 @@ function exportXlsx(btn){
   function ckc(p){var c=p.check;if(!c)return ['',''];return [(c.st==='missing'?'Missing':c.st==='unsure'?'Unsure':'Here')+(c.at?' · '+fmtDate(new Date(c.at).toISOString().slice(0,10)):''),c.note||'']}
   /* X1: the person downloading gets only THEIR OWN My note column; nobody else's notes ever leave the Sheet */
   var myc=hasMy()&&MYN&&Object.keys(MYN).some(function(k){return MYN[k]&&MYN[k].text});
-  var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note'].concat(myc?['My note ('+EDITOR+', private)']:[],['Last edited by','Last edited'])].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),myc?[(MYN[p.id]&&MYN[p.id].text)||'']:[],eb(S.edits[p.id]))}));
+  var plants=[['Place','Number','BOTANICAL NAME','Gardening NOTES','COMMON NAME','PLANT SPECIFIED BY JEKYLL','NOTE','Still there?','Still there? note','Flower colour (your decision)','Flowering months (your decision)'].concat(myc?['My note ('+EDITOR+', private)']:[],['Last edited by','Last edited'])].concat(PLANTS.map(function(p){return [p.place,p.no,p.name,p.notes,p.common,p.jekyll,p.tag].concat(ckc(p),(function(){var f=myFF(p.name);return f?[f.c||'',monthsTxt(f.m)]:['','']})(),myc?[(MYN[p.id]&&MYN[p.id].text)||'']:[],eb(S.edits[p.id]))}));
   /* X2: a short Task ID in both tabs, so a log's planned task can be found in Garden Planner */
   var TID={},tn=0;Object.keys(S.tasks).forEach(function(i){TID[i]='T'+(++tn)});
   var plan=[['Place','Plan No.','BOTANICAL NAME','Assigned Month','Garden Task','Season','Garden Task details','Repeats','First year','Done in (year: date)','Task ID','Last edited by','Last edited']].concat([].concat.apply([],Object.keys(S.tasks).map(function(i){var t0=S.tasks[i];return lps(t0).map(function(pp){var t=Object.assign({},t0,{place:pp.place,no:pp.no,name:pp.name}),d=t.doneBy||{};return [t.place,t.no,t.name,t.month?MON[t.month]:'',tjobs(t).join(' + '),t.season,t.details,repLabel(t),t.startYear||'',Object.keys(d).sort().map(function(y){return y+': '+(d[y]&&d[y].date||'done')}).join('; '),TID[i]].concat(eb(t))})})));
@@ -2623,7 +2711,7 @@ function viewMore(){
   '<p><b>Plant page</b>: “✎ Edit” changes the plant. Tap a heading with an arrow to fold it. Notes: tap the text to type, tap anywhere else to finish; it saves by itself. The small arrows next to the heading undo or redo a change while the page is open. Who changed a note last, and when, shows on its heading line (“Wing · edited 18 Nov 2026”); My note shows “Private”.</p>'+
   '<p><b>Place page</b>: plant count, open tasks, the latest logs (“See all” opens the Plan or Log for that place), a place note, and + Task, + Log and View plants.</p>'+
   '<p><b>Maps</b>: the pin (and “Open map of …” on the plant page) opens the map file in Google Drive, in its own page, so you can switch between map and app. “View here” on the plant page shows the app’s own copy instead: pinch to zoom, Close takes you back, and a map you have opened there also works without signal.</p>'+
-  '<p><b>In flower</b>: tap one or more seasons. List shows each plant with a dot in its flower colour, the colour and when it flowers; Calendar shows the months it flowers as a bar in the flower colour (white flowers as outlined squares). Group by place or genus as usual. The facts come from the RHS website and are marked “not checked yet” until they have been checked.</p>'+
+  '<p><b>In flower</b>: tap one or more seasons. List shows each plant with a dot in its flower colour, the colour and when it flowers; Calendar shows the months it flowers as a bar in the flower colour (white flowers as outlined squares). Group by place or genus as usual. The facts come from the RHS website and are marked “not checked yet” until they have been checked. Your own flower colour and months (Edit plant > Flowering fact (your decision)) come first; they apply to every plant with that botanical name.</p>'+
   '<p><b>Plant facts</b>: on the plant page, when it flowers, when to prune and how to propagate, from the RHS. “RHS page” opens the plant’s page on the RHS website.</p>'+
   '<p><b>New plant</b>: pick an existing place (new places are added in More > Edit places). Plants outside the original plan are numbered N plus a number, e.g. N27; the grey number is the next free one.</p>'+
   '<h4>Plan</h4>'+
@@ -2634,7 +2722,8 @@ function viewMore(){
   '<p><b>Save as</b>: with several plants in one form, choose “One task for all plants” or “Separate tasks”, and for logs “One log entry for all plants” or “Separate log entries”. A plant group is always one task. Edit forms work exactly like New ones (add plants, link by plant group, Save as), plus Duplicate and Delete. An entry with several plants shows them as one ticked list: untick a plant to take it out; “Deselect all / Select all” sits above the list.</p>'+
   '<p><b>No plant</b>: for a general job, tap the plant box and choose “No plant” at the top of the list.</p>'+
   '<p><b>First year</b>: a task counts from the year it was first planned; years before that never show it as open.</p>'+
-  '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. Untick plants the task is not for. New matching plants join automatically.</p>'+
+  '<p><b>Group tasks</b> <span class="gname latin">ROSA<span class="gall">all</span></span>: one task for many plants: a whole genus, or one kind everywhere (FUCHSIA \'Riccartonii\'). “Only in [place]” limits it to one place. Ticking “All ROSA (11)” shows its plants with tick boxes: untick any not included (or not done, in a log); “− Hide” folds the list, “＋ Show” opens it. New matching plants join automatically. On cards, “CANNA [all] ▸ 2 plants” opens the plants it covers; plants ticked from a group show under the group name, e.g. “ROSA [2 plants]”.</p>'+
+  '<p><b>Entries with several plants</b>: a grey count says what the entry holds (“3 items”, “2 plants”, “2 places”). In a list grouped by place, genus or task, an entry shows once in each group it belongs to, with only that group’s plants; “also Planting” names its other job. The bin removes a line (time line, another task, an added plant); ✕ clears a box.</p>'+
   '<h4>Log</h4>'+
   '<p><b>New log</b>: fields marked <span class="req">*</span> must be filled in; the rest can be left empty. Tap the “Date done” box to open the calendar: tap days to add or remove them, or slide across days to pick a run; “Today” jumps to today. All the days stay in one entry (shown like “13, 15–18 Jul 2026”). Plants added with “＋ Add another plant” are saved together as ONE entry, shown in the Log as “ROSA [3 plants]” or “[5 plants]” with the names under it; searching any of its plants, or filtering by any of its places, finds it. Tap “Job done” to choose one job or several done together (shown “Watering +1”).</p>'+
   '<p><b>Time</b>: one line per group of workers, “2 people × 2 h”; “＋ Add more people” adds a line (e.g. 1 more person for 1 h). An empty people box counts as 1. The total is worked out for you; empty boxes save as “No time given”.</p>'+
