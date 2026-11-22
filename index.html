@@ -259,7 +259,7 @@ details.more .dash{border-top:1.5px dashed var(--line);margin:10px 0 12px}
 .fs-date input[type=date]{width:auto;min-width:150px;text-align:left;min-height:40px;padding:6px 12px}.fs-date input[type=date]::-webkit-date-and-time-value{text-align:left}
 .nlink{text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--muted) 45%,transparent);text-decoration-thickness:1px;text-underline-offset:3px;cursor:pointer}
 .pcv{color:var(--muted);font-size:13px;margin-left:1px;flex:none}
-.lrow2{display:flex;align-items:center;gap:8px;min-width:0}.lrow2 .idrow{flex:1 1 auto;min-width:0}.lrow2 .lchip{flex:0 1 auto;min-width:0;max-width:52%;margin-left:auto}
+.lrow2{display:flex;align-items:center;gap:8px;min-width:0}.lrow2 .idrow{flex:1 1 auto;min-width:0}.lrow2:has(>.hl1){align-items:flex-start}.lrow2>.hl1{flex:1 1 auto;min-width:0;padding-left:38px}.lrow2>.hl1>.idrow{margin-left:-38px}.lrow>.r-sub:only-child{max-width:none}.lrow2 .lchip{flex:0 1 auto;min-width:0;max-width:52%;margin-left:auto}
 .lchip .ptag,.lchip .plb{min-width:0;max-width:100%}.lchip .pl{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .plight{background:color-mix(in srgb,var(--pc) 22%,var(--surface))!important;color:var(--ink)!important;border:1px solid color-mix(in srgb,var(--pc) 60%,#000)}
 .gpr>.pl,.pick .pl{max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -657,6 +657,7 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 
 /* update 11 */
 /* update 12 */
+.card .lrow2~.lrow{margin-left:38px}.lrow2 .lchip,.lrow .lchip{flex:0 0 auto;max-width:52%}.lrow2 .lchip .pl,.lrow .lchip .pl{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:normal;line-height:1.25;padding-top:1px;padding-bottom:1px}
 .top .bar{row-gap:0}.top .bar>*{margin-bottom:8px}.top .bar>.brk{margin:0}.top .vbar{margin-top:0}
 .top .bar:has(.fseg) .sbox,.top .bar:has(.fseg)>.xwrap{flex:1 1 0%;min-width:0}.top .bar>.fseg{flex:none}
 .top .sbox .input,.top .bar .xwrap>.input,#qq,#lq,#pq{border:1.5px solid color-mix(in srgb,var(--ink) 45%,transparent);padding-left:38px;padding-right:40px}
@@ -1684,7 +1685,7 @@ function logCard(id,inSheet){
   var shown=ps,pf=PFILT();if(many&&!inSheet&&pf.length){shown=ps.filter(function(x){return placesOf(x).some(function(p){return pf.indexOf(p)>=0})});if(!shown.length)shown=ps}
   var also=(!inSheet&&H.task&&GC.event)?alsoBadge(levs(l),GC.event):'';
   return '<div class="card"><button class="body" data-log="'+id+'"><span class="l1"><span class="r-sub">'+esc(fmtDates(ldates(l)))+'</span>'+(H.task?'':'<span class="evt">'+jobTags(l)+'</span>')+also+hrsSpan(l)+(linked?'<span class="pill l">✓ Planned</span>':'')+'</span>'+
-    (many?'':(inSheet?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>'))+(many?ebody(ps,shown,inSheet||H.place):'')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
+    (many?'':(inSheet?idrow+(lchip?'<span class="lchip">'+lchip+'</span>':''):'<span class="lrow2">'+idrow+(lchip?'<span class="lchip">'+lchip+'</span>':'')+'</span>'))+(many?ebody(ps,shown,inSheet||H.place):'')+(!many&&!inSheet&&isAllItem(l)?genusSummary(l):'')+(l.details?'<span class="det">'+esc(l.details)+'</span>':'')+'</button></div>';
 }
 function logEntry(id){
   var l=S.logs[id];if(!l)return '';
@@ -1910,7 +1911,7 @@ function genusSummary(t){
   order.sort(function(a,b){return placeIdx(a)-placeIdx(b)});
   var rows=[];order.forEach(function(pl){by[pl].sort(function(a,b){return noKey(a.no)-noKey(b.no)}).forEach(function(p){rows.push({place:p.place,no:p.no,name:p.name})})});
   var pf=PFILT();if(pf.length){var r2=rows.filter(function(x){return pf.indexOf(x.place)>=0});if(r2.length)rows=r2}
-  return '<span class="gsum3">'+placeRows(rows,false)+'</span>';
+  return '<span class="gsum3">'+multiRows(rows,false)+'</span>';
 }
 function taskLogsHtml(id){
   var ids=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id}).sort(function(a,b){return (S.logs[b].date||'').localeCompare(S.logs[a].date||'')});
@@ -1938,8 +1939,8 @@ function taskCard(id,inSheet){var cm=inSheet==='c';if(cm)inSheet=false;
   /* J5: logged hours sit next to the status pill */
   var hrsT=(lk.length&&(hsum||noh))?'<span class="r-sub hrs">'+(hsum?hsum+' h':'')+(noh?(hsum?' · ':'')+noh+' log'+(noh>1?'s':'')+' no hrs':'')+'</span>':'';
   if(hrsT)pill=(pill?pill+' ':'')+hrsT;
-  if(!inSheet&&!cm&&tchip&&idrow){var b0=(S.planAll&&!inSheet)||!H.month||t.season||repOf(t)!==1||(rec&&rec.date)||(lk.length&&!(H.task&&tjobs(t).length<2));if(!b0)idrow='<span class="lrow2">'+idrow+'<span class="lchip">'+tchip+'</span></span>'}
-  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?(pill?'<span class="hl1">'+idrow+'<span class="hpill">'+pill+'</span></span>':idrow):'<span class="evt">'+(talso||tTags(t))+(pill?' '+pill:'')+'</span>'+idrow);
+  var pillDown=false;if(!inSheet&&!cm&&tchip&&idrow){var hp=(H.task&&tjobs(t).length<2&&pill)?'<span class="hpill">'+pill+'</span>':'';idrow='<span class="lrow2">'+(hp?'<span class="hl1">'+idrow+hp+'</span>':idrow)+'<span class="lchip">'+tchip+'</span></span>';tchip='';if(hp)pillDown=true}
+  var head=cm?('<span class="evt">'+(H.task&&tjobs(t).length<2?'':tTags(t))+(pill?' '+pill:'')+'</span>'):inSheet?('<span class="evt">'+tTags(t)+(pill?' '+pill:'')+'</span>'+(many?idrow:(t.name?'<span class="latin">'+nameHtml(t.name)+'</span>':''))):(H.task&&tjobs(t).length<2?(pill&&!pillDown?'<span class="hl1">'+idrow+'<span class="hpill">'+pill+'</span></span>':idrow):'<span class="evt">'+(talso||tTags(t))+(pill?' '+pill:'')+'</span>'+idrow);
   var bits=[];if(S.planAll&&!inSheet)bits.push('<b>'+y+'</b>');if(!H.month)bits.push(t.month?MON[t.month]:'No month');if(t.season)bits.push(esc(t.season));if(repOf(t)!==1)bits.push(esc(repLabel(t)));if(rec&&rec.date)bits.push('<span class="nowr">Done '+esc(fmtDate(rec.date))+'</span>');
   return '<div class="card'+(rec?' done':'')+'"><button class="chk" data-done="'+id+'" aria-pressed="'+(!!rec)+'" aria-label="'+(rec?'Mark as not done for '+y:'Mark as done for '+y)+'"><span>'+CHECK+'</span></button>'+
    '<button class="body" data-task="'+id+'">'+head+(many?ebody(ps,tshown,cm||H.place):'')+genusSummary(t)+
@@ -2131,20 +2132,20 @@ function plantScope(P,onChange,editing,noun){noun=noun||'task';var LOGM=noun==='
   return {ks:ks,pickCount:pickCount,targets:targets,size:size,openGroup:openGroup};
 }
 function openTaskForm(id,preset){if(!needName())return;
-  var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean),P0=lps(v),LISTK=!!(t&&P0.length>1);
-  push(t?'Edit task':'New task',function(el){
-    el.innerHTML='<div class="fsec fs-plant"><div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+(LISTK?tickListHtml('k',P0)+'<div id="k-xp"></div><button type="button" class="lnk" id="k-addplant">＋ Add another plant</button>':plantBlock('k',P0[0])+moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
+  var t=id?S.tasks[id]:null,v=t||preset||{},seas=(v.season||'').split(/,\s*/).filter(Boolean),P0=lps(v),MGK=!t&&v.__merge?v.__merge:null,LISTK=!!MGK||!!(t&&P0.length>1);
+  push(t?'Edit task':(MGK?'Merge '+MGK.length+' tasks':'New task'),function(el){
+    el.innerHTML='<div class="fsec fs-plant">'+(MGK?'<div class="mbanner">Save replaces the '+MGK.length+' tasks with this one. Their logs move to it.'+(v.__diff&&v.__diff.length?' The ticked tasks have different '+v.__diff.join(', ').toLowerCase()+': check below (taken from the first one).':'')+'</div>':'')+'<div class="fs-h">Plants and places<span class="req" aria-hidden="true">*</span>'+infoBtn('Type a plant or a place. Tap the plant name to open its page. Tap elsewhere on the row to change it. ✕ clears it.')+'</div>'+(LISTK?tickListHtml('k',P0)+'<div id="k-xp"></div><button type="button" class="lnk" id="k-addplant">＋ Add another plant</button>':plantBlock('k',P0[0])+moreBox('k'))+'</div><div class="fsec fs-job"><div class="fs-h">Task</div><div id="k-facts"></div>'+
     '<div class="two keep"><div class="field"><label for="k-task">Task<span class="req" aria-hidden="true">*</span></label><div id="k-jhost"></div><div class="errm" id="k-jerr" hidden>Choose a task to save</div><input type="hidden" id="k-task" value="'+esc(v.task||'')+'"></div>'+
     '<div class="field"><label for="k-month">Month</label><select class="select" id="k-month"><option value="0">Not scheduled</option>'+MON.slice(1).map(function(m,i){return '<option value="'+(i+1)+'"'+((v.month|0)===i+1?' selected':'')+'>'+m+'</option>'}).join('')+'</select></div></div>'+
     '<div class="two keep"><div class="field"><label for="k-rep">Repeats</label><select class="select" id="k-rep">'+[[1,'Every year'],[2,'Every 2 years'],[3,'Every 3 years'],[5,'Every 5 years'],[0,'Once only'],[-1,'Chosen years…']].map(function(r){return '<option value="'+r[0]+'"'+(((v.repeat==null&&!t)?0:repOf(v))===r[0]?' selected':'')+'>'+r[1]+'</option>'}).join('')+'</select></div>'+
-    '<div class="field" id="k-yfield"><label for="k-year">First year it applies'+infoBtn('Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history.')+'</label><select class="select" id="k-year">'+[-2,-1,0,1,2,3,4,5].map(function(o){var y=CUR+o,sel=t?(stYear(t)===y):((S.planAll?CUR:S.planYear)===y);return '<option value="'+y+'"'+(sel?' selected':'')+'>'+y+'</option>'}).join('')+(t&&Math.abs(stYear(t)-CUR-1.5)>3.5?'<option value="'+stYear(t)+'" selected>'+stYear(t)+'</option>':'')+'<option value="other">Other year…</option></select></div></div>'+
+    '<div class="field" id="k-yfield"><label for="k-year">First year it applies'+infoBtn('Each year is ticked off separately, so a yearly task comes back every year and earlier years stay in the history.')+'</label><select class="select" id="k-year">'+[-2,-1,0,1,2,3,4,5].map(function(o){var y=CUR+o,sel=(t||MGK)?(stYear(t||v)===y):((S.planAll?CUR:S.planYear)===y);return '<option value="'+y+'"'+(sel?' selected':'')+'>'+y+'</option>'}).join('')+((t||MGK)&&Math.abs(stYear(t||v)-CUR-1.5)>3.5?'<option value="'+stYear(t||v)+'" selected>'+stYear(t||v)+'</option>':'')+'<option value="other">Other year…</option></select></div></div>'+
 
     '<div class="field" id="k-yrs-wrap" style="display:none"><label for="k-yrs">Years it is due (separate with commas)</label><input class="input" id="k-yrs" inputmode="numeric" placeholder="e.g. 2026, 2028, 2031" value="'+esc(((t&&t.years)||[]).join(', '))+'" autocomplete="off"><div class="r-sub" style="margin-top:4px">Each year in the list is ticked off separately. Years need not be evenly spaced.</div></div>'+
     '<div class="field sfold"><div class="lbl sfh"><span>Season (your decision)</span><button type="button" class="lnk sm" id="k-seasbtn" aria-expanded="'+(seas.length>0)+'">'+(seas.length?'− Hide':'＋ Show')+'</button></div><div class="chips" id="k-seas"'+(seas.length?'':' hidden')+'>'+SEASONS.map(function(s){return '<button type="button" aria-pressed="'+(seas.indexOf(s)>=0)+'" data-s="'+s+'">'+s+'</button>'}).join('')+'</div></div>'+
     '<div class="field"><label for="k-details">Note</label><textarea class="textarea" id="k-details">'+esc(v.details||'')+'</textarea></div>'+
-    "<div id='k-xj'></div><button type='button' class='lnk' id='k-addjob'>＋ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t)+taskLogsHtml(id):'')+
+    "<div id='k-xj'></div><button type='button' class='lnk' id='k-addjob'"+(MGK?' hidden':'')+">＋ Add another task</button>"+'</div>'+(t?genusPlantsHtml(t)+taskLogsHtml(id):'')+
     (t?'<div class="edl2"><span>'+(t.editedBy||t.editedAt?'Last edited'+(t.editedBy?' by '+esc(t.editedBy):'')+(t.editedAt?SEP+fmtDate(new Date(t.editedAt).toISOString().slice(0,10)):''):'')+'</span><button type="button" class="lnk" id="k-dup">⧉ Duplicate</button></div>':'')+
-    '<div class="acts">'+(t?'<button class="btn danger" id="k-del">Delete</button>':'')+'<button class="btn primary" id="k-save">Save</button></div>';
+    '<div class="acts">'+(t?'<button class="btn danger" id="k-del">Delete</button>':'')+'<button class="btn primary" id="k-save">'+(MGK?'Save merged task':'Save')+'</button></div>';
     function kFacts(){var box=$('#k-facts');if(!box)return;var pv=LISTK?P0[0]:pickerVals('k'),b=pv.name?factsBox(pv.name):null;
       box.innerHTML=b?'<details class="fold2 kfacts" data-fk="k-facts"'+(FOLD['k-facts']===false?'':' open')+'><summary><h3><span class="ftl"><span class="chev" aria-hidden="true"></span><span>'+b.title+(b.sub?'<span class="hsub">'+b.sub+'</span>':'')+'</span></span></h3></summary>'+b.box+'</details>':'';wireFolds(box)}
     var main=LISTK?null:plantScope('k',function(){if(window.updSave)window.updSave();kFacts()},!!t),ks=main?main.ks:{mode:'plant',gx:{}},pickCount=main?main.pickCount:function(){return 0};
@@ -2174,11 +2175,12 @@ function openTaskForm(id,preset){if(!needName())return;
       if(kxp)T=T.concat(kxp.vals());
       return T.filter(function(x){return x&&(x.name||x.place)})}
     function kUnits(){var T=kTargets(),grp=T.filter(isGrpT),pl=T.filter(function(x){return !isGrpT(x)}),u=grp.map(function(x){return {place:x.place||'',no:'',name:x.name}});
+      if(MGK){var am=T.map(pcp);return {units:am.length>1?[Object.assign({},am[0],{plants:am})]:am,plain:0}}
       if(pl.length>1&&KSV==='one'){var all=pl.map(pcp);u.push(Object.assign({},all[0],{plants:all}))}
       else pl.forEach(function(x){u.push({place:x.place||'',no:x.no||'',name:x.name||''})});
       return {units:u,plain:pl.length}}
     window.updSave=function(){var b=$('#k-save');if(!b)return;var ku=kUnits();svaDraw('k',ku.plain,'task',KSV,function(v2){KSV=v2;window.updSave()});
-      var n=Math.max(ku.units.length,1)*(1+(kxj?kxj.count():0));b.textContent=n>1?'Save '+n+' tasks':'Save'};
+      var n=Math.max(ku.units.length,1)*(1+(kxj?kxj.count():0));b.textContent=MGK?'Save merged task':(n>1?'Save '+n+' tasks':'Save')};
     kxp=extraPlants($('#k-xp'),$('#k-addplant'),window.updSave,true,'task');
     if(!t&&!LISTK)P0.slice(1).forEach(function(x){kxp.add(x)});
     kxj=extraJobs($('#k-xj'),$('#k-addjob'),'task',window.updSave);
@@ -2199,8 +2201,10 @@ function openTaskForm(id,preset){if(!needName())return;
       var pairs=[],k=0;
       units.forEach(function(u){jobs.forEach(function(j){var o=Object.assign({},j,{place:u.place,no:u.no,name:u.name,createdAt:Date.now()+(k++)});if(u.plants)o.plants=u.plants;pairs.push([uid('t'),o])})});
       if(t){pairs[0][0]=id;var o0=pairs[0][1];o0.createdAt=t.createdAt||o0.createdAt;var mg=migrated(t);if(Object.keys(mg.doneBy).length)o0.doneBy=mg.doneBy;if(t.tasks&&KJ.length<2)delete o0.tasks}
+      if(MGK){pairs[0][1].createdAt=v.__cr||pairs[0][1].createdAt;if(v.__done&&Object.keys(v.__done).length)pairs[0][1].doneBy=v.__done}
       var ok=pairs.length===1?await put('tasks',pairs[0][0],pairs[0][1]):await putMany('tasks',pairs);
       if(!ok)return;
+      if(MGK){var nid=pairs[0][0];for(var mi=0;mi<MGK.length;mi++){var oid=MGK[mi];var lk=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===oid});for(var li=0;li<lk.length;li++){var lr=Object.assign({},S.logs[lk[li]],{taskId:nid});await put('logs',lk[li],lr)}if(S.tasks[oid])await del('tasks',oid)}toast('Merged '+MGK.length+' tasks into one');pop();return}
       toast(yearJump(d)||(pairs.length>1?(t?'Saved, and added '+(pairs.length-1)+' task'+(pairs.length>2?'s':''):'Added '+pairs.length+' tasks'):'Saved'));pop();
     };
     if(t)$('#k-del').onclick=function(){var b=$('#k-del');if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again to confirm delete';return}del('tasks',id).then(async function(ok){if(ok){/* O9: its logs stay, as extra work */var lk=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id});for(var i=0;i<lk.length;i++){var r=Object.assign({},S.logs[lk[i]]);delete r.taskId;delete r.taskYear;await put('logs',lk[i],r)}toast(lk.length?'Deleted · its '+lk.length+' log'+(lk.length>1?'s stay':' stays')+' as extra work':'Deleted');pop()}})};
@@ -2543,11 +2547,12 @@ function applySel(tab){var on=S.selm===tab;var old=$('.selbar');if(old)old.remov
   $$('#app ['+attr+']').forEach(function(b){var id=b.getAttribute(attr),c=b.classList.contains('body')&&b.closest('.card')||b;c.classList.add('selm');if(!c.querySelector('.sbx'))c.insertAdjacentHTML('afterbegin','<span class="sbx'+(S.sel[id]?' on':'')+'" aria-hidden="true">'+(S.sel[id]?'✓':'')+'</span>');c.dataset.sid=id});
   var n=selIds().length,bar=document.createElement('div');bar.className='selbar';
   var sids=$$('#app .selm').map(function(c){return c.dataset.sid}).filter(Boolean),allOn=sids.length&&sids.every(function(k){return S.sel[k]});$$('[data-selall]').forEach(function(b){b.textContent=allOn?'Deselect all':'Select all'});
-  var mOk=false;if(tab==='log'&&n>1){var ls=selIds().map(function(k){return S.logs[k]}).filter(Boolean),j0=levs(ls[0]).join('|');mOk=ls.every(function(x){return levs(x).join('|')===j0})}
-  bar.innerHTML='<span class="sp">'+n+' selected</span>'+(tab==='log'?'<button type="button" id="selMerge"'+(mOk?'':' disabled')+'>Merge</button>':'')+'<button type="button" class="del" id="selDel"'+(n?'':' disabled')+'>Delete</button><button type="button" id="selX">Cancel</button>';
+  var mOk=false,mWhy='Only entries with the same job can be merged';if(tab==='log'&&n>1){var ls=selIds().map(function(k){return S.logs[k]}).filter(Boolean),j0=levs(ls[0]).join('|');mOk=ls.every(function(x){return levs(x).join('|')===j0})}
+  if(tab==='plan'&&n>1){var ts=selIds().map(function(k){return S.tasks[k]}).filter(Boolean),k0=tjobs(ts[0]).join('|');mOk=ts.length>1&&ts.every(function(x){return tjobs(x).join('|')===k0});if(!mOk)mWhy='Only tasks with the same job can be merged';else if(ts.some(function(x){return doneRec(x,yOf(x))})){mOk=false;mWhy='Only open tasks can be merged. Untick the done ones first'}}
+  bar.innerHTML='<span class="sp">'+n+' selected</span>'+'<button type="button" id="selMerge"'+(mOk?'':' disabled')+'>Merge</button>'+'<button type="button" class="del" id="selDel"'+(n?'':' disabled')+'>Delete</button><button type="button" id="selX">Cancel</button>';
   document.body.appendChild(bar);
   $('#selX').onclick=function(){S.selm='';S.sel={};renderAll()};
-  var dm=$('#selMerge');if(dm)dm.onclick=function(){if(!mOk){toast('Only entries with the same job can be merged');return}mergeLogs(selIds())};
+  var dm=$('#selMerge');if(dm)dm.onclick=function(){if(!mOk){toast(n<2?'Tick at least two to merge':mWhy);return}if(tab==='plan')mergeTasks(selIds());else mergeLogs(selIds())};
   var dl=$('#selDel');dl.onclick=async function(){if(!n)return;if(dl.dataset.sure!=='1'){dl.dataset.sure='1';dl.textContent='Tap again: delete '+n;return}
     var ids=selIds();for(var i=0;i<ids.length;i++){var id=ids[i];if(tab==='log'){await del('logs',id)}else{if(await del('tasks',id)){var lk=Object.keys(S.logs).filter(function(k){return S.logs[k].taskId===id});for(var j=0;j<lk.length;j++){var r=Object.assign({},S.logs[lk[j]]);delete r.taskId;delete r.taskYear;await put('logs',lk[j],r)}}}}
     S.selm='';S.sel={};toast('Deleted '+ids.length);renderAll()}}
@@ -2556,6 +2561,12 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 function mergeLogs(ids){var ls=ids.map(function(k){return S.logs[k]}).filter(Boolean);if(ls.length<2)return;
   var ds=[],ps=[],seen={},hrs=0,notes=[],tids={};ls.forEach(function(l){ldates(l).forEach(function(d){if(ds.indexOf(d)<0)ds.push(d)});lps(l).forEach(function(p){var k=p.place+'|'+p.no+'|'+norm(p.name);if(!seen[k]){seen[k]=1;ps.push(p)}});hrs+=parseFloat(l.hours)||0;if(l.details&&notes.indexOf(l.details)<0)notes.push(l.details);tids[l.taskId||'']=1});
   ds.sort();var tk=Object.keys(tids);S.selm='';S.sel={};var ob=$('.selbar');if(ob)ob.remove();openLogForm(null,{__merge:ids,dates:ds,date:ds[0],events:levs(ls[0]),hours:hrs?String(r1(hrs)):'',details:notes.join('; '),taskId:tk.length===1&&tk[0]?tk[0]:'',place:ps[0].place,no:ps[0].no,name:ps[0].name,plants:ps})}
+function mergeTasks(ids){var ts=ids.map(function(k){return S.tasks[k]}).filter(Boolean);if(ts.length<2)return;
+  var ps=[],seen={},notes=[],seas=[],cr=Date.now(),diff=[];ts.forEach(function(t){lps(t).forEach(function(p){var k=p.place+'|'+p.no+'|'+norm(p.name);if(!seen[k]){seen[k]=1;ps.push(p)}});if(t.details&&notes.indexOf(t.details)<0)notes.push(t.details);(t.season||'').split(/,\s*/).filter(Boolean).forEach(function(x){if(seas.indexOf(x)<0)seas.push(x)});if(t.createdAt&&t.createdAt<cr)cr=t.createdAt});
+  var dn={},db0=migrated(ts[0]).doneBy||{};Object.keys(db0).forEach(function(y){var recs=ts.map(function(t){return (migrated(t).doneBy||{})[y]});if(recs.every(Boolean)){var r=recs.slice().sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))})[0];dn[y]={date:r.date||''}}});
+  var t0=ts[0];if(ts.some(function(t){return (t.month|0)!==(t0.month|0)}))diff.push('Month');if(ts.some(function(t){return repOf(t)!==repOf(t0)}))diff.push('Repeats');if(ts.some(function(t){return stYear(t)!==stYear(t0)}))diff.push('First year');
+  S.selm='';S.sel={};var ob=$('.selbar');if(ob)ob.remove();
+  openTaskForm(null,{__merge:ids,__diff:diff,__cr:cr,__done:dn,task:t0.task,tasks:t0.tasks,month:t0.month,repeat:t0.repeat,startYear:t0.startYear,years:t0.years,season:seas.join(', '),details:notes.join('; '),place:ps[0].place,no:ps[0].no,name:ps[0].name,plants:ps})}
 function wirePlants(){try{foldMissing()}catch(e){}
   var q=$('#pq');suggestWire(q,'pq',function(v){S.pq=v;S.plimit=100;renderAll()});q.addEventListener('input',function(){S.pq=q.value;S.plimit=100;var pos=q.selectionStart;clearTimeout(TYPT);TYPT=setTimeout(function(){renderAll();var n=$('#pq');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}},180)});
   wireFilters();
@@ -2766,7 +2777,7 @@ function viewMore(){
   '<p><b>Planned task</b>: pick it under “Related planned task”; the entry then shows “✓ Planned”. Tick “Whole task done?” when the job is finished for the year: the Plan ticks it off. The tick belongs to the task, so every entry linked to it shows it ticked, and unticking it in any of them reopens the task. The done date is the last day of the latest linked entry. Deleting an entry linked to a done task asks whether the task is still done or should reopen. Leave it unticked while the work is still going on; the Plan then shows “In progress · 2 logs”. A task for one plant starts ticked, a group task (ROSA all) or a whole-place task starts unticked. Other work is extra work: tick “Also add it to the Plan?” to add it to the Plan, then “Whole task done?” if it is finished (a single plant starts ticked, a group or whole place unticked); unticked, it shows on the Plan as in progress. A task’s own page lists all its logs and their hours.</p>'+
   '<p><b>Edit a log</b>: the same calendar, so you can add more days to an entry you made yesterday.</p>'+
   '<p><b>Filters</b>: Planned / Extra / All, place and task boxes, “Newest first ⇅” flips the order.</p>'+
-  '<p><b>Select</b> (Plan and Log): tap “☐ Select”, tick entries, then use the dark bar: Delete (tap twice), or in the Log, Merge. Merge works only for entries with the same job: it opens one entry with all the days, plants (untick any to leave out), hours added up and notes joined. “Save merged entry” replaces the ticked entries. Cancel leaves select mode. “Select all” turns into “Deselect all” when everything is ticked. Deleting a plan task keeps its logs as extra work.</p>'+
+  '<p><b>Select</b> (Plan and Log): tap “☐ Select”, tick entries, then use the dark bar: Delete (tap twice), or Merge. Merge works only for entries with the same job. In the Log it opens one entry with all the days, plants (untick any to leave out), hours added up and notes joined; “Save merged entry” replaces the ticked entries. In the Plan it works for open tasks only (earlier years ticked done on all of them stay done): one task with all the plants (untick any to leave out) and the notes joined; month, repeat and first year come from the first ticked task (the form says if they differ); “Save merged task” replaces the ticked tasks and moves their logs to it. Cancel leaves select mode. “Select all” turns into “Deselect all” when everything is ticked. Deleting a plan task keeps its logs as extra work.</p>'+
   '<h4>More</h4>'+
   '<p><b>Codes and names</b>: the view code lets you search and read. The edit code plus your name lets you make changes; your name goes on each one (“Last edited by …”). Set a password for your name (More > Set a password) to keep the name for yourself and get a private My note on each plant. Sign out forgets your name on this phone.</p>'+
   '<p><b>Forgot your password?</b> A manager or the admin resets it in More > People and gives you a temporary one; you choose your own at the next sign-in. Your My notes are kept. After 5 wrong tries the name is locked for 5 minutes.</p>'+
